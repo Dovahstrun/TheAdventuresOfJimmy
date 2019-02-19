@@ -6,9 +6,10 @@
 
 #include "../Headers/Level.h"
 #include "../../Framework/Headers/AssetManager.h"
+#include "../Headers/Ground.h"
 
 Level::Level()
-	: m_cellSize(64)
+	: m_cellSize(64.0f)
 	, m_currentLevel(0)
 	, m_pendingReload(false)
 	, m_background()
@@ -126,11 +127,22 @@ void Level::loadLevel(int _levelToLoad)
 
 	///Cleanup the old level
 
-	//TODO: Delete any data already in the level
+	//Delete any data already in the level
+	for (int y = 0; y < m_contents.size(); ++y)//rows
+	{
+		for (int x = 0; x < m_contents[y].size(); ++x)//cells
+		{
+			for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+			{
+				delete m_contents[y][x][z];
+			}
+		}
+	}
 	
 
 	//Clear out the lists
 	m_background.clear();
+	m_contents.clear();
 
 
 	///Setup everything
@@ -157,6 +169,7 @@ void Level::loadLevel(int _levelToLoad)
 
 	//Create the first row in our grid
 	m_background.push_back(std::vector<sf::Sprite>());
+	m_contents.push_back(std::vector<std::vector<GridObject*> >());
 
 	//Reading each character one by one from the file...
 	char ch;
@@ -164,7 +177,7 @@ void Level::loadLevel(int _levelToLoad)
 	while (inFile >> std::noskipws >> ch)//the noskipws means we will include the white space (spaces)
 	{
 		//Perform actions based on what character was read in
-		if (ch == ' ')
+		if (ch == '	')
 		{
 			++x;
 		}
@@ -175,16 +188,27 @@ void Level::loadLevel(int _levelToLoad)
 
 			//Create a new row in our grid
 			m_background.push_back(std::vector<sf::Sprite>());
+			m_contents.push_back(std::vector<std::vector<GridObject*> >());
 		}
 		else
 		{
 			//Create background sprite (this is going to be some object/empty space, so we need a background)
-			m_background[y].push_back(sf::Sprite(AssetManager::GetTexture("graphics/ground.png")));
+			m_background[y].push_back(sf::Sprite(AssetManager::GetTexture("resources/graphics/ground.png")));
 			m_background[y][x].setPosition(x*m_cellSize, y*m_cellSize);
+
+			//Create an empty vector for our grid contents in this cell
+			m_contents[y].push_back(std::vector<GridObject*>());
 
 			if (ch == '-')
 			{
 
+			}
+			else if (ch == 'G')
+			{
+				Ground* ground = new Ground();
+				ground->setLevel(this);
+				ground->setGridPosition(x, y);
+				m_contents[y][x].push_back(ground);
 			}
 			else
 			{

@@ -138,6 +138,7 @@
     <ClCompile Include="Framework\Sources\SpriteObject.cpp" />
     <ClCompile Include="Framework\Sources\TextObject.cpp" />
     <ClCompile Include="Game Code\Sources\GridObject.cpp" />
+    <ClCompile Include="Game Code\Sources\Ground.cpp" />
     <ClCompile Include="Game Code\Sources\Level.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     <ClInclude Include="Framework\Headers\SpriteObject.h" />
     <ClInclude Include="Framework\Headers\TextObject.h" />
     <ClInclude Include="Game Code\Headers\GridObject.h" />
+    <ClInclude Include="Game Code\Headers\Ground.h" />
     <ClInclude Include="Game Code\Headers\Level.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
