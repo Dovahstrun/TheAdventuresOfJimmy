@@ -11,6 +11,8 @@
 #include "../Headers/Ladder.h"
 #include "../Headers/Cog.h"
 #include "../Headers/Screw.h"
+#include "../Headers/Wood.h"
+#include "../Headers/Web.h"
 
 Level::Level()
 	: m_cellSize(64.0f)
@@ -245,6 +247,20 @@ void Level::loadLevel(int _levelToLoad)
 				screw->setLevel(this);
 				screw->setGridPosition(x, y);
 				m_contents[y][x].push_back(screw);
+			}
+			else if (ch == 'H')
+			{
+				Wood* wood = new Wood();
+				wood->setLevel(this);
+				wood->setGridPosition(x, y);
+				m_contents[y][x].push_back(wood);
+			}
+			else if (ch == 'C')
+			{
+				Web* web = new Web();
+				web->setLevel(this);
+				web->setGridPosition(x, y);
+				m_contents[y][x].push_back(web);
 			}
 			else if (ch == 'P')
 			{

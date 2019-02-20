@@ -144,6 +144,8 @@
     <ClCompile Include="Game Code\Sources\Level.cpp" />
     <ClCompile Include="Game Code\Sources\Player.cpp" />
     <ClCompile Include="Game Code\Sources\Screw.cpp" />
+    <ClCompile Include="Game Code\Sources\Web.cpp" />
+    <ClCompile Include="Game Code\Sources\Wood.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +162,8 @@
     <ClInclude Include="Game Code\Headers\Level.h" />
     <ClInclude Include="Game Code\Headers\Player.h" />
     <ClInclude Include="Game Code\Headers\Screw.h" />
+    <ClInclude Include="Game Code\Headers\Web.h" />
+    <ClInclude Include="Game Code\Headers\Wood.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
