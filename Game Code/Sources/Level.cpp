@@ -9,6 +9,8 @@
 #include "../Headers/Ground.h"
 #include "../Headers/Player.h"
 #include "../Headers/Ladder.h"
+#include "../Headers/Cog.h"
+#include "../Headers/Screw.h"
 
 Level::Level()
 	: m_cellSize(64.0f)
@@ -229,6 +231,20 @@ void Level::loadLevel(int _levelToLoad)
 				ladder->setLevel(this);
 				ladder->setGridPosition(x, y);
 				m_contents[y][x].push_back(ladder);
+			}
+			else if (ch == 'S')
+			{
+				Cog* cog = new Cog();
+				cog->setLevel(this);
+				cog->setGridPosition(x, y);
+				m_contents[y][x].push_back(cog);
+			}
+			else if (ch == 'N')
+			{
+				Screw* screw = new Screw();
+				screw->setLevel(this);
+				screw->setGridPosition(x, y);
+				m_contents[y][x].push_back(screw);
 			}
 			else if (ch == 'P')
 			{
