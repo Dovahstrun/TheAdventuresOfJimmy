@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{e6280fcf-9e89-422d-ad0b-6a3373703b90}</ProjectGuid>
     <RootNamespace>TheAdventuresOfJimmy</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -140,6 +140,7 @@
     <ClCompile Include="Game Code\Sources\GridObject.cpp" />
     <ClCompile Include="Game Code\Sources\Ground.cpp" />
     <ClCompile Include="Game Code\Sources\Level.cpp" />
+    <ClCompile Include="Game Code\Sources\Player.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="Game Code\Headers\GridObject.h" />
     <ClInclude Include="Game Code\Headers\Ground.h" />
     <ClInclude Include="Game Code\Headers\Level.h" />
+    <ClInclude Include="Game Code\Headers\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

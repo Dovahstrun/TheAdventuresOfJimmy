@@ -7,6 +7,7 @@
 #include "../Headers/Level.h"
 #include "../../Framework/Headers/AssetManager.h"
 #include "../Headers/Ground.h"
+#include "../Headers/Player.h"
 
 Level::Level()
 	: m_cellSize(64.0f)
@@ -44,6 +45,17 @@ void Level::Draw(sf::RenderTarget & _target)
 
 	///Game Objects
 	
+	//Draw game objects
+	for (int y = 0; y < m_contents.size(); ++y)//rows
+	{
+		for (int x = 0; x < m_contents[y].size(); ++x)//cells
+		{
+			for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+			{
+				m_contents[y][x][z]->Draw(_target);
+			}
+		}
+	}
 
 	///UI
 	// Draw UI to the window
@@ -177,7 +189,7 @@ void Level::loadLevel(int _levelToLoad)
 	while (inFile >> std::noskipws >> ch)//the noskipws means we will include the white space (spaces)
 	{
 		//Perform actions based on what character was read in
-		if (ch == '	')
+		if (ch == ' ')
 		{
 			++x;
 		}
@@ -209,6 +221,13 @@ void Level::loadLevel(int _levelToLoad)
 				ground->setLevel(this);
 				ground->setGridPosition(x, y);
 				m_contents[y][x].push_back(ground);
+			}
+			else if (ch == 'P')
+			{
+				Player* player = new Player();
+				player->setLevel(this);
+				player->setGridPosition(x, y);
+				m_contents[y][x].push_back(player);
 			}
 			else
 			{
