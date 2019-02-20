@@ -8,6 +8,7 @@
 #include "../../Framework/Headers/AssetManager.h"
 #include "../Headers/Ground.h"
 #include "../Headers/Player.h"
+#include "../Headers/Ladder.h"
 
 Level::Level()
 	: m_cellSize(64.0f)
@@ -221,6 +222,13 @@ void Level::loadLevel(int _levelToLoad)
 				ground->setLevel(this);
 				ground->setGridPosition(x, y);
 				m_contents[y][x].push_back(ground);
+			}
+			else if (ch == 'L')
+			{
+				Ladder* ladder = new Ladder();
+				ladder->setLevel(this);
+				ladder->setGridPosition(x, y);
+				m_contents[y][x].push_back(ladder);
 			}
 			else if (ch == 'P')
 			{

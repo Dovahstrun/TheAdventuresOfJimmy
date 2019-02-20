@@ -59,6 +59,9 @@
     <ClCompile Include="Game Code\Sources\Player.cpp">
       <Filter>Game Code\Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Game Code\Sources\Ladder.cpp">
+      <Filter>Game Code\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Headers\Animation.h">
@@ -89,6 +92,9 @@
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Game Code\Headers\Player.h">
+      <Filter>Game Code\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Code\Headers\Ladder.h">
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
   </ItemGroup>
