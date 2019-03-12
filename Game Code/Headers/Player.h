@@ -1,9 +1,9 @@
 #pragma once
 
 // Project Includes
-#include "GridObject.h"
+#include "MovingObject.h"
 
-class Player : public GridObject
+class Player : public MovingObject
 {
 
 public:
@@ -13,6 +13,7 @@ public:
 	//Overriding Functions
 	void Input(sf::Event _gameEvent);
 	void Update(sf::Time _frameTime);
+	void Collide(GameObject& _collider);
 
 private:
 

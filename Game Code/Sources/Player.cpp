@@ -2,9 +2,13 @@
 #include "../Headers/Player.h"
 #include "../../Framework/Headers/AssetManager.h"
 #include "../Headers/Level.h"
+#include "../Headers/Ground.h"
+
+//Constants
+#define SPEED 500.0f
 
 Player::Player()
-	: GridObject()
+	: MovingObject()
 	, m_footstep()
 	, m_dig()
 	, m_bump()
@@ -24,55 +28,91 @@ Player::Player()
 
 void Player::Input(sf::Event _gameEvent)
 {
-	//read the input from the keyboard and convert it to a direction to move in
+	////read the input from the keyboard and convert it to a direction to move in
 
-	//was the event a key press
-	if (_gameEvent.type == sf::Event::KeyPressed)
-	{
-		// Yes it was a key press!
+	////was the event a key press
+	//if (_gameEvent.type == sf::Event::KeyPressed)
+	//{
+	//	// Yes it was a key press!
 
-		// What key was pressed?
-		if (_gameEvent.key.code == sf::Keyboard::W || _gameEvent.key.code == sf::Keyboard::Up)
-		{
-			// It was W!
-			// Move up
-			m_pendingMove = sf::Vector2i(0, -1);
-			m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandUp.png"));
-		}
-		else if (_gameEvent.key.code == sf::Keyboard::A || _gameEvent.key.code == sf::Keyboard::Left)
-		{
-			// It was A!
-			// Move left
-			m_pendingMove = sf::Vector2i(-1, 0);
-			m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandLeft.png"));
-		}
-		else if (_gameEvent.key.code == sf::Keyboard::S || _gameEvent.key.code == sf::Keyboard::Down)
-		{
-			// It was S!
-			// Move down
-			m_pendingMove = sf::Vector2i(0, 1);
-			m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandDown.png"));
-		}
-		else if (_gameEvent.key.code == sf::Keyboard::D || _gameEvent.key.code == sf::Keyboard::Right)
-		{
-			// It was D!
-			// Move right
-			m_pendingMove = sf::Vector2i(1, 0);
-			m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandRight.png"));
-		}
-	}
+	//	// What key was pressed?
+	//	if (_gameEvent.key.code == sf::Keyboard::W || _gameEvent.key.code == sf::Keyboard::Up)
+	//	{
+	//		// It was W!
+	//		// Move up
+	//		m_pendingMove = sf::Vector2i(0, -1);
+	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandUp.png"));
+	//	}
+	//	else if (_gameEvent.key.code == sf::Keyboard::A || _gameEvent.key.code == sf::Keyboard::Left)
+	//	{
+	//		// It was A!
+	//		// Move left
+	//		m_pendingMove = sf::Vector2i(-1, 0);
+	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandLeft.png"));
+	//	}
+	//	else if (_gameEvent.key.code == sf::Keyboard::S || _gameEvent.key.code == sf::Keyboard::Down)
+	//	{
+	//		// It was S!
+	//		// Move down
+	//		m_pendingMove = sf::Vector2i(0, 1);
+	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandDown.png"));
+	//	}
+	//	else if (_gameEvent.key.code == sf::Keyboard::D || _gameEvent.key.code == sf::Keyboard::Right)
+	//	{
+	//		// It was D!
+	//		// Move right
+	//		m_pendingMove = sf::Vector2i(1, 0);
+	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandRight.png"));
+	//	}
+	//}
 }
 
 void Player::Update(sf::Time _frameTime)
 {
-	// If we have movement waiting to be processed,
-	if (m_pendingMove.x != 0 || m_pendingMove.y != 0)
-	{
-		// move in that direction
-		//AttemptMove(m_pendingMove);
+	//First assume no keys are pressed
+	m_velocity.x = 0.0f;
+	m_velocity.y = 0.0f;
 
-		// and clear the pending movement
-		m_pendingMove = sf::Vector2i(0, 0);
+	//Use the keyboard function to check which keys are currently held down
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		m_velocity.y = -SPEED;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		m_velocity.x = -SPEED;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		m_velocity.y = SPEED;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		m_velocity.x = SPEED;
+	}
+
+
+	//Call the update function manually on the player class. This will actually move the character
+	MovingObject::Update(_frameTime);
+}
+
+void Player::Collide(GameObject & _collider)
+{
+	//Only do something if thing touched was player
+
+	//Dynamic cast the gameObject reference into a ground pointer
+	//If it succeeds, it was a ground
+	Ground* groundCollider = dynamic_cast<Ground*>(&_collider);
+
+	//If it was a ground we need to move ourselves outside the grounds bounds, AKA back where we were
+	if (groundCollider != nullptr)
+	{
+		//the player did hit a ground
+
+		//Go back to the position that the player was in before
+		m_sprite.setPosition(m_oldPosition);
+
+		//Clumsy, results in sticky grounds but good enough for this game
 	}
 }
 

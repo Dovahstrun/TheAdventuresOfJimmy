@@ -15,11 +15,13 @@
 #include "../Headers/Web.h"
 
 Level::Level()
-	: m_cellSize(64.0f)
+	: m_player(nullptr)
+	, m_cellSize(64.0f)
 	, m_currentLevel(0)
 	, m_pendingReload(false)
 	, m_background()
 	, m_contents()
+	, m_collisionList()
 {
 	loadLevel(1);
 }
@@ -30,8 +32,10 @@ void Level::Draw(sf::RenderTarget & _target)
 
 	//Create and update camera
 	sf::View camera = _target.getDefaultView();
-	
+	//camera.setCenter(m_player->GetPosition());
+
 	//TODO: Adjust camera as needed
+	camera.zoom(0.8);
 
 
 	//Draw game world to the camera
@@ -85,6 +89,25 @@ void Level::Update(sf::Time _frameTime)
 			for (int z = 0; z < m_contents[y][x].size(); ++z)
 			{
 				m_contents[y][x][z]->Update(_frameTime);
+			}
+		}
+	}
+
+	// -----------------------------------------------
+	// Collision Section
+	// -----------------------------------------------
+
+	for (int i = 0; i < m_collisionList.size(); ++i)
+	{
+		GameObject* handler = m_collisionList[i].first;
+		GameObject* collider = m_collisionList[i].second;
+
+
+		if (handler->isActive() && collider->isActive())
+		{
+			if (handler->GetBounds().intersects(collider->GetBounds()))
+			{
+				handler->Collide(*collider);
 			}
 		}
 	}
@@ -188,6 +211,10 @@ void Level::loadLevel(int _levelToLoad)
 	m_background.push_back(std::vector<sf::Sprite>());
 	m_contents.push_back(std::vector<std::vector<GridObject*> >());
 
+	//setting up our player first
+	Player* player = new Player();
+	m_player = player;
+
 	//Reading each character one by one from the file...
 	char ch;
 	//Each time, try to read the next character, execute body of loop
@@ -226,6 +253,7 @@ void Level::loadLevel(int _levelToLoad)
 				ground->setLevel(this);
 				ground->setGridPosition(x, y);
 				m_contents[y][x].push_back(ground);
+				m_collisionList.push_back(std::make_pair(player, ground));
 			}
 			else if (ch == 'L')
 			{
@@ -264,7 +292,6 @@ void Level::loadLevel(int _levelToLoad)
 			}
 			else if (ch == 'P')
 			{
-				Player* player = new Player();
 				player->setLevel(this);
 				player->setGridPosition(x, y);
 				m_contents[y][x].push_back(player);

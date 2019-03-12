@@ -74,6 +74,9 @@
     <ClCompile Include="Game Code\Sources\Web.cpp">
       <Filter>Game Code\Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Game Code\Sources\MovingObject.cpp">
+      <Filter>Game Code\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Headers\Animation.h">
@@ -119,6 +122,9 @@
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Game Code\Headers\Web.h">
+      <Filter>Game Code\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Code\Headers\MovingObject.h">
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
   </ItemGroup>

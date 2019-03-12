@@ -24,9 +24,11 @@ public:
 
 private:
 
+	GameObject* m_player;
 	const float m_cellSize;
 	int m_currentLevel;
 	bool m_pendingReload;
 	std::vector<std::vector<sf::Sprite> > m_background;
 	std::vector<std::vector<std::vector<GridObject*> > > m_contents;
+	std::vector<std::pair<GameObject*, GameObject*> > m_collisionList;
 };
