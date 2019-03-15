@@ -96,7 +96,7 @@ void Player::Update(sf::Time _frameTime)
 	MovingObject::Update(_frameTime);
 }
 
-void Player::Collide(GameObject & _collider)
+void Player::Collide(GameObject &_collider)
 {
 	//Only do something if thing touched was player
 
@@ -108,7 +108,7 @@ void Player::Collide(GameObject & _collider)
 	if (groundCollider != nullptr)
 	{
 		//the player did hit a ground
-
+		sf::Vector2f test =  m_sprite.getPosition();
 		//Go back to the position that the player was in before
 		m_sprite.setPosition(m_oldPosition);
 

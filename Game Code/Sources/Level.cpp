@@ -32,7 +32,7 @@ void Level::Draw(sf::RenderTarget & _target)
 
 	//Create and update camera
 	sf::View camera = _target.getDefaultView();
-	//camera.setCenter(m_player->GetPosition());
+	camera.setCenter(m_player->GetPosition());
 
 	//TODO: Adjust camera as needed
 	camera.zoom(0.8);
