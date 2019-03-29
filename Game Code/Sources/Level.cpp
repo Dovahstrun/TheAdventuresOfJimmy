@@ -13,6 +13,7 @@
 #include "../Headers/Screw.h"
 #include "../Headers/Wood.h"
 #include "../Headers/Web.h"
+#include "../Headers/Spider.h"
 
 Level::Level()
 	: m_player(nullptr)
