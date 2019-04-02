@@ -284,12 +284,19 @@ void Level::loadLevel(int _levelToLoad)
 				wood->setGridPosition(x, y);
 				m_contents[y][x].push_back(wood);
 			}
-			else if (ch == 'C')
+			else if (ch == 'W')
 			{
 				Web* web = new Web();
 				web->setLevel(this);
 				web->setGridPosition(x, y);
 				m_contents[y][x].push_back(web);
+			}
+			else if (ch == 'A')
+			{
+				Spider* spider = new Spider();
+				spider->setLevel(this);
+				spider->setGridPosition(x, y);
+				m_contents[y][x].push_back(spider);
 			}
 			else if (ch == 'P')
 			{

@@ -15,7 +15,7 @@ Player::Player()
 	, m_gem()
 	, m_push()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandDown.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
 	m_dig.setBuffer(AssetManager::GetSoundBuffer("resources/audio/footstep1.ogg"));
 	m_bump.setBuffer(AssetManager::GetSoundBuffer("resources/audio/bump.wav"));
