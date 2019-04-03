@@ -5,7 +5,9 @@
 #include "../Headers/Ground.h"
 
 //Constants
-#define SPEED 500.0f
+#define SPEED 100.0f
+#define GRAVITY 40.0f
+#define JUMP 50.0f
 
 Player::Player()
 	: MovingObject()
@@ -71,27 +73,29 @@ void Player::Update(sf::Time _frameTime)
 {
 	//First assume no keys are pressed
 	m_velocity.x = 0.0f;
-	m_velocity.y = 0.0f;
 
-	//Use the keyboard function to check which keys are currently held down
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		m_velocity.y = -SPEED;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//Use the keyboard function to check which keys are currently held down and to move in that direction
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
 	{
 		m_velocity.x = -SPEED;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		m_velocity.y = SPEED;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Check if the player is going right
 	{
 		m_velocity.x = SPEED;
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_touchingGround == true)
+	{
+		m_velocity.y = -JUMP;
+		m_touchingGround = false;
+	}
 
 
+	//Apply gravity to our velocity
+	if (m_touchingGround == false)
+	{
+		float velocityChange = GRAVITY * _frameTime.asSeconds();
+		m_velocity.y += velocityChange;
+	}
 	//Call the update function manually on the player class. This will actually move the character
 	MovingObject::Update(_frameTime);
 }
@@ -108,10 +112,10 @@ void Player::Collide(GameObject &_collider)
 	if (groundCollider != nullptr)
 	{
 		//the player did hit a ground
-		sf::Vector2f test =  m_sprite.getPosition();
 		//Go back to the position that the player was in before
 		m_sprite.setPosition(m_oldPosition);
-
+		m_touchingGround = true;
+		m_velocity.y = 0;
 		//Clumsy, results in sticky grounds but good enough for this game
 	}
 }

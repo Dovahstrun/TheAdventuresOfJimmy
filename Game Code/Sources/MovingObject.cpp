@@ -6,6 +6,7 @@ MovingObject::MovingObject()
 	: GridObject() // always intiialise base class
 	, m_velocity	(0.0f, 0.0f)
 	, m_oldPosition (0.0f, 0.0f)
+	, m_touchingGround(false)
 {
 
 }
