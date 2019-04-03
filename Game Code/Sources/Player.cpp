@@ -78,8 +78,6 @@ void Player::Update(sf::Time _frameTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
 	{
 		sf::Vector2f newPos = m_sprite.getPosition();
-		newPos.x += -SPEED;
-		
 		m_velocity.x = -SPEED;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Check if the player is going right
