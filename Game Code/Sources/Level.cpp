@@ -94,11 +94,27 @@ void Level::Update(sf::Time _frameTime)
 		}
 	}
 
+	//Collision();
+
+	//If there is a pending reload waiting
+	if (m_pendingReload)
+	{
+		//Reload level
+		loadLevel(m_currentLevel);
+
+
+		//Set pending reload to false
+		m_pendingReload = false;
+	}
+}
+
+bool Level::Collision(sf::RectangleShape _testRect)
+{
 	// -----------------------------------------------
 	// Collision Section
 	// -----------------------------------------------
 
-	for (int i = 0; i < m_collisionList.size(); ++i)
+	/*for (int i = 0; i < m_collisionList.size(); ++i)
 	{
 		GameObject* handler = m_collisionList[i].first;
 		GameObject* collider = m_collisionList[i].second;
@@ -111,17 +127,23 @@ void Level::Update(sf::Time _frameTime)
 				handler->Collide(*collider);
 			}
 		}
-	}
+	}*/
 
-	//If there is a pending reload waiting
-	if (m_pendingReload)
+	// rows
+	for (int y = 0; y < m_contents.size(); ++y)
 	{
-		//Reload level
-		loadLevel(m_currentLevel);
-
-
-		//Set pending reload to false
-		m_pendingReload = false;
+		// cells
+		for (int x = 0; x < m_contents[y].size(); ++x)
+		{
+			// sticky outies (grid objects)
+			for (int z = 0; z < m_contents[y][x].size(); ++z)
+			{
+				if (_testRect.getGlobalBounds().intersects(m_contents[y][x][z]->GetBounds()))
+				{
+					return true;
+				}
+			}
+		}
 	}
 }
 

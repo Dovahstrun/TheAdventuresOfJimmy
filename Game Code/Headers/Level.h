@@ -13,6 +13,7 @@ public:
 
 	virtual void Draw(sf::RenderTarget& _target);
 	virtual void Update(sf::Time _frameTime);
+	virtual bool Collision(sf::RectangleShape _testRect);
 	void Input(sf::Event _gameEvent);
 
 	void loadLevel(int _levelToLoad);

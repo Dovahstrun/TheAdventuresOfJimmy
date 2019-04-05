@@ -77,12 +77,13 @@ void Player::Update(sf::Time _frameTime)
 	//Use the keyboard function to check which keys are currently held down and to move in that direction
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
 	{
-		sf::Vector2f newPos = m_sprite.getPosition();
 		m_velocity.x = -SPEED;
+		AttemptMove(_frameTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Check if the player is going right
 	{
 		m_velocity.x = SPEED;
+		AttemptMove(_frameTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_touchingGround == true)
 	{
@@ -90,12 +91,12 @@ void Player::Update(sf::Time _frameTime)
 		m_touchingGround = false;
 	}
 
-
 	//Apply gravity to our velocity
 	if (m_touchingGround == false)
 	{
 		float velocityChange = GRAVITY * _frameTime.asSeconds();
 		m_velocity.y += velocityChange;
+		AttemptMove(_frameTime);
 	}
 	//Call the update function manually on the player class. This will actually move the character
 	MovingObject::Update(_frameTime);
@@ -114,10 +115,36 @@ void Player::Collide(GameObject &_collider)
 	{
 		//the player did hit a ground
 		//Go back to the position that the player was in before
-		m_sprite.setPosition(m_oldPosition);
+		m_velocity.x = 0;
 		m_touchingGround = true;
 		m_velocity.y = 0;
+		
+
 		//Clumsy, results in sticky grounds but good enough for this game
+	}
+}
+
+void Player::AttemptMove(sf::Time _frameTime)
+{
+	sf::RectangleShape testRect;
+	testRect.setSize(m_sprite.getScale());
+	testRect.setPosition(m_sprite.getPosition());
+	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
+	if (m_level->Collision(testRect))
+	{
+		if (m_velocity.x != 0)
+		{
+			m_velocity.x = 0;
+		}
+	}
+	testRect.setPosition(m_sprite.getPosition());
+	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
+	if (m_level->Collision(testRect))
+	{
+		if (m_velocity.y != 0)
+		{
+			m_velocity.y = 0;
+		}
 	}
 }
 
