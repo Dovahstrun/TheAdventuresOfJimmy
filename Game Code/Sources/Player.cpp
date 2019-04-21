@@ -25,7 +25,7 @@ Player::Player()
 	m_gem.setVolume(15);
 	m_push.setBuffer(AssetManager::GetSoundBuffer("resources/audio/push.wav"));
 	m_push.setVolume(40);
-	m_blocksMovement = true;
+	m_blocksMovement = false;
 }
 
 void Player::Input(sf::Event _gameEvent)

@@ -140,11 +140,16 @@ bool Level::Collision(sf::RectangleShape _testRect)
 			{
 				if (_testRect.getGlobalBounds().intersects(m_contents[y][x][z]->GetBounds()))
 				{
-					return true;
+					if (m_contents[y][x][z]->getBlocksMovement())
+					{
+						return true;
+					}
 				}
 			}
 		}
 	}
+
+	return false;
 }
 
 void Level::Input(sf::Event _gameEvent)
