@@ -13,6 +13,7 @@ public:
 
 	virtual void Draw(sf::RenderTarget& _target);
 	virtual void Update(sf::Time _frameTime);
+	virtual void Collision();
 	virtual bool Collision(sf::RectangleShape _testRect);
 	void Input(sf::Event _gameEvent);
 
@@ -26,6 +27,7 @@ public:
 private:
 
 	GameObject* m_player;
+	GameObject* m_toolWheel;
 	const float m_cellSize;
 	int m_currentLevel;
 	bool m_pendingReload;

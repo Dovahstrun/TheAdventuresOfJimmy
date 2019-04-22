@@ -14,9 +14,11 @@
 #include "../Headers/Wood.h"
 #include "../Headers/Web.h"
 #include "../Headers/Spider.h"
+#include "../Headers/Tool Wheel.h"
 
 Level::Level()
 	: m_player(nullptr)
+	, m_toolWheel(nullptr)
 	, m_cellSize(64.0f)
 	, m_currentLevel(0)
 	, m_pendingReload(false)
@@ -73,7 +75,7 @@ void Level::Draw(sf::RenderTarget & _target)
 
 
 	//TODO: Draw UI objects
-
+	m_toolWheel->Draw(_target);
 
 }
 
@@ -94,7 +96,10 @@ void Level::Update(sf::Time _frameTime)
 		}
 	}
 
-	//Collision();
+	//Update the tool wheel as it isn't a grid object
+	m_toolWheel->Update(_frameTime);
+
+	Collision();
 
 	//If there is a pending reload waiting
 	if (m_pendingReload)
@@ -108,13 +113,13 @@ void Level::Update(sf::Time _frameTime)
 	}
 }
 
-bool Level::Collision(sf::RectangleShape _testRect)
+void Level::Collision()
 {
 	// -----------------------------------------------
 	// Collision Section
 	// -----------------------------------------------
 
-	/*for (int i = 0; i < m_collisionList.size(); ++i)
+	for (int i = 0; i < m_collisionList.size(); ++i)
 	{
 		GameObject* handler = m_collisionList[i].first;
 		GameObject* collider = m_collisionList[i].second;
@@ -127,7 +132,12 @@ bool Level::Collision(sf::RectangleShape _testRect)
 				handler->Collide(*collider);
 			}
 		}
-	}*/
+	}
+}
+
+bool Level::Collision(sf::RectangleShape _testRect)
+{
+	
 
 	// rows
 	for (int y = 0; y < m_contents.size(); ++y)
@@ -343,6 +353,11 @@ void Level::loadLevel(int _levelToLoad)
 	inFile.close();
 
 	//Close the file now that we're done
+
+	///Tool Wheel
+	ToolWheel* toolWheel = new ToolWheel();
+	m_toolWheel = toolWheel;
+
 	
 }
 

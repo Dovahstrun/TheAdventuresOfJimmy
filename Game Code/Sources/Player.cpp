@@ -3,6 +3,7 @@
 #include "../../Framework/Headers/AssetManager.h"
 #include "../Headers/Level.h"
 #include "../Headers/Ground.h"
+#include "../Headers/Tool Wheel.h"
 
 //Constants
 #define SPEED 100.0f
@@ -70,7 +71,10 @@ void Player::Input(sf::Event _gameEvent)
 }
 
 void Player::Update(sf::Time _frameTime)
-{
+{	
+	//Call the update function manually on the player class. This will actually move the character
+	MovingObject::Update(_frameTime);
+
 	//First assume no keys are pressed
 	m_velocity.x = 0.0f;
 
@@ -78,12 +82,12 @@ void Player::Update(sf::Time _frameTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
 	{
 		m_velocity.x = -SPEED;
-		AttemptMove(_frameTime);
+		//AttemptMove(_frameTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Check if the player is going right
 	{
 		m_velocity.x = SPEED;
-		AttemptMove(_frameTime);
+		//AttemptMove(_frameTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_touchingGround == true)
 	{
@@ -96,10 +100,13 @@ void Player::Update(sf::Time _frameTime)
 	{
 		float velocityChange = GRAVITY * _frameTime.asSeconds();
 		m_velocity.y += velocityChange;
-		AttemptMove(_frameTime);
+		//AttemptMove(_frameTime);
 	}
-	//Call the update function manually on the player class. This will actually move the character
-	MovingObject::Update(_frameTime);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		
+	}
+	
 }
 
 void Player::Collide(GameObject &_collider)
@@ -115,10 +122,19 @@ void Player::Collide(GameObject &_collider)
 	{
 		//the player did hit a ground
 		//Go back to the position that the player was in before
-		m_velocity.x = 0;
-		m_touchingGround = true;
-		m_velocity.y = 0;
 		
+		if (m_velocity.x != 0)
+		{
+			m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y);
+			m_velocity.x = 0.0f;
+		}
+
+		if (m_velocity.y > 0)
+		{
+			m_touchingGround = true;
+			m_velocity.y = 0;
+			m_sprite.setPosition(m_sprite.getPosition().x, m_oldPosition.y);
+		}
 
 		//Clumsy, results in sticky grounds but good enough for this game
 	}
