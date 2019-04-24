@@ -3,6 +3,7 @@
 #include "../../Framework/Headers/AssetManager.h"
 #include "../Headers/Level.h"
 #include "../Headers/Ground.h"
+#include "../Headers/Tool Wheel.h"
 
 //Constants
 #define SPEED 100.0f
@@ -25,7 +26,7 @@ Player::Player()
 	m_gem.setVolume(15);
 	m_push.setBuffer(AssetManager::GetSoundBuffer("resources/audio/push.wav"));
 	m_push.setVolume(40);
-	m_blocksMovement = true;
+	m_blocksMovement = false;
 }
 
 void Player::Input(sf::Event _gameEvent)
@@ -70,7 +71,10 @@ void Player::Input(sf::Event _gameEvent)
 }
 
 void Player::Update(sf::Time _frameTime)
-{
+{	
+	//Call the update function manually on the player class. This will actually move the character
+	MovingObject::Update(_frameTime);
+
 	//First assume no keys are pressed
 	m_velocity.x = 0.0f;
 
@@ -98,8 +102,7 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y += velocityChange;
 		//AttemptMove(_frameTime);
 	}
-	//Call the update function manually on the player class. This will actually move the character
-	MovingObject::Update(_frameTime);
+	
 }
 
 void Player::Collide(GameObject &_collider)
@@ -115,10 +118,19 @@ void Player::Collide(GameObject &_collider)
 	{
 		//the player did hit a ground
 		//Go back to the position that the player was in before
-		m_velocity.x = 0;
-		m_touchingGround = true;
-		m_velocity.y = 0;
 		
+		if (m_velocity.x != 0)
+		{
+			m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y);
+			m_velocity.x = 0.0f;
+		}
+
+		if (m_velocity.y > 0)
+		{
+			m_touchingGround = true;
+			m_velocity.y = 0;
+			m_sprite.setPosition(m_sprite.getPosition().x, m_oldPosition.y);
+		}
 
 		//Clumsy, results in sticky grounds but good enough for this game
 	}
@@ -147,6 +159,36 @@ void Player::Collide(GameObject &_collider)
 //		}
 //	}
 //}
+
+bool Player::CheckTool(sf::Text _tool)
+{
+	return false;
+}
+
+void Player::AttemptMove(sf::Time _frameTime)
+{
+	sf::RectangleShape testRect;
+	testRect.setSize(m_sprite.getScale());
+	testRect.setPosition(m_sprite.getPosition());
+	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
+	if (m_level->Collision(testRect))
+	{
+		if (m_velocity.x != 0)
+		{
+			m_velocity.x = 0;
+		}
+	}
+	testRect.setPosition(m_sprite.getPosition());
+	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
+	if (m_level->Collision(testRect))
+	{
+		if (m_velocity.y != 0)
+		{
+			m_velocity.y = 0;
+		}
+	}
+}
+
 
 
 //bool Player::AttemptMove(sf::Vector2i _direction)

@@ -14,9 +14,11 @@
 #include "../Headers/Wood.h"
 #include "../Headers/Web.h"
 #include "../Headers/Spider.h"
+#include "../Headers/Tool Wheel.h"
 
 Level::Level()
 	: m_player(nullptr)
+	, m_toolWheel(nullptr)
 	, m_cellSize(64.0f)
 	, m_currentLevel(0)
 	, m_pendingReload(false)
@@ -33,10 +35,11 @@ void Level::Draw(sf::RenderTarget & _target)
 
 	//Create and update camera
 	sf::View camera = _target.getDefaultView();
-	camera.setCenter(m_player->GetPosition());
+	camera.setCenter(m_toolWheel->GetPosition());
+	//camera.setCenter(0, 0);
 
 	//TODO: Adjust camera as needed
-	camera.zoom(0.8);
+	//camera.zoom(0.8);
 
 
 	//Draw game world to the camera
@@ -73,6 +76,12 @@ void Level::Draw(sf::RenderTarget & _target)
 
 
 	//TODO: Draw UI objects
+	//if (m_toolWheel->isActive())
+	//{
+		m_toolWheel->SetPosition(m_player->GetPosition());
+	//m_toolWheel->SetPosition(1500, 600);
+		m_toolWheel->Draw(_target);
+	//}
 
 
 }
@@ -93,6 +102,9 @@ void Level::Update(sf::Time _frameTime)
 			}
 		}
 	}
+
+	//Update the tool wheel as it isn't a grid object
+	m_toolWheel->Update(_frameTime);
 
 	Collision();
 
@@ -128,23 +140,33 @@ void Level::Collision()
 			}
 		}
 	}
+}
+
+bool Level::Collision(sf::RectangleShape _testRect)
+{
+	
 
 	// rows
-	//for (int y = 0; y < m_contents.size(); ++y)
-	//{
-	//	// cells
-	//	for (int x = 0; x < m_contents[y].size(); ++x)
-	//	{
-	//		// sticky outies (grid objects)
-	//		for (int z = 0; z < m_contents[y][x].size(); ++z)
-	//		{
-	//			if (_testRect.getGlobalBounds().intersects(m_contents[y][x][z]->GetBounds()))
-	//			{
-	//				return true;
-	//			}
-	//		}
-	//	}
-	//}
+	for (int y = 0; y < m_contents.size(); ++y)
+	{
+		// cells
+		for (int x = 0; x < m_contents[y].size(); ++x)
+		{
+			// sticky outies (grid objects)
+			for (int z = 0; z < m_contents[y][x].size(); ++z)
+			{
+				if (_testRect.getGlobalBounds().intersects(m_contents[y][x][z]->GetBounds()))
+				{
+					if (m_contents[y][x][z]->getBlocksMovement())
+					{
+						return true;
+					}
+				}
+			}
+		}
+	}
+
+	return false;
 }
 
 void Level::Input(sf::Event _gameEvent)
@@ -338,6 +360,12 @@ void Level::loadLevel(int _levelToLoad)
 	inFile.close();
 
 	//Close the file now that we're done
+
+	///Tool Wheel
+	ToolWheel* toolWheel = new ToolWheel();
+	m_toolWheel = toolWheel;
+	
+
 	
 }
 
