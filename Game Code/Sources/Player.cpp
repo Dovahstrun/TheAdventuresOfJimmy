@@ -7,8 +7,8 @@
 
 //Constants
 #define SPEED 100.0f
-#define GRAVITY 40.0f
-#define JUMP 50.0f
+#define GRAVITY 180.0f
+#define JUMP 150.0f
 
 Player::Player()
 	: MovingObject()
@@ -17,6 +17,9 @@ Player::Player()
 	, m_bump()
 	, m_gem()
 	, m_push()
+	, m_spannerCollected(false)
+	, m_shearsCollected(false)
+	, m_hammerCollected(false)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -160,34 +163,55 @@ void Player::Collide(GameObject &_collider)
 //	}
 //}
 
-bool Player::CheckTool(sf::Text _tool)
+bool Player::CheckTool(sf::String _tool)
 {
+	if (_tool == "Hammer")
+	{
+		if (m_hammerCollected)
+		{
+			return true;
+		}
+	}
+	if (_tool == "Spanner")
+	{
+		if (m_shearsCollected)
+		{
+			return true;
+		}
+	}
+	if (_tool == "Shears")
+	{
+		if (m_spannerCollected)
+		{
+			return true;
+		}
+	}
 	return false;
 }
 
-void Player::AttemptMove(sf::Time _frameTime)
-{
-	sf::RectangleShape testRect;
-	testRect.setSize(m_sprite.getScale());
-	testRect.setPosition(m_sprite.getPosition());
-	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
-	if (m_level->Collision(testRect))
-	{
-		if (m_velocity.x != 0)
-		{
-			m_velocity.x = 0;
-		}
-	}
-	testRect.setPosition(m_sprite.getPosition());
-	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
-	if (m_level->Collision(testRect))
-	{
-		if (m_velocity.y != 0)
-		{
-			m_velocity.y = 0;
-		}
-	}
-}
+//void Player::AttemptMove(sf::Time _frameTime)
+//{
+//	sf::RectangleShape testRect;
+//	testRect.setSize(m_sprite.getScale());
+//	testRect.setPosition(m_sprite.getPosition());
+//	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
+//	if (m_level->Collision(testRect))
+//	{
+//		if (m_velocity.x != 0)
+//		{
+//			m_velocity.x = 0;
+//		}
+//	}
+//	testRect.setPosition(m_sprite.getPosition());
+//	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
+//	if (m_level->Collision(testRect))
+//	{
+//		if (m_velocity.y != 0)
+//		{
+//			m_velocity.y = 0;
+//		}
+//	}
+//}
 
 
 

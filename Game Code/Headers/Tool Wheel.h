@@ -10,7 +10,7 @@ public:
 	ToolWheel();
 
 	void Update(sf::Time _frameTime);
-
+	//void Position(sf::Vector2f passedInPosition);
 
 protected:
 
