@@ -7,8 +7,8 @@
 
 //Constants
 #define SPEED 100.0f
-#define GRAVITY 180.0f
-#define JUMP 150.0f
+#define GRAVITY 90.0f
+#define JUMP 100.0f
 
 Player::Player()
 	: MovingObject()
@@ -75,8 +75,6 @@ void Player::Input(sf::Event _gameEvent)
 
 void Player::Update(sf::Time _frameTime)
 {	
-	//Call the update function manually on the player class. This will actually move the character
-	MovingObject::Update(_frameTime);
 
 	//First assume no keys are pressed
 	m_velocity.x = 0.0f;
@@ -105,12 +103,39 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y += velocityChange;
 		//AttemptMove(_frameTime);
 	}
+
+	//Call the update function manually on the player class. This will actually move the character
+	MovingObject::Update(_frameTime);
 	
 }
 
 void Player::Collide(GameObject &_collider)
 {
 	//Only do something if thing touched was player
+
+	//Record whether we used to be touching the ground
+	bool wereTouchingGround = m_touchingGround;
+	m_touchingGround = false;
+
+	//Assume our collision will fail (that we're not touching the ground)
+	//Get the collider for the player's feet
+	sf::FloatRect feetCollider = m_sprite.getGlobalBounds();
+	//Set the top of our feet to be 10 pixels from the bottom of the player collider
+	feetCollider.top += m_sprite.getGlobalBounds().height - 10;
+	//Set our feet collider height to be 10 pixels
+	feetCollider.height = 10;
+
+	//Get the collider for the player's left side
+	sf::FloatRect leftCollider = m_sprite.getGlobalBounds();
+	//Set our left collider width to be 10 pixels
+	leftCollider.width = 10;
+
+	//Get the collider for the player's right
+	sf::FloatRect rightCollider = m_sprite.getGlobalBounds();
+	//Set the left of our right side to be 10 pixels from the right of the player collider
+	rightCollider.left += m_sprite.getGlobalBounds().width - 10;
+	//Set our right collider height to be 10 pixels
+	rightCollider.width = 10;
 
 	//Dynamic cast the gameObject reference into a ground pointer
 	//If it succeeds, it was a ground
@@ -121,19 +146,40 @@ void Player::Collide(GameObject &_collider)
 	{
 		//the player did hit a ground
 		//Go back to the position that the player was in before
+
+		//Create platform top collider
+		sf::FloatRect groundTopRect = groundCollider->GetBounds();
+		groundTopRect.height = 10;
+		sf::FloatRect groundLeftRect = groundCollider->GetBounds();
+		groundLeftRect.width = 10;
+		sf::FloatRect groundRightRect = groundCollider->GetBounds();
+		groundRightRect.left += groundCollider->GetBounds().width - 10;
+		groundRightRect.width = 10;
+
+		//Are the feet touching the top of the platform
+		if (feetCollider.intersects(groundTopRect))
+		{
+			m_touchingGround = true;
+
+			//Check if we are falling downward
+			if (wereTouchingGround == false && m_velocity.y > 0)
+			{
+				m_velocity.y = 0;
+			}
+		}
 		
-		if (m_velocity.x != 0)
+		/*if (m_velocity.x != 0)
 		{
 			m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y);
 			m_velocity.x = 0.0f;
 		}
 
-		if (m_velocity.y > 0)
+		if (m_velocity.y != 0)
 		{
 			m_touchingGround = true;
 			m_velocity.y = 0;
 			m_sprite.setPosition(m_sprite.getPosition().x, m_oldPosition.y);
-		}
+		}*/
 
 		//Clumsy, results in sticky grounds but good enough for this game
 	}

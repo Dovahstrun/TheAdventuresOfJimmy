@@ -75,7 +75,7 @@ void Level::Draw(sf::RenderTarget & _target)
 	_target.setView(_target.getDefaultView());
 
 
-	//TODO: Draw UI objects
+	//Draw UI objects
 	if (m_toolWheel->isActive())
 	{
 		m_toolWheel->SetPosition(camera.getSize().x / 2 - m_toolWheel->GetBounds().width / 2 + m_player->GetBounds().width / 2, 
