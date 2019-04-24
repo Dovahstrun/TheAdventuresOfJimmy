@@ -35,10 +35,11 @@ void Level::Draw(sf::RenderTarget & _target)
 
 	//Create and update camera
 	sf::View camera = _target.getDefaultView();
-	camera.setCenter(m_player->GetPosition());
+	camera.setCenter(m_toolWheel->GetPosition());
+	//camera.setCenter(0, 0);
 
 	//TODO: Adjust camera as needed
-	camera.zoom(0.8);
+	//camera.zoom(0.8);
 
 
 	//Draw game world to the camera
@@ -75,7 +76,13 @@ void Level::Draw(sf::RenderTarget & _target)
 
 
 	//TODO: Draw UI objects
-	m_toolWheel->Draw(_target);
+	//if (m_toolWheel->isActive())
+	//{
+		m_toolWheel->SetPosition(m_player->GetPosition());
+	//m_toolWheel->SetPosition(1500, 600);
+		m_toolWheel->Draw(_target);
+	//}
+
 
 }
 
@@ -98,6 +105,7 @@ void Level::Update(sf::Time _frameTime)
 
 	//Update the tool wheel as it isn't a grid object
 	m_toolWheel->Update(_frameTime);
+
 
 	Collision();
 
@@ -357,6 +365,7 @@ void Level::loadLevel(int _levelToLoad)
 	///Tool Wheel
 	ToolWheel* toolWheel = new ToolWheel();
 	m_toolWheel = toolWheel;
+	
 
 	
 }

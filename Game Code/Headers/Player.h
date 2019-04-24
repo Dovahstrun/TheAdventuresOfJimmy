@@ -15,6 +15,8 @@ public:
 	void Update(sf::Time _frameTime);
 	void Collide(GameObject& _collider);
 
+	bool CheckTool(sf::Text _tool);
+
 private:
 
 	/*bool AttemptMove(sf::Vector2i _direction);*/
@@ -28,5 +30,6 @@ private:
 	sf::Sound m_bump;
 	sf::Sound m_gem;
 	sf::Sound m_push;
+	std::vector<sf::Text> m_tools;
 
 };

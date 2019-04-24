@@ -102,10 +102,6 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y += velocityChange;
 		//AttemptMove(_frameTime);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-	{
-		
-	}
 	
 }
 
@@ -138,6 +134,11 @@ void Player::Collide(GameObject &_collider)
 
 		//Clumsy, results in sticky grounds but good enough for this game
 	}
+}
+
+bool Player::CheckTool(sf::Text _tool)
+{
+	return false;
 }
 
 void Player::AttemptMove(sf::Time _frameTime)
