@@ -78,12 +78,12 @@ void Player::Update(sf::Time _frameTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
 	{
 		m_velocity.x = -SPEED;
-		AttemptMove(_frameTime);
+		//AttemptMove(_frameTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Check if the player is going right
 	{
 		m_velocity.x = SPEED;
-		AttemptMove(_frameTime);
+		//AttemptMove(_frameTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_touchingGround == true)
 	{
@@ -96,7 +96,7 @@ void Player::Update(sf::Time _frameTime)
 	{
 		float velocityChange = GRAVITY * _frameTime.asSeconds();
 		m_velocity.y += velocityChange;
-		AttemptMove(_frameTime);
+		//AttemptMove(_frameTime);
 	}
 	//Call the update function manually on the player class. This will actually move the character
 	MovingObject::Update(_frameTime);
@@ -124,29 +124,29 @@ void Player::Collide(GameObject &_collider)
 	}
 }
 
-void Player::AttemptMove(sf::Time _frameTime)
-{
-	sf::RectangleShape testRect;
-	testRect.setSize(m_sprite.getScale());
-	testRect.setPosition(m_sprite.getPosition());
-	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
-	if (m_level->Collision(testRect))
-	{
-		if (m_velocity.x != 0)
-		{
-			m_velocity.x = 0;
-		}
-	}
-	testRect.setPosition(m_sprite.getPosition());
-	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
-	if (m_level->Collision(testRect))
-	{
-		if (m_velocity.y != 0)
-		{
-			m_velocity.y = 0;
-		}
-	}
-}
+//void Player::AttemptMove(sf::Time _frameTime)
+//{
+//	sf::RectangleShape testRect;
+//	testRect.setSize(m_sprite.getScale());
+//	testRect.setPosition(m_sprite.getPosition());
+//	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
+//	if (m_level->Collision(testRect))
+//	{
+//		if (m_velocity.x != 0)
+//		{
+//			m_velocity.x = 0;
+//		}
+//	}
+//	testRect.setPosition(m_sprite.getPosition());
+//	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
+//	if (m_level->Collision(testRect))
+//	{
+//		if (m_velocity.y != 0)
+//		{
+//			m_velocity.y = 0;
+//		}
+//	}
+//}
 
 
 //bool Player::AttemptMove(sf::Vector2i _direction)

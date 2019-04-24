@@ -18,7 +18,7 @@ public:
 private:
 
 	/*bool AttemptMove(sf::Vector2i _direction);*/
-	void AttemptMove(sf::Time _frameTime);
+	//void AttemptMove(sf::Time _frameTime);
 
 private:
 
