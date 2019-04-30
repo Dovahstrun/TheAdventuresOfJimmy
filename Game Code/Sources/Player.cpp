@@ -75,6 +75,8 @@ void Player::Input(sf::Event _gameEvent)
 
 void Player::Update(sf::Time _frameTime)
 {	
+	//Call the update function manually on the player class. This will actually move the character
+	MovingObject::Update(_frameTime);
 
 	//First assume no keys are pressed
 	m_velocity.x = 0.0f;
@@ -104,9 +106,6 @@ void Player::Update(sf::Time _frameTime)
 		//AttemptMove(_frameTime);
 	}
 
-	//Call the update function manually on the player class. This will actually move the character
-	MovingObject::Update(_frameTime);
-	
 }
 
 void Player::Collide(GameObject &_collider)
@@ -116,6 +115,9 @@ void Player::Collide(GameObject &_collider)
 	//Record whether we used to be touching the ground
 	bool wereTouchingGround = m_touchingGround;
 	m_touchingGround = false;
+
+	bool wereTouchingWall = m_touchingWall;
+	m_touchingWall = false;
 
 	//Assume our collision will fail (that we're not touching the ground)
 	//Get the collider for the player's feet
@@ -150,8 +152,12 @@ void Player::Collide(GameObject &_collider)
 		//Create platform top collider
 		sf::FloatRect groundTopRect = groundCollider->GetBounds();
 		groundTopRect.height = 10;
+
+		//Create the platform left collider
 		sf::FloatRect groundLeftRect = groundCollider->GetBounds();
 		groundLeftRect.width = 10;
+
+		//Create the platform right collider
 		sf::FloatRect groundRightRect = groundCollider->GetBounds();
 		groundRightRect.left += groundCollider->GetBounds().width - 10;
 		groundRightRect.width = 10;
@@ -165,6 +171,33 @@ void Player::Collide(GameObject &_collider)
 			if (wereTouchingGround == false && m_velocity.y > 0)
 			{
 				m_velocity.y = 0;
+				m_sprite.setPosition(m_sprite.getPosition().x, groundCollider->GetPosition().y - m_sprite.getGlobalBounds().height);
+			}
+		}
+
+		//Is the player's left side touching the right of a wall
+		if (leftCollider.intersects(groundRightRect))
+		{
+			m_touchingWall = true;
+
+			//Check if we are moving left
+			if (wereTouchingWall == false && m_velocity.x < 0)
+			{
+				m_velocity.x = 0;
+				m_sprite.setPosition(groundCollider->GetPosition().x + groundCollider->GetBounds().width * 2, m_sprite.getPosition().y); 
+			}
+		}
+
+		//Are the feet touching the top of the platform
+		if (rightCollider.intersects(groundLeftRect))
+		{
+			m_touchingWall = true;
+
+			//Check if we are falling downward
+			if (wereTouchingWall == false && m_velocity.x > 0)
+			{
+				m_velocity.x = 0;
+				m_sprite.setPosition(groundCollider->GetPosition().x - m_sprite.getGlobalBounds().width, m_sprite.getPosition().y);
 			}
 		}
 		
@@ -183,6 +216,8 @@ void Player::Collide(GameObject &_collider)
 
 		//Clumsy, results in sticky grounds but good enough for this game
 	}
+
+
 }
 
 //void Player::AttemptMove(sf::Time _frameTime)

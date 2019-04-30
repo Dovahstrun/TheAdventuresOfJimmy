@@ -1,0 +1,81 @@
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G G G G G G G G G G G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - G G G G - - - - - G G G G G G G G G G - - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - G G G G - - N N - - - - G - - G - G G - - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - - - - - G G G - - - - H - - G - G G - - - - N G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G N - - G G G G - - - - - G G G - G - G G - - - F N G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G N G - S - - - - - - G G G G G N W N G G L G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G L G G G G G G G G G G G G G L G G G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G L G G G G G G G G G G G G G L - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G G - G L - G - - - G G - - - H - - L - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G G - G L - G - - - G G - - - H - - L - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G N N G G - G L N W - - - G G - - - H - - L - - G - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G N N S S - - G G - - - - S S - - - H - - L - - G N G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G - - - - G G G G G G L G G G G G G - W N G  
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G - - G G G G G G G L G G G G G G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - - G G G G G G G G G - - - L - - - - G G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - - - G G G G G G G - - - - L - - - - G - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G N N H - G W - - - G G - - - - L - G - - G - - H N G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G N N H - S W - - N G G - - - - L G G G - S - - H N G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G L G G G G G G G G G G G G G G L G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G L G G G G G G G G G G G G G G L G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G N N N G - G - L - G - - - G - - - G - - - - L G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G H H H G N S - L - A - N - G - - - G - - - - L G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G H H G G G G L G G G N - G - - - G H H - G G G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G H - - - - L - W G G - G - - - H H H G G G G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G - - - - L - W - - - W - - - H H G G G G G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G G G G L G G G G G G G G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G G G G L G G G G G G G G G G
+G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G
+G S W - - - G G - - - - - G - G - G - - W - - - - W G G - - - - G - - - - - G G - - - L - - G G - - - - - G G - - - - - - G - N H - - - - - G - N - - - - N N N G
+G W W - - - S S - - - - - G G G G G - - - N H N H - G G - - - - G - - - - - G G - - - L - - G G - - - - - G G P F - G G L G - N H - - - - - G - N - - - - N N N G
+G - - - - G G G G W W - - G - G - G - - - H N H N - G G - - - - G - - - - - G G - - - L - - G G - - - - - G G G G G - - L G G N H - - - - - G - G G G L G G G G G
+G - - - G W W - G W W - G - - - - - G L G G G G G G G G - - - - G - - - - - G G - - - L - - G G - F - - - - - - - - - G G N N N H - - - - - A - - - - L G G G G G
+G - G - W W W - G N N - - - - - - - - L - W W W - - G G N - - - W - - - - - H H - - - L - N G G L G G G G G G G G G - - - G G G G G G G L G W - - - - L G G G G G
+G G G G W W W - G G G G G G G L G G - L - W W W - - G G G G G G G G L G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G G G L G G G G G G G G G G G G
+G G G G G S W H G - - - W W - L - G G G G G G G G G G G G G G G G G L G G G G G G G G G G G G G L - - - - G G - - - G G G G G G G G G G L G G G G G G G G G - - G
+G G G G G G H H G - - - - W - L - - - - - W W W - - G G - - - - - - L - - - - - - - - - - - - - L - - - H G G - - - - - H G N N - G - - L - - - - H - - G G W - G
+G G G - - H H G G W G - - - - L - - A - - - W - W - G G - - - - - - L - - - - - - - - - - - - - L - - - H G G - - - - - H G N N - S - - L - - - - H - - G G W - G
+G G G - - H G - - W G G - - - L - - W - - W - - - - G G - - - - - - L - - - - - - - - - - - - - L - - - H G G - - - - - H G G G G G G G L - - - G G G - S - W N G
+G - S N - G - - - W G G G F - L - - W - - - - - - - - S - - - - - - L - - - - - - - - - - - - - L - - - H - - - - - - - H - - - - - - - L - - G G G G G G - A N G
+G L G G G - - - N N G G G G G G G G W - - - - G G G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G
+G L G G G - - - N N G G G G G G G G W - - - G G G G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G
+G L G G G L G G G G G G G G G G G G G G G G G G G G G G G G G G G N - - - - L - - - - - - - - - - - - - - G G - - - - - - - - G G - - - - - G G G G H H - - - - G
+G L G G G L - H - - - - - G H - - - - G - - - W W - G G G G G G G H - - - - L - - - - - - - - - - - - - - G G - - - - - - - - G G - - - - - - G G - H H - - - - G
+G L G G G L - W - - - - - S H - - - - G - - - - - - G G G G G G G H - - - - L - - - - - - - - - - - - - - G G - - - - - - - - G G - - - H - - W - - H H G - N N G
+G L G G G L G - - - G G G G H G L - N G - - - - - - - - - - - - - H - - - - L - - - - W - - - - - - - - - - - - - - - - - - - G G - - - H - G G - - H G G - N N G
+G L G G G L G - - - - - - G H - L - N G L G G G G G G G G G G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G L G G G G G L G G G G G G G G G L G G G
+G L G G G L G W G - - N N G H - L G G G L - - G - - G G G G G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G L G G G G G L G G G G G G G G G L G G G
+G L G G G L G W G G G G G G G G L G H G L - - G - - G G - - - - - G G G G G G - - - - L G G G G G G G G G G G - - W N G G L G W G G G L H - - - - - - G G L - G G
+G L G G G L G W G G G G G G G G L G H G G G - S N - G G - - - - - G G G G G G - - - - L G G G G G G G G G G G - - W N G G L G A G G G L H - - - - F - G G L - G G
+G L L G L L G W G N N N W W W - L G H - - - G G G L G G - - - - - G - G G G G - - - - L G G G G G G G G G G G - - G G G - L - - - - - G G - - G G G G G G L - G G
+G G L G L G G - G N N N W W W - L S H - - - - - - L G G - - - - - G - - - - G - - - - L G G G G G G G G G G G G - - - G - L - - G G - S - - H - - - G - - L N G G
+G - L - L - - - G N N N W W S - G G G G G - - - - L G G - F - - - S - - - - H - - - - L G G G G G G G G G G G G G G - S - L - G G G G G G G G G - - - - - L N G G
+G - L - L - S N G G G G G G G G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G
+G G G G G G G G G G G G G G G G G G G G G G G G G G G G L G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G L G G G G G G G G G G G G G G G G G G G G G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G L - - - - - - - - - - - L - - - - - - - - - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G L G G G G G G G G G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G L G G G G G G G G G G G G G
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - - W A G - - G W - - L - - - G - W G - W W - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - W W - G - - - - - G G G - - - - - G - W - W - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - - - - G - G G G G - - W G G G G - G - - - - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - G G L - G - - W W W G W G W W W - - G - L G G - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G L - G - - W - W L G L - W W - - G - L G - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G L - G - - - - - L G L - - - - - G - L G - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G L - G G G G G G L G L G G G G G G - L G - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G L - G - - - - - L G L - - - - - G - L G - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G L - G G G G G G L G L G G G G G G - L G - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - G L - H H H H H - L G L - H H H H H - L G - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G W W G G G G G G G G G G G G G G G G G G G G G W W G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G W W - - - G G - - - - - L - - - - - G G - - - W W G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G W W - - - S S - - - - - L - - - - - S S - - - W W G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G L G G G G G G G G G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - W W - W - - - - H G L G H - - - W W - W - - W G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - - - W W W - - - H G L G H - - W - - W W - - W G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - - - W - A - - - - H - L - H - - - W - A - W - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G L G G G G G G G G G G G G G G G G G G G L G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - W L - - - W W - - - - - - - W W - - W - - L W - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G - W L - - W - - - - - - - - - - - W - W W - L - W G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G W - L - - - - W - - - - M - - - W - - - W - L - - G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G G G G G G G G G G G G G G G 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - G G G G G G G G G G G G G G G G G G G G G G G G G G G

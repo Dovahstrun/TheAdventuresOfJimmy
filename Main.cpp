@@ -19,7 +19,7 @@ int main()
 
 	// Window - to draw to the screen
 	sf::RenderWindow gameWindow;
-	gameWindow.create(sf::VideoMode::getDesktopMode(), "Boulderdash", sf::Style::Titlebar | sf::Style::Close);
+	gameWindow.create(sf::VideoMode::getDesktopMode(), "The Adventures of Jimmy", sf::Style::Titlebar | sf::Style::Close);
 
 	// Seed our random number generator 
 	srand(time(NULL));
