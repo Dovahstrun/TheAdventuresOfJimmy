@@ -1,3 +1,6 @@
+//Library includes
+#include <iostream>
+
 // Project Includes
 #include "../Headers/Player.h"
 #include "../../Framework/Headers/AssetManager.h"
@@ -20,6 +23,7 @@ Player::Player()
 	, m_spannerCollected(false)
 	, m_shearsCollected(false)
 	, m_hammerCollected(false)
+	, hasCollideBeenRun(false)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -77,7 +81,7 @@ void Player::Update(sf::Time _frameTime)
 {	
 	//Call the update function manually on the player class. This will actually move the character
 	MovingObject::Update(_frameTime);
-
+	
 	//First assume no keys are pressed
 	m_velocity.x = 0.0f;
 
@@ -105,7 +109,12 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y += velocityChange;
 		//AttemptMove(_frameTime);
 	}
-
+	if (hasCollideBeenRun == false)
+	{
+		m_touchingWall = false;
+		m_touchingGround = false;
+	}
+	hasCollideBeenRun = false;
 }
 
 void Player::Collide(GameObject &_collider)
@@ -179,12 +188,12 @@ void Player::Collide(GameObject &_collider)
 		if (leftCollider.intersects(groundRightRect))
 		{
 			m_touchingWall = true;
-
+			std::cerr << wereTouchingWall;
 			//Check if we are moving left
 			if (wereTouchingWall == false && m_velocity.x < 0)
 			{
 				m_velocity.x = 0;
-				m_sprite.setPosition(groundCollider->GetPosition().x + groundCollider->GetBounds().width * 2, m_sprite.getPosition().y); 
+				m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y); 
 			}
 		}
 
@@ -192,15 +201,16 @@ void Player::Collide(GameObject &_collider)
 		if (rightCollider.intersects(groundLeftRect))
 		{
 			m_touchingWall = true;
-
+			std::cerr << wereTouchingWall;
 			//Check if we are falling downward
 			if (wereTouchingWall == false && m_velocity.x > 0)
 			{
 				m_velocity.x = 0;
 				m_sprite.setPosition(groundCollider->GetPosition().x - m_sprite.getGlobalBounds().width, m_sprite.getPosition().y);
+				
 			}
 		}
-		
+		hasCollideBeenRun = true;
 		/*if (m_velocity.x != 0)
 		{
 			m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y);
@@ -215,6 +225,7 @@ void Player::Collide(GameObject &_collider)
 		}*/
 
 		//Clumsy, results in sticky grounds but good enough for this game
+		
 	}
 
 

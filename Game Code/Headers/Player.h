@@ -34,5 +34,6 @@ private:
 	bool m_spannerCollected;
 	bool m_shearsCollected;
 	bool m_hammerCollected;
+	bool hasCollideBeenRun;
 
 };
