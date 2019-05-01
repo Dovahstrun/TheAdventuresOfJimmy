@@ -23,7 +23,7 @@ Player::Player()
 	, m_spannerCollected(false)
 	, m_shearsCollected(false)
 	, m_hammerCollected(false)
-	, hasCollideBeenRun(false)
+	, m_hasCollideBeenRun(false)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -109,12 +109,12 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y += velocityChange;
 		//AttemptMove(_frameTime);
 	}
-	if (hasCollideBeenRun == false)
+	if (m_hasCollideBeenRun == false)
 	{
 		m_touchingWall = false;
 		m_touchingGround = false;
 	}
-	hasCollideBeenRun = false;
+	m_hasCollideBeenRun = false;
 }
 
 void Player::Collide(GameObject &_collider)
@@ -210,7 +210,7 @@ void Player::Collide(GameObject &_collider)
 				
 			}
 		}
-		hasCollideBeenRun = true;
+		m_hasCollideBeenRun = true;
 		/*if (m_velocity.x != 0)
 		{
 			m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y);

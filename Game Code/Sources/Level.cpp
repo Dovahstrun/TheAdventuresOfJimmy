@@ -25,6 +25,7 @@ Level::Level()
 	, m_background()
 	, m_contents()
 	, m_collisionList()
+	, currentLevel(RIGHT)
 {
 	loadLevel(1);
 }
