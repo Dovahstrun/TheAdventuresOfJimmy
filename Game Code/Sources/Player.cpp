@@ -9,9 +9,9 @@
 #include "../Headers/Tool Wheel.h"
 
 //Constants
-#define SPEED 100.0f
-#define GRAVITY 90.0f
-#define JUMP 100.0f
+#define SPEED 140.0f
+#define GRAVITY 180.0f
+#define JUMP 200.0f
 
 Player::Player()
 	: MovingObject()
@@ -38,43 +38,7 @@ Player::Player()
 
 void Player::Input(sf::Event _gameEvent)
 {
-	////read the input from the keyboard and convert it to a direction to move in
-
-	////was the event a key press
-	//if (_gameEvent.type == sf::Event::KeyPressed)
-	//{
-	//	// Yes it was a key press!
-
-	//	// What key was pressed?
-	//	if (_gameEvent.key.code == sf::Keyboard::W || _gameEvent.key.code == sf::Keyboard::Up)
-	//	{
-	//		// It was W!
-	//		// Move up
-	//		m_pendingMove = sf::Vector2i(0, -1);
-	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandUp.png"));
-	//	}
-	//	else if (_gameEvent.key.code == sf::Keyboard::A || _gameEvent.key.code == sf::Keyboard::Left)
-	//	{
-	//		// It was A!
-	//		// Move left
-	//		m_pendingMove = sf::Vector2i(-1, 0);
-	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandLeft.png"));
-	//	}
-	//	else if (_gameEvent.key.code == sf::Keyboard::S || _gameEvent.key.code == sf::Keyboard::Down)
-	//	{
-	//		// It was S!
-	//		// Move down
-	//		m_pendingMove = sf::Vector2i(0, 1);
-	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandDown.png"));
-	//	}
-	//	else if (_gameEvent.key.code == sf::Keyboard::D || _gameEvent.key.code == sf::Keyboard::Right)
-	//	{
-	//		// It was D!
-	//		// Move right
-	//		m_pendingMove = sf::Vector2i(1, 0);
-	//		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerStandRight.png"));
-	//	}
-	//}
+	
 }
 
 void Player::Update(sf::Time _frameTime)
@@ -135,6 +99,9 @@ void Player::Collide(GameObject &_collider)
 	feetCollider.top += m_sprite.getGlobalBounds().height - 10;
 	//Set our feet collider height to be 10 pixels
 	feetCollider.height = 10;
+	//Make the width smaller so it doesn't interfere with the left and right colliders
+	feetCollider.width -= 20;
+	feetCollider.left += 10;
 
 	//Get the collider for the player's left side
 	sf::FloatRect leftCollider = m_sprite.getGlobalBounds();
@@ -147,6 +114,14 @@ void Player::Collide(GameObject &_collider)
 	rightCollider.left += m_sprite.getGlobalBounds().width - 10;
 	//Set our right collider height to be 10 pixels
 	rightCollider.width = 10;
+
+	//Get the collider for the player's head
+	sf::FloatRect headCollider = m_sprite.getGlobalBounds();
+	//Set our head collider height to be 10 pixels
+	headCollider.height = 10;
+	//Make the width smaller so it doesn't interfere with the left and right colliders
+	headCollider.width -= 20;
+	headCollider.left += 10;
 
 	//Dynamic cast the gameObject reference into a ground pointer
 	//If it succeeds, it was a ground
@@ -171,6 +146,11 @@ void Player::Collide(GameObject &_collider)
 		groundRightRect.left += groundCollider->GetBounds().width - 10;
 		groundRightRect.width = 10;
 
+		//Create the platform bottom collider
+		sf::FloatRect groundBottomRect = groundCollider->GetBounds();
+		groundBottomRect.top += groundCollider->GetBounds().width - 10;
+		groundBottomRect.height = 10;
+
 		//Are the feet touching the top of the platform
 		if (feetCollider.intersects(groundTopRect))
 		{
@@ -193,16 +173,16 @@ void Player::Collide(GameObject &_collider)
 			if (wereTouchingWall == false && m_velocity.x < 0)
 			{
 				m_velocity.x = 0;
-				m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y); 
+				m_sprite.setPosition(groundCollider->GetPosition().x + groundCollider->GetBounds().width, m_sprite.getPosition().y);
 			}
 		}
 
-		//Are the feet touching the top of the platform
+		//Is the player's right side touching the left of a wall
 		if (rightCollider.intersects(groundLeftRect))
 		{
 			m_touchingWall = true;
 			std::cerr << wereTouchingWall;
-			//Check if we are falling downward
+			//Check if we are moving right
 			if (wereTouchingWall == false && m_velocity.x > 0)
 			{
 				m_velocity.x = 0;
@@ -210,20 +190,20 @@ void Player::Collide(GameObject &_collider)
 				
 			}
 		}
-		m_hasCollideBeenRun = true;
-		/*if (m_velocity.x != 0)
-		{
-			m_sprite.setPosition(m_oldPosition.x, m_sprite.getPosition().y);
-			m_velocity.x = 0.0f;
-		}
-
-		if (m_velocity.y != 0)
+		//Is the head touching the bottom of the platform
+		if (headCollider.intersects(groundBottomRect))
 		{
 			m_touchingGround = true;
-			m_velocity.y = 0;
-			m_sprite.setPosition(m_sprite.getPosition().x, m_oldPosition.y);
-		}*/
 
+			//Check if we are falling downward
+			if (wereTouchingGround == false && m_velocity.y < 0)
+			{
+				m_velocity.y = 0;
+				m_sprite.setPosition(m_sprite.getPosition().x, groundCollider->GetPosition().y + groundCollider->GetBounds().height);
+			}
+		}
+
+		m_hasCollideBeenRun = true;
 		//Clumsy, results in sticky grounds but good enough for this game
 		
 	}
