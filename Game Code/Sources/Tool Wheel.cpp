@@ -20,6 +20,7 @@ void ToolWheel::Update(sf::Time _frameTime)
 	{
 		m_active = false;
 	}
+
 }
 
 //void ToolWheel::Position(sf::Vector2f passedInPosition)
