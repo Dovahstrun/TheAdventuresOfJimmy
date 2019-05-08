@@ -141,6 +141,7 @@
     <ClCompile Include="Game Code\Sources\Cog.cpp" />
     <ClCompile Include="Game Code\Sources\GridObject.cpp" />
     <ClCompile Include="Game Code\Sources\Ground.cpp" />
+    <ClCompile Include="Game Code\Sources\Hamer.cpp" />
     <ClCompile Include="Game Code\Sources\Ladder.cpp" />
     <ClCompile Include="Game Code\Sources\Level.cpp" />
     <ClCompile Include="Game Code\Sources\MovingObject.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Game Code\Headers\Cog.h" />
     <ClInclude Include="Game Code\Headers\GridObject.h" />
     <ClInclude Include="Game Code\Headers\Ground.h" />
+    <ClInclude Include="Game Code\Headers\Hammer.h" />
     <ClInclude Include="Game Code\Headers\Ladder.h" />
     <ClInclude Include="Game Code\Headers\Level.h" />
     <ClInclude Include="Game Code\Headers\MovingObject.h" />

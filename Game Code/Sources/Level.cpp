@@ -15,6 +15,7 @@
 #include "../Headers/Web.h"
 #include "../Headers/Spider.h"
 #include "../Headers/Tool Wheel.h"
+#include "../Headers/Hammer.h"
 
 Level::Level()
 	: m_player(nullptr)
@@ -344,6 +345,14 @@ void Level::loadLevel(int _levelToLoad)
 				spider->setGridPosition(x, y);
 				m_contents[y][x].push_back(spider);
 			}
+			else if (ch == 'h') //Lowercase h as opposed to an uppercase H for the wood
+			{
+				Hammer* hammer = new Hammer();
+				hammer->setLevel(this);
+				hammer->setGridPosition(x, y);
+				m_contents[y][x].push_back(hammer);
+				m_collisionList.push_back(std::make_pair(player, hammer));
+			}
 			else if (ch == 'P')
 			{
 				player->setLevel(this);
@@ -384,6 +393,45 @@ void Level::loadNextLevel()
 int Level::GetCurrentLevel()
 {
 	return m_currentLevel;
+}
+
+void Level::deleteObjectAt(GridObject * _toDelete)
+{
+	//Don't trust other code. Make sure _toDelete is a valid pointer
+	if (_toDelete != nullptr)
+	{
+
+		//Get the current position of our grid object
+		sf::Vector2i Pos = _toDelete->getGridPosition();
+
+		//Find the object in the list using an iterator and the find method
+		auto it = std::find(m_contents[Pos.y][Pos.x].begin(),
+			m_contents[Pos.y][Pos.x].end(),
+			_toDelete);
+
+		//If we found the object at this location, it will NOT equal the end of the vector
+		if (it != m_contents[Pos.y][Pos.x].end())
+		{
+			//We found the object!
+
+			//Delete the dirt
+			delete *it;
+			//Remove it from the old position
+			m_contents[Pos.y][Pos.x].erase(it);
+
+		}
+
+		//Find the object in the list using an iterator and the find method
+		for (auto it = m_collisionList.begin(); it != m_collisionList.end(); )
+		{
+			// if second thing in pair is the "to be deleted" object, then, delete the pair
+			if (it->second == _toDelete)
+				it = m_collisionList.erase(it); // returns pointer to next thing in list, so we don't want to add to it ourselves
+			else
+				++it; // we didnt delete so add to it to go to the next thing in list
+		}
+	}
+
 }
 
 int Level::getCellSize()

@@ -7,6 +7,7 @@
 #include "../Headers/Level.h"
 #include "../Headers/Ground.h"
 #include "../Headers/Tool Wheel.h"
+#include "../Headers/Hammer.h"
 
 //Constants
 #define SPEED 140.0f
@@ -107,6 +108,9 @@ void Player::Collide(GameObject &_collider)
 	sf::FloatRect leftCollider = m_sprite.getGlobalBounds();
 	//Set our left collider width to be 10 pixels
 	leftCollider.width = 10;
+	//Make the height slightly smaller so no funny business happens
+	leftCollider.height -= 4;
+	leftCollider.top += 2;
 
 	//Get the collider for the player's right
 	sf::FloatRect rightCollider = m_sprite.getGlobalBounds();
@@ -114,6 +118,9 @@ void Player::Collide(GameObject &_collider)
 	rightCollider.left += m_sprite.getGlobalBounds().width - 10;
 	//Set our right collider height to be 10 pixels
 	rightCollider.width = 10;
+	//Make the height slightly smaller so no funny business happens
+	rightCollider.height -= 4;
+	rightCollider.top += 2;
 
 	//Get the collider for the player's head
 	sf::FloatRect headCollider = m_sprite.getGlobalBounds();
@@ -203,11 +210,19 @@ void Player::Collide(GameObject &_collider)
 			}
 		}
 
+		Ground* groundCollider = dynamic_cast<Ground*>(&_collider);
+
 		m_hasCollideBeenRun = true;
 		//Clumsy, results in sticky grounds but good enough for this game
 		
 	}
 
+	Hammer* hammerCollider = dynamic_cast<Hammer*>(&_collider);
+	if (hammerCollider != nullptr)
+	{
+		m_hammerCollected = true;
+		m_level->deleteObjectAt(hammerCollider);
+	}
 
 }
 

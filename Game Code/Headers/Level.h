@@ -21,6 +21,7 @@ public:
 	void ReloadLevel();
 	void loadNextLevel();
 	int GetCurrentLevel();
+	void deleteObjectAt(GridObject* _toDelete);
 
 	int getCellSize();
 
