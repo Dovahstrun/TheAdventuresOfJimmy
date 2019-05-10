@@ -374,7 +374,10 @@ void Level::loadLevel(int _levelToLoad)
 
 	///Tool Wheel
 	ToolWheel* toolWheel = new ToolWheel();
+	toolWheel->setPlayer(player);
 	m_toolWheel = toolWheel;
+	
+	
 	
 	
 

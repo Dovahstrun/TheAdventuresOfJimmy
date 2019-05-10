@@ -25,6 +25,7 @@ Player::Player()
 	, m_shearsCollected(false)
 	, m_hammerCollected(false)
 	, m_hasCollideBeenRun(false)
+	, hasCheckBeenRun(false)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -80,6 +81,11 @@ void Player::Update(sf::Time _frameTime)
 		m_touchingGround = false;
 	}
 	m_hasCollideBeenRun = false;
+
+	if (hasCheckBeenRun)
+	{
+		std::cerr << "bob";
+	}
 }
 
 void Player::Collide(GameObject &_collider)

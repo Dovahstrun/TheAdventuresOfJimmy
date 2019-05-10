@@ -35,5 +35,6 @@ private:
 	bool m_shearsCollected;
 	bool m_hammerCollected;
 	bool m_hasCollideBeenRun;
+	bool hasCheckBeenRun;
 
 };

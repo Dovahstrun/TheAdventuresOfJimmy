@@ -1,13 +1,13 @@
 //Project Includes
 #include "../Headers/Tool Wheel.h"
 #include "../../Framework/Headers/AssetManager.h"
-#include "../Headers/Player.h"
+
 
 ToolWheel::ToolWheel()
 	: SpriteObject()
+	, m_player(nullptr)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Tool wheel/Tool Wheel Empty.png"));
-	//m_sprite.setPosition(100, 1000);
 }
 
 void ToolWheel::Update(sf::Time _frameTime)
@@ -21,9 +21,14 @@ void ToolWheel::Update(sf::Time _frameTime)
 		m_active = false;
 	}
 
+	m_player->CheckTool("Hammer");
 }
 
-//void ToolWheel::Position(sf::Vector2f passedInPosition)
-//{
-//	m_sprite.setPosition(passedInPosition.x, passedInPosition.y);
-//}
+void ToolWheel::setPlayer(Player* _player)
+{
+	///make fake player
+	Player* player = new Player();
+	
+	m_player = _player;
+	
+}
