@@ -11,4 +11,5 @@ checkPos::checkPos()
 
 void checkPos::Update(sf::Time _frameTime)
 {
+
 }
