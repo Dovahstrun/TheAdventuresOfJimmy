@@ -19,4 +19,5 @@ protected:
 	sf::Vector2f m_oldPosition; //The previous position that will allow it to jump back when it collides with something
 	bool m_touchingGround;
 	bool m_touchingWall;
+	bool m_touchingCeiling;
 };

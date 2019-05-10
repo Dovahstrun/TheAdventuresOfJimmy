@@ -8,6 +8,7 @@ MovingObject::MovingObject()
 	, m_oldPosition (0.0f, 0.0f)
 	, m_touchingGround(false)
 	, m_touchingWall(false)
+	, m_touchingCeiling(false)
 {
 
 }

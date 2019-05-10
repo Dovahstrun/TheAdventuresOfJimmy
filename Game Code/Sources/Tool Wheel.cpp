@@ -12,6 +12,8 @@ ToolWheel::ToolWheel()
 
 void ToolWheel::Update(sf::Time _frameTime)
 {
+	m_sprite.setPosition(m_sprite.getPosition().x - m_sprite.getGlobalBounds().width / 2 + m_player->GetBounds().width, m_sprite.getPosition().y - m_sprite.getGlobalBounds().height / 2 + m_player->GetBounds().height / 2);
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{
 		m_active = true;
@@ -21,14 +23,13 @@ void ToolWheel::Update(sf::Time _frameTime)
 		m_active = false;
 	}
 
-	m_player->CheckTool("Hammer");
+	if (m_player->CheckTool("Hammer") && !m_player->CheckTool("Shears") && !m_player->CheckTool("Spanner"))
+	{
+		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Tool wheel/Tool Wheel Hammer.png"));
+	}
 }
 
 void ToolWheel::setPlayer(Player* _player)
 {
-	///make fake player
-	Player* player = new Player();
-	
 	m_player = _player;
-	
 }

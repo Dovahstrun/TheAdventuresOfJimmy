@@ -4,6 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include "GridObject.h"
 
+class Player;
+
+class ToolWheel;
+
 
 class Level
 {
@@ -28,8 +32,8 @@ public:
 
 private:
 
-	GameObject* m_player;
-	GameObject* m_toolWheel;
+	Player* m_player;
+	ToolWheel* m_toolWheel;
 	const float m_cellSize;
 	int m_currentLevel;
 	bool m_pendingReload;
