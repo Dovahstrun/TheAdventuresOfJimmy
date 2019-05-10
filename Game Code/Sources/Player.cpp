@@ -11,7 +11,7 @@
 
 //Constants
 #define SPEED 140.0f
-#define GRAVITY 1100.0f
+#define GRAVITY 900.0f
 #define JUMP 480.0f
 
 Player::Player()
@@ -78,6 +78,7 @@ void Player::Update(sf::Time _frameTime)
 	{
 		m_touchingWall = false;
 		m_touchingGround = false;
+		m_touchingCeiling = false;
 	}
 	m_hasCollideBeenRun = false;
 }
@@ -92,6 +93,9 @@ void Player::Collide(GameObject &_collider)
 
 	bool wereTouchingWall = m_touchingWall;
 	m_touchingWall = false;
+
+	bool wereTouchingCeiling = m_touchingCeiling;
+	m_touchingCeiling = false;
 
 	//Assume our collision will fail (that we're not touching the ground)
 	//Get the collider for the player's feet
@@ -200,10 +204,10 @@ void Player::Collide(GameObject &_collider)
 		//Is the head touching the bottom of the platform
 		if (headCollider.intersects(groundBottomRect))
 		{
-			m_touchingGround = true;
+			m_touchingCeiling = true;
 
 			//Check if we are falling downward
-			if (wereTouchingGround == false && m_velocity.y < 0)
+			if (wereTouchingCeiling == false && m_velocity.y < 0)
 			{
 				m_velocity.y = 0;
 				m_sprite.setPosition(m_sprite.getPosition().x, groundCollider->GetPosition().y + groundCollider->GetBounds().height);
