@@ -13,6 +13,8 @@ public:
 	//Overriding Methods
 	virtual void Update(sf::Time _frameTime);
 
+	void setText(sf::Vector2i _playerPos);
+
 
 private:
 

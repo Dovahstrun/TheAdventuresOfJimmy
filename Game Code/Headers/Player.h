@@ -11,16 +11,15 @@ public:
 	Player();
 
 	//Overriding Functions
-	void Input(sf::Event _gameEvent);
 	void Update(sf::Time _frameTime);
 	void Collide(GameObject& _collider);
 
 	bool CheckTool(sf::String _tool);
+	void UseTool();
 
 private:
 
-	/*bool AttemptMove(sf::Vector2i _direction);*/
-	//void AttemptMove(sf::Time _frameTime);
+
 
 private:
 
@@ -30,10 +29,17 @@ private:
 	sf::Sound m_bump;
 	sf::Sound m_gem;
 	sf::Sound m_push;
-	std::vector<sf::Text> m_tools;
 	bool m_spannerCollected;
 	bool m_shearsCollected;
 	bool m_hammerCollected;
 	bool m_hasCollideBeenRun;
+	enum tools
+	{
+		NONE,
+		HAMMER,
+		SPANNER,
+		SHEARS
+	};
+	tools m_currentTool;
 
 };

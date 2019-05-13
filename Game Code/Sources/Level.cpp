@@ -16,6 +16,7 @@
 #include "../Headers/Spider.h"
 #include "../Headers/Tool Wheel.h"
 #include "../Headers/Hammer.h"
+#include "../Headers/checkPos.h"
 
 Level::Level()
 	: m_player(nullptr)
@@ -38,9 +39,8 @@ void Level::Draw(sf::RenderTarget & _target)
 	//Create and update camera
 	sf::View camera = _target.getDefaultView();
 	camera.setCenter(m_player->GetPosition());
-	//camera.setCenter(0, 0);
 
-	//TODO: Adjust camera as needed
+	//Adjust camera as needed
 	camera.zoom(1);
 
 
@@ -85,6 +85,7 @@ void Level::Draw(sf::RenderTarget & _target)
 		m_toolWheel->Draw(_target);
 	}
 
+	m_gridPos->Draw(_target);
 
 }
 
@@ -121,6 +122,8 @@ void Level::Update(sf::Time _frameTime)
 		//Set pending reload to false
 		m_pendingReload = false;
 	}
+
+	m_gridPos->setText(m_player->getGridPosition());
 }
 
 void Level::Collision()
@@ -330,6 +333,7 @@ void Level::loadLevel(int _levelToLoad)
 				wood->setLevel(this);
 				wood->setGridPosition(x, y);
 				m_contents[y][x].push_back(wood);
+				m_collisionList.push_back(std::make_pair(player, wood));
 			}
 			else if (ch == 'W')
 			{
@@ -337,6 +341,7 @@ void Level::loadLevel(int _levelToLoad)
 				web->setLevel(this);
 				web->setGridPosition(x, y);
 				m_contents[y][x].push_back(web);
+				m_collisionList.push_back(std::make_pair(player, web));
 			}
 			else if (ch == 'A')
 			{
@@ -377,7 +382,9 @@ void Level::loadLevel(int _levelToLoad)
 	m_toolWheel = toolWheel;
 	m_toolWheel->setPlayer(m_player);
 	
-	
+	checkPos* gridpos = new checkPos();
+	m_gridPos = gridpos;
+
 }
 
 void Level::ReloadLevel()

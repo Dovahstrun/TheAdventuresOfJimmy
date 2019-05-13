@@ -6,8 +6,10 @@
 #include "../../Framework/Headers/AssetManager.h"
 #include "../Headers/Level.h"
 #include "../Headers/Ground.h"
+#include "../Headers/Wood.h"
 #include "../Headers/Tool Wheel.h"
 #include "../Headers/Hammer.h"
+#include "../Headers/Web.h"
 
 //Constants
 #define SPEED 140.0f
@@ -25,6 +27,7 @@ Player::Player()
 	, m_shearsCollected(false)
 	, m_hammerCollected(false)
 	, m_hasCollideBeenRun(false)
+	, m_currentTool(NONE)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -35,11 +38,6 @@ Player::Player()
 	m_push.setBuffer(AssetManager::GetSoundBuffer("resources/audio/push.wav"));
 	m_push.setVolume(40);
 	m_blocksMovement = false;
-}
-
-void Player::Input(sf::Event _gameEvent)
-{
-	
 }
 
 void Player::Update(sf::Time _frameTime)
@@ -184,7 +182,7 @@ void Player::Collide(GameObject &_collider)
 			if (wereTouchingWall == false && m_velocity.x < 0)
 			{
 				m_velocity.x = 0;
-				m_sprite.setPosition(groundCollider->GetPosition().x + groundCollider->GetBounds().width, m_sprite.getPosition().y);
+  				m_sprite.setPosition(groundCollider->GetPosition().x + groundCollider->GetBounds().width, m_sprite.getPosition().y);
 			}
 		}
 
@@ -214,45 +212,112 @@ void Player::Collide(GameObject &_collider)
 			}
 		}
 
-		Ground* groundCollider = dynamic_cast<Ground*>(&_collider);
-
 		m_hasCollideBeenRun = true;
 		//Clumsy, results in sticky grounds but good enough for this game
 		
+	}
+
+	//Check if the collider was wood, if so, do same stuff as ground
+	Wood* woodCollider = dynamic_cast<Wood*>(&_collider);
+
+	if (woodCollider != nullptr)
+	{
+		//the player did hit a wood
+		//Go back to the position that the player was in before
+
+		//Create platform top collider
+		sf::FloatRect woodTopRect = woodCollider->GetBounds();
+		woodTopRect.height = 10;
+
+		//Create the platform left collider
+		sf::FloatRect woodLeftRect = woodCollider->GetBounds();
+		woodLeftRect.width = 10;
+
+		//Create the platform right collider
+		sf::FloatRect woodRightRect = woodCollider->GetBounds();
+		woodRightRect.left += woodCollider->GetBounds().width - 10;
+		woodRightRect.width = 10;
+
+		//Create the platform bottom collider
+		sf::FloatRect woodBottomRect = woodCollider->GetBounds();
+		woodBottomRect.top += woodCollider->GetBounds().width - 10;
+		woodBottomRect.height = 10;
+
+		//Are the feet touching the top of the platform
+		if (feetCollider.intersects(woodTopRect))
+		{
+			m_touchingGround = true;
+
+			//Check if we are falling downward
+			if (wereTouchingGround == false && m_velocity.y > 0)
+			{
+				m_velocity.y = 0;
+				m_sprite.setPosition(m_sprite.getPosition().x, woodCollider->GetPosition().y - m_sprite.getGlobalBounds().height);
+			}
+		}
+
+		//Is the player's left side touching the right of a wall
+		if (leftCollider.intersects(woodRightRect))
+		{
+			m_touchingWall = true;
+			std::cerr << wereTouchingWall;
+			//Check if we are moving left
+			if (wereTouchingWall == false && m_velocity.x < 0)
+			{
+				m_velocity.x = 0;
+				m_sprite.setPosition(woodCollider->GetPosition().x + woodCollider->GetBounds().width, m_sprite.getPosition().y);
+			}
+		}
+
+		//Is the player's right side touching the left of a wall
+		if (rightCollider.intersects(woodLeftRect))
+		{
+			m_touchingWall = true;
+			std::cerr << wereTouchingWall;
+			//Check if we are moving right
+			if (wereTouchingWall == false && m_velocity.x > 0)
+			{
+				m_velocity.x = 0;
+				m_sprite.setPosition(woodCollider->GetPosition().x - m_sprite.getGlobalBounds().width, m_sprite.getPosition().y);
+
+			}
+		}
+		//Is the head touching the bottom of the platform
+		if (headCollider.intersects(woodBottomRect))
+		{
+			m_touchingCeiling = true;
+
+			//Check if we are falling downward
+			if (wereTouchingCeiling == false && m_velocity.y < 0)
+			{
+				m_velocity.y = 0;
+				m_sprite.setPosition(m_sprite.getPosition().x, woodCollider->GetPosition().y + woodCollider->GetBounds().height);
+			}
+		}
+
+		m_hasCollideBeenRun = true;
+		//Clumsy, results in sticky woods but good enough for this game
+
+	}
+
+	//Check if the collider was a web, if so, move slowly
+	Web* webCollider = dynamic_cast<Web*>(&_collider);
+
+	if (webCollider != nullptr)
+	{
+		m_velocity.x /= 2;
+		m_velocity.y /= 2;
 	}
 
 	Hammer* hammerCollider = dynamic_cast<Hammer*>(&_collider);
 	if (hammerCollider != nullptr)
 	{
 		m_hammerCollected = true;
+		m_currentTool = HAMMER;
 		m_level->deleteObjectAt(hammerCollider);
 	}
 
 }
-
-//void Player::AttemptMove(sf::Time _frameTime)
-//{
-//	sf::RectangleShape testRect;
-//	testRect.setSize(m_sprite.getScale());
-//	testRect.setPosition(m_sprite.getPosition());
-//	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
-//	if (m_level->Collision(testRect))
-//	{
-//		if (m_velocity.x != 0)
-//		{
-//			m_velocity.x = 0;
-//		}
-//	}
-//	testRect.setPosition(m_sprite.getPosition());
-//	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
-//	if (m_level->Collision(testRect))
-//	{
-//		if (m_velocity.y != 0)
-//		{
-//			m_velocity.y = 0;
-//		}
-//	}
-//}
 
 bool Player::CheckTool(sf::String _tool)
 {
@@ -280,138 +345,3 @@ bool Player::CheckTool(sf::String _tool)
 	return false;
 }
 
-//void Player::AttemptMove(sf::Time _frameTime)
-//{
-//	sf::RectangleShape testRect;
-//	testRect.setSize(m_sprite.getScale());
-//	testRect.setPosition(m_sprite.getPosition());
-//	testRect.move(m_velocity.x * _frameTime.asSeconds(), 0);
-//	if (m_level->Collision(testRect))
-//	{
-//		if (m_velocity.x != 0)
-//		{
-//			m_velocity.x = 0;
-//		}
-//	}
-//	testRect.setPosition(m_sprite.getPosition());
-//	testRect.move(0, m_velocity.y * _frameTime.asSeconds());
-//	if (m_level->Collision(testRect))
-//	{
-//		if (m_velocity.y != 0)
-//		{
-//			m_velocity.y = 0;
-//		}
-//	}
-//}
-
-
-
-//bool Player::AttemptMove(sf::Vector2i _direction)
-//{
-//	//Attempt to move in the given direction
-//
-//	//Get your current position
-//	//Calculate target position
-//	sf::Vector2i targetPos = m_gridPosition + _direction;
-//
-//	//TODO: Check if the space is empty
-//	//Get list of objects in target position (targetpos)
-//	std::vector<GridObject*> targetCellContents = m_level->getObjectAt(targetPos);
-//	//Check if any of those objects block movement
-//	bool blocked = false;
-//	GridObject* blocker = nullptr;
-//	for (int i = 0; i < targetCellContents.size(); ++i)
-//	{
-//		if (targetCellContents[i]->getBlocksMovement() == true)
-//		{
-//			blocked = true;
-//			blocker = targetCellContents[i];
-//		}
-//	}
-//
-//	//If empty move there
-//
-//	if (!blocked)
-//	{
-//		m_footstep.play();
-//		return m_level->MoveObjectTo(this, targetPos);
-//	}
-//	else
-//	{
-//		//We were blocked!
-//
-//		//Can we interact with the thing blocking us?
-//		//Do a dynamic cast to dirt to see if we can dig it
-//		Dirt* dugDirt = dynamic_cast<Dirt*>(blocker);
-//
-//		//If so, attempt to dig (the blocker is dirt, not nullptr)
-//		if (dugDirt != nullptr)
-//		{
-//			//Delete the dirt
-//			m_level->deleteObjectAt(dugDirt);
-//			
-//			//Play dig sound
-//			m_dig.play();
-//
-//			//Move to new spot (where dirt was)
-//			return m_level->MoveObjectTo(this, targetPos);
-//		}
-//
-//		//Can we interact with the thing blocking us?
-//		//Do a dynamic cast to diamond to see if we can collect it
-//		Diamond* diamond = dynamic_cast<Diamond*>(blocker);
-//
-//		//If so, attempt to collect (the blocker is a diamond, not nullptr)
-//		if (diamond != nullptr)
-//		{
-//			//Delete the diamond
-//			m_level->deleteObjectAt(diamond);
-//
-//			//Play gem sound
-//			m_gem.play();
-//
-//			//Check if the level is complete
-//			m_level->canExitOpen();
-//
-//			//Move to new spot (where diamond was)
-//			return m_level->MoveObjectTo(this, targetPos);
-//		}
-//
-//		//Do a dynamic cast to boulder to see if we can move it
-//		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
-//
-//		//If so, attempt to push (the blocker is a boulder, not nullptr)
-//		if (boulder != nullptr)
-//		{
-//			//Move the boulder
-//			bool boulderMove = boulder->AttemptPush(_direction);
-//
-//			//If the boulder moved, move the player
-//			if (boulderMove)
-//			{
-//				//Play push sound
-//				m_push.play();
-//
-//				//Move player
-//				return m_level->MoveObjectTo(this, targetPos);
-//			}
-//		}
-//
-//		//Do a dynamic cast to theExit to see if we can move it
-//		Exit* theExit = dynamic_cast<Exit*>(blocker);
-//
-//		//If so, attempt to push (the blocker is an exit, not nullptr)
-//		if (theExit != nullptr)
-//		{
-//			m_level->checkComplete();
-//
-//			//Move player
-//			return m_level->MoveObjectTo(this, targetPos);
-//		}
-//
-//	}
-//
-//	//If movement is blocked, do nothing, return false
-//	m_bump.play();
-//	return false;
-//}

@@ -8,6 +8,7 @@ class Player;
 
 class ToolWheel;
 
+class checkPos;
 
 class Level
 {
@@ -34,6 +35,7 @@ private:
 
 	Player* m_player;
 	ToolWheel* m_toolWheel;
+	checkPos* m_gridPos;
 	const float m_cellSize;
 	int m_currentLevel;
 	bool m_pendingReload;
