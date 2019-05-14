@@ -365,8 +365,6 @@ void Player::UseTool()
 	{
 		std::cerr << ("bob");
 	}
-
-
 }
 
 void Player::setToolWheel(ToolWheel * _toolWheel)
