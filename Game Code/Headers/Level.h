@@ -20,7 +20,7 @@ public:
 	virtual void Draw(sf::RenderTarget& _target);
 	virtual void Update(sf::Time _frameTime);
 	virtual void Collision();
-	virtual bool Collision(sf::RectangleShape _testRect);
+	virtual GameObject& ToolCollision(sf::FloatRect _toolRect);
 	void Input(sf::Event _gameEvent);
 
 	void loadLevel(int _levelToLoad);

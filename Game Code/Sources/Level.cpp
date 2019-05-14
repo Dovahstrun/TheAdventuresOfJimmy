@@ -148,7 +148,7 @@ void Level::Collision()
 	}
 }
 
-bool Level::Collision(sf::RectangleShape _testRect)
+GameObject& Level::ToolCollision(sf::FloatRect _toolRect)
 {
 	
 
@@ -161,18 +161,14 @@ bool Level::Collision(sf::RectangleShape _testRect)
 			// sticky outies (grid objects)
 			for (int z = 0; z < m_contents[y][x].size(); ++z)
 			{
-				if (_testRect.getGlobalBounds().intersects(m_contents[y][x][z]->GetBounds()))
+				if (_toolRect.intersects(m_contents[y][x][z]->GetBounds()))
 				{
-					if (m_contents[y][x][z]->getBlocksMovement())
-					{
-						return true;
-					}
+					GameObject* collider = m_contents[y][x][z];
+					return *collider;
 				}
 			}
 		}
 	}
-
-	return false;
 }
 
 void Level::Input(sf::Event _gameEvent)

@@ -17,12 +17,11 @@ public:
 	void Collide(GameObject& _collider);
 
 	bool CheckTool(sf::String _tool);
-	void UseTool();
 	void setToolWheel(ToolWheel* _toolWheel);
 
 private:
 
-
+	void UseTool();
 
 private:
 

@@ -75,8 +75,9 @@ void Player::Update(sf::Time _frameTime)
 	{
 		float velocityChange = GRAVITY * _frameTime.asSeconds();
 		m_velocity.y += velocityChange;
-		//AttemptMove(_frameTime);
 	}
+
+	//A checker to determine if collide has been run, and if it hasn't then it resets the touching variables.
 	if (m_hasCollideBeenRun == false)
 	{
 		m_touchingWall = false;
@@ -265,7 +266,6 @@ void Player::Collide(GameObject &_collider)
 		if (leftCollider.intersects(woodRightRect))
 		{
 			m_touchingWall = true;
-			std::cerr << wereTouchingWall;
 			//Check if we are moving left
 			if (wereTouchingWall == false && m_velocity.x < 0)
 			{
@@ -352,6 +352,20 @@ bool Player::CheckTool(sf::String _tool)
 
 void Player::UseTool()
 {
+	sf::FloatRect toolCollider = m_sprite.getGlobalBounds();
+	toolCollider.top += m_sprite.getGlobalBounds().height / 2 - 5;
+	toolCollider.height = 10;
+
+	toolCollider.width += 10;
+	toolCollider.left -= 5;
+
+	GameObject& collider = m_level->ToolCollision(toolCollider);
+	Wood* woodCollider = dynamic_cast<Wood*>(&collider);
+	if (woodCollider != nullptr)
+	{
+		std::cerr << ("bob");
+	}
+
 
 }
 
