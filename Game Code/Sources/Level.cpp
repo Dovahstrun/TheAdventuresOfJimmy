@@ -21,6 +21,7 @@
 Level::Level()
 	: m_player(nullptr)
 	, m_toolWheel(nullptr)
+	, m_gridPos(nullptr)
 	, m_cellSize(64.0f)
 	, m_currentLevel(0)
 	, m_pendingReload(false)

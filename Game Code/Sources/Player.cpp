@@ -64,10 +64,10 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y = -JUMP;
 		m_touchingGround = false;
 	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !m_toolWheel->isActive())
-	{
+	//if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !m_toolWheel->isActive())
+	//{
 		UseTool();
-	}
+	//}
 
 
 	//Apply gravity to our velocity
@@ -183,7 +183,6 @@ void Player::Collide(GameObject &_collider)
 		if (leftCollider.intersects(groundRightRect))
 		{
 			m_touchingWall = true;
-			std::cerr << wereTouchingWall;
 			//Check if we are moving left
 			if (wereTouchingWall == false && m_velocity.x < 0)
 			{
@@ -196,7 +195,6 @@ void Player::Collide(GameObject &_collider)
 		if (rightCollider.intersects(groundLeftRect))
 		{
 			m_touchingWall = true;
-			std::cerr << wereTouchingWall;
 			//Check if we are moving right
 			if (wereTouchingWall == false && m_velocity.x > 0)
 			{
@@ -278,7 +276,6 @@ void Player::Collide(GameObject &_collider)
 		if (rightCollider.intersects(woodLeftRect))
 		{
 			m_touchingWall = true;
-			std::cerr << wereTouchingWall;
 			//Check if we are moving right
 			if (wereTouchingWall == false && m_velocity.x > 0)
 			{
@@ -356,8 +353,8 @@ void Player::UseTool()
 	toolCollider.top += m_sprite.getGlobalBounds().height / 2 - 5;
 	toolCollider.height = 10;
 
-	toolCollider.width += 10;
-	toolCollider.left -= 5;
+	toolCollider.width += 20;
+	toolCollider.left -= 10;
 
 	GameObject& collider = m_level->ToolCollision(toolCollider);
 	Wood* woodCollider = dynamic_cast<Wood*>(&collider);
