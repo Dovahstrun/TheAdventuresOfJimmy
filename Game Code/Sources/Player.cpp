@@ -64,6 +64,11 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y = -JUMP;
 		m_touchingGround = false;
 	}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !m_toolWheel->isActive())
+	{
+		UseTool();
+	}
+
 
 	//Apply gravity to our velocity
 	if (m_touchingGround == false)
@@ -343,5 +348,15 @@ bool Player::CheckTool(sf::String _tool)
 		}
 	}
 	return false;
+}
+
+void Player::UseTool()
+{
+
+}
+
+void Player::setToolWheel(ToolWheel * _toolWheel)
+{
+	m_toolWheel = _toolWheel;
 }
 

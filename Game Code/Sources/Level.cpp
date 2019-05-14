@@ -381,6 +381,7 @@ void Level::loadLevel(int _levelToLoad)
 	ToolWheel* toolWheel = new ToolWheel();
 	m_toolWheel = toolWheel;
 	m_toolWheel->setPlayer(m_player);
+	m_player->setToolWheel(m_toolWheel);
 	
 	checkPos* gridpos = new checkPos();
 	m_gridPos = gridpos;

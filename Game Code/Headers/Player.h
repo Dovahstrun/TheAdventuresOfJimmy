@@ -3,6 +3,8 @@
 // Project Includes
 #include "MovingObject.h"
 
+class ToolWheel;
+
 class Player : public MovingObject
 {
 
@@ -16,6 +18,7 @@ public:
 
 	bool CheckTool(sf::String _tool);
 	void UseTool();
+	void setToolWheel(ToolWheel* _toolWheel);
 
 private:
 
@@ -41,5 +44,6 @@ private:
 		SHEARS
 	};
 	tools m_currentTool;
+	ToolWheel* m_toolWheel;
 
 };
