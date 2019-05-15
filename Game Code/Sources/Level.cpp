@@ -113,6 +113,8 @@ void Level::Update(sf::Time _frameTime)
 
 	Collision();
 
+	m_gridPos->setText(m_player->getGridPosition());
+
 	//If there is a pending reload waiting
 	if (m_pendingReload)
 	{
@@ -124,7 +126,7 @@ void Level::Update(sf::Time _frameTime)
 		m_pendingReload = false;
 	}
 
-	m_gridPos->setText(m_player->getGridPosition());
+	
 }
 
 void Level::Collision()
@@ -444,6 +446,10 @@ void Level::deleteObjectAt(GridObject * _toDelete)
 		}
 	}
 
+}
+
+void Level::checkLevelBounds()
+{
 }
 
 int Level::getCellSize()
