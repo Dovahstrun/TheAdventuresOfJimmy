@@ -23,12 +23,12 @@ Level::Level()
 	, m_toolWheel(nullptr)
 	, m_gridPos(nullptr)
 	, m_cellSize(64.0f)
-	, currentLevel(0)
 	, m_pendingReload(false)
 	, m_background()
 	, m_contents()
 	, m_collisionList()
 	, m_currentLevel(RIGHT)
+	, m_oldLevel(RIGHT)
 {
 	loadLevel(RIGHT);
 }
@@ -243,6 +243,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 	///Setup everything
 
 	//Set current level
+	m_oldLevel = m_currentLevel;
 	m_currentLevel = _levelToLoad;
 
 	//Set up all the game objects
@@ -401,7 +402,7 @@ void Level::loadNextLevel()
 {
 }
 
-levelenum Level::GetCurrentLevel()
+int Level::GetCurrentLevel()
 {
 	return m_currentLevel;
 }

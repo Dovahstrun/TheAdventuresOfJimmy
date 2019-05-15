@@ -37,8 +37,9 @@ public:
 	void loadLevel(levelenum _levelToLoad);
 	void ReloadLevel();
 	void loadNextLevel();
-	levelenum GetCurrentLevel();
+	int GetCurrentLevel();
 	void deleteObjectAt(GridObject* _toDelete);
+	void checkLevelBounds();
 
 	int getCellSize();
 
@@ -48,10 +49,10 @@ private:
 	ToolWheel* m_toolWheel;
 	checkPos* m_gridPos;
 	const float m_cellSize;
-	int currentLevel;
 	bool m_pendingReload;
 	std::vector<std::vector<sf::Sprite> > m_background;
 	std::vector<std::vector<std::vector<GridObject*> > > m_contents;
 	std::vector<std::pair<GameObject*, GameObject*> > m_collisionList;
 	levelenum m_currentLevel;
+	levelenum m_oldLevel;
 };
