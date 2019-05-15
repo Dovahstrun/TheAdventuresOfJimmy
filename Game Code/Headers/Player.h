@@ -44,5 +44,13 @@ private:
 	};
 	tools m_currentTool;
 	ToolWheel* m_toolWheel;
+	enum directions
+	{
+		LEFT,
+		RIGHT,
+		UP,
+		DOWN
+	};
+	directions m_previousDirection;
 
 };

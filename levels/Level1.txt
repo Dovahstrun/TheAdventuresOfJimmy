@@ -13,9 +13,9 @@ G - - - - - H G G G G G G G L - - - G G G - S - W N G
 G G G G G G G G G G G G G G G G G G G G G G G G G G G
 G G G G G G G G G G G G G G G G G G G G G G G G G G G
 G - - - - - - - - G G - - - - - G G G G H H - - - - G
-G - - - - - - - - G G - - - P - - G G - H H - - - - G
+G - - - - - - - - G G - - - - - - G G - H H - - - - G
 G - - - - - - - - G G - - - H - - W - - H H G - N N G
-- - - - - - - - - G G - - - H - G G - - H G G - N N G
+- - - - - - - - - G G - - - H P G G - - H G G - N N G
 G G G G G G G L G G G G G L G G G G G G G G G L G G G
 G G G G G G G L G G G G G L G G G G G G G G G L G G G
 G - - W N G G L G W G G G L H - - - - - - G G L - G G

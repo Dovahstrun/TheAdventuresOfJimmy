@@ -23,14 +23,14 @@ Level::Level()
 	, m_toolWheel(nullptr)
 	, m_gridPos(nullptr)
 	, m_cellSize(64.0f)
-	, m_currentLevel(0)
+	, currentLevel(0)
 	, m_pendingReload(false)
 	, m_background()
 	, m_contents()
 	, m_collisionList()
-	, currentLevel(RIGHT)
+	, m_currentLevel(RIGHT)
 {
-	loadLevel(1);
+	loadLevel(RIGHT);
 }
 
 void Level::Draw(sf::RenderTarget & _target)
@@ -165,11 +165,18 @@ GameObject& Level::ToolCollision(sf::FloatRect _toolRect)
 				if (_toolRect.intersects(m_contents[y][x][z]->GetBounds()))
 				{
 					GameObject* collider = m_contents[y][x][z];
-					return *collider;
+					Player* playerCollider = dynamic_cast<Player*>(collider);
+					Ladder* ladderCollider = dynamic_cast<Ladder*>(collider);
+					Web* webCollider = dynamic_cast<Web*>(collider);
+					if (playerCollider == nullptr && ladderCollider == nullptr && webCollider == nullptr)
+						return *collider;
 				}
 			}
 		}
 	}
+
+	GameObject* nothing = nullptr;
+	return *nothing;
 }
 
 void Level::Input(sf::Event _gameEvent)
@@ -210,7 +217,7 @@ void Level::Input(sf::Event _gameEvent)
 }
 
 
-void Level::loadLevel(int _levelToLoad)
+void Level::loadLevel(levelenum _levelToLoad)
 {
 
 	///Cleanup the old level
@@ -241,7 +248,7 @@ void Level::loadLevel(int _levelToLoad)
 	//Set up all the game objects
 	//Open our file for reading
 	std::ifstream inFile;
-	std::string fileName = "levels/Level" + std::to_string(m_currentLevel) + ".txt";
+	std::string fileName = "levels/Level " + std::to_string(m_currentLevel) + ".txt";
 	inFile.open(fileName);
 
 	//Make sure the file was opened
@@ -394,7 +401,7 @@ void Level::loadNextLevel()
 {
 }
 
-int Level::GetCurrentLevel()
+levelenum Level::GetCurrentLevel()
 {
 	return m_currentLevel;
 }

@@ -13,6 +13,17 @@ class checkPos;
 class Level
 {
 
+private: //ENUMS
+
+	enum levelenum
+	{
+		LEFT,
+		RIGHT,
+		TOP,
+		BOTTOM,
+		CENTER
+	};
+
 public:
 
 	Level();
@@ -23,10 +34,10 @@ public:
 	virtual GameObject& ToolCollision(sf::FloatRect _toolRect);
 	void Input(sf::Event _gameEvent);
 
-	void loadLevel(int _levelToLoad);
+	void loadLevel(levelenum _levelToLoad);
 	void ReloadLevel();
 	void loadNextLevel();
-	int GetCurrentLevel();
+	levelenum GetCurrentLevel();
 	void deleteObjectAt(GridObject* _toDelete);
 
 	int getCellSize();
@@ -37,18 +48,10 @@ private:
 	ToolWheel* m_toolWheel;
 	checkPos* m_gridPos;
 	const float m_cellSize;
-	int m_currentLevel;
+	int currentLevel;
 	bool m_pendingReload;
 	std::vector<std::vector<sf::Sprite> > m_background;
 	std::vector<std::vector<std::vector<GridObject*> > > m_contents;
 	std::vector<std::pair<GameObject*, GameObject*> > m_collisionList;
-	enum levelenum
-	{
-		LEFT,
-		RIGHT,
-		TOP,
-		BOTTOM,
-		CENTER
-	};
-	levelenum currentLevel;
+	levelenum m_currentLevel;
 };
