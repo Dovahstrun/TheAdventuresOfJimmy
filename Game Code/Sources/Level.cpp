@@ -81,7 +81,7 @@ void Level::Draw(sf::RenderTarget & _target)
 	//Draw UI objects
 	if (m_toolWheel->isActive())
 	{
-		m_toolWheel->SetPosition(camera.getSize().x / 2 - m_toolWheel->GetBounds().width / 2 + m_player->GetBounds().width / 2, 
+		m_toolWheel->SetPosition(camera.getSize().x / 2 - m_toolWheel->GetBounds().width / 2 + m_player->GetBounds().width / 2,
 			camera.getSize().y / 2 - m_toolWheel->GetBounds().height / 2 + m_player->GetBounds().height / 2);
 		m_toolWheel->Draw(_target);
 	}
@@ -113,7 +113,7 @@ void Level::Update(sf::Time _frameTime)
 
 	Collision();
 
-	m_gridPos->setText(m_player->getGridPosition());
+	m_gridPos->setText(m_toolWheel->GetPosition());
 
 	//If there is a pending reload waiting
 	if (m_pendingReload)
@@ -248,10 +248,33 @@ void Level::loadLevel(levelenum _levelToLoad)
 	m_oldLevel = m_currentLevel;
 	m_currentLevel = _levelToLoad;
 
+	sf::String nameOfLevel = std::to_string(m_currentLevel);
+		switch (m_currentLevel)
+		{
+			case LEFT:
+				nameOfLevel = "LEFT";
+				break;
+			case RIGHT:
+				nameOfLevel = "RIGHT";
+				break;
+			case TOP:
+				nameOfLevel = "TOP";
+				break;
+			case BOTTOM:
+				nameOfLevel = "BOTTOM";
+				break;
+			case CENTER: 
+				nameOfLevel = "CENTER";
+				break;
+		}
+	
+
+
+
 	//Set up all the game objects
 	//Open our file for reading
 	std::ifstream inFile;
-	std::string fileName = "levels/Level " + std::to_string(m_currentLevel) + ".txt";
+	std::string fileName = "levels/Level " + nameOfLevel + ".txt";
 	inFile.open(fileName);
 
 	//Make sure the file was opened

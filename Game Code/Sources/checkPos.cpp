@@ -13,7 +13,7 @@ void checkPos::Update(sf::Time _frameTime)
 {
 }
 
-void checkPos::setText(sf::Vector2i _playerPos)
+void checkPos::setText(sf::Vector2f _playerPos)
 {
 	m_text.setString("Pos: " + std::to_string(_playerPos.x) + ", " + std::to_string(_playerPos.y));
 }
