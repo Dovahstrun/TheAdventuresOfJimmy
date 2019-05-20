@@ -20,6 +20,7 @@ int main()
 	// Window - to draw to the screen
 	sf::RenderWindow gameWindow;
 	gameWindow.create(sf::VideoMode::getDesktopMode(), "The Adventures of Jimmy", sf::Style::Titlebar | sf::Style::Close);
+	gameWindow.setMouseCursorVisible(false);
 
 	// Seed our random number generator 
 	srand(time(NULL));
@@ -82,6 +83,9 @@ int main()
 
 		//Pass update to level
 		ourLevel.Update(frameTime);
+
+		//Lock the mouse's position
+		sf::Mouse::setPosition(sf::Vector2i(50,50));
 
 		///---------------------------------------------
 		///END UPDATE

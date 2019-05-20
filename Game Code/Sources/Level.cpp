@@ -22,7 +22,7 @@ Level::Level()
 	: m_player(nullptr)
 	, m_toolWheel(nullptr)
 	, m_gridPos(nullptr)
-	, m_cellSize(64.0f)
+	, m_cellSize(128.0f)
 	, m_pendingReload(false)
 	, m_background()
 	, m_contents()
@@ -318,7 +318,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 		else
 		{
 			//Create background sprite (this is going to be some object/empty space, so we need a background)
-			m_background[y].push_back(sf::Sprite(AssetManager::GetTexture("resources/graphics/ground.png")));
+			m_background[y].push_back(sf::Sprite(AssetManager::GetTexture("resources/graphics/environment/panels128r3.png")));
 			m_background[y][x].setPosition(x*m_cellSize, y*m_cellSize);
 
 			//Create an empty vector for our grid contents in this cell

@@ -5,6 +5,6 @@
 Ground::Ground()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/wall.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/environment/Wall.png"));
 	m_blocksMovement = true;
 }

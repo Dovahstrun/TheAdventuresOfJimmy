@@ -12,9 +12,9 @@
 #include "../Headers/Web.h"
 
 //Constants
-#define SPEED 140.0f
-#define GRAVITY 1100.0f
-#define JUMP 480.0f
+#define SPEED 200.0f
+#define GRAVITY 1250.0f
+#define JUMP 620.0f
 
 Player::Player()
 	: MovingObject()
@@ -66,7 +66,7 @@ void Player::Update(sf::Time _frameTime)
 		m_velocity.y = -JUMP;
 		m_touchingGround = false;
 	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !m_toolWheel->isActive())
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !m_toolWheel->isActive() && m_currentTool == HAMMER)
 	{
 		UseTool();
 	}
