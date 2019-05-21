@@ -42,7 +42,7 @@ void Level::Draw(sf::RenderTarget & _target)
 	camera.setCenter(m_player->GetPosition());
 
 	//Adjust camera as needed
-	camera.zoom(1);
+	camera.zoom(0.5f);
 
 
 	//Draw game world to the camera
