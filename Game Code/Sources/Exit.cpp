@@ -37,3 +37,8 @@ void Exit::setExitType(char _ch)
 
 	}
 }
+
+Exit::exittypes Exit::getExitType()
+{
+	return exitType;
+}

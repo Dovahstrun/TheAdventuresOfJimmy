@@ -10,17 +10,6 @@ class Player : public MovingObject
 
 private: //ENUMS
 
-	enum exittypes
-	{
-		TOP,
-		TOPRIGHT,
-		LEFT,
-		RIGHT,
-		BOTTOMLEFT,
-		BOTTOMRIGHT,
-		BOTTOM
-	};
-
 	enum tools
 	{
 		NONE,

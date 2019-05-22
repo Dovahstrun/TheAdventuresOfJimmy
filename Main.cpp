@@ -85,7 +85,7 @@ int main()
 		ourLevel.Update(frameTime);
 
 		//Lock the mouse's position
-		sf::Mouse::setPosition(sf::Vector2i(50,50));
+		//sf::Mouse::setPosition(sf::Vector2i(50,50));
 
 		///---------------------------------------------
 		///END UPDATE

@@ -13,7 +13,7 @@ class checkPos;
 class Level
 {
 
-private: //ENUMS
+public: //ENUMS
 
 	enum levelenum
 	{
@@ -36,7 +36,7 @@ public:
 
 	void loadLevel(levelenum _levelToLoad);
 	void ReloadLevel();
-	void loadNextLevel();
+	void loadNextLevel(levelenum _newLevel);
 	int GetCurrentLevel();
 	void deleteObjectAt(GridObject* _toDelete);
 	void checkLevelBounds();

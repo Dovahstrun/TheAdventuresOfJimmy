@@ -5,7 +5,7 @@
 
 class Exit : public GridObject
 {
-private:
+public:
 
 	enum exittypes
 	{

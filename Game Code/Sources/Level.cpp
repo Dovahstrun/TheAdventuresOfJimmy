@@ -76,18 +76,20 @@ void Level::Draw(sf::RenderTarget & _target)
 		}
 	}
 
+	if (m_toolWheel->isActive())
+	{
+		//m_toolWheel->SetPosition(camera.getSize().x / 2 - m_toolWheel->GetBounds().width / 2 + m_player->GetBounds().width / 2,
+			//camera.getSize().y / 2 - m_toolWheel->GetBounds().height / 2 + m_player->GetBounds().height / 2);
+		m_toolWheel->Draw(_target);
+	}
+
 	///UI
 	// Draw UI to the window
 	_target.setView(_target.getDefaultView());
 
 
 	//Draw UI objects
-	if (m_toolWheel->isActive())
-	{
-		m_toolWheel->SetPosition(camera.getSize().x / 2 - m_toolWheel->GetBounds().width / 2 + m_player->GetBounds().width / 2,
-			camera.getSize().y / 2 - m_toolWheel->GetBounds().height / 2 + m_player->GetBounds().height / 2);
-		m_toolWheel->Draw(_target);
-	}
+	
 
 	m_gridPos->Draw(_target);
 
@@ -497,8 +499,9 @@ void Level::ReloadLevel()
 	loadLevel(m_currentLevel);
 }
 
-void Level::loadNextLevel()
+void Level::loadNextLevel(levelenum _newLevel)
 {
+	m_levelToLoad = _newLevel;
 	m_pendingLoad = true;
 }
 

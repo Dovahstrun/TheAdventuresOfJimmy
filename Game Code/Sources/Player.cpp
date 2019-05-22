@@ -324,7 +324,30 @@ void Player::Collide(GameObject &_collider)
 	
 	if (exitCollider != nullptr)
 	{
-		m_level->loadNextLevel();
+		switch (exitCollider->getExitType())
+		{
+		case Exit::TOP:
+			m_level->loadNextLevel(Level::TOP);
+			break;
+		case Exit::TOPRIGHT:
+			m_level->loadNextLevel(Level::RIGHT);
+			break;
+		case Exit::LEFT:
+			m_level->loadNextLevel(Level::LEFT);
+			break;
+		case Exit::RIGHT:
+			m_level->loadNextLevel(Level::RIGHT);
+			break;
+		case Exit::BOTTOMLEFT:
+			m_level->loadNextLevel(Level::LEFT);
+			break;
+		case Exit::BOTTOMRIGHT:
+			m_level->loadNextLevel(Level::RIGHT);
+			break;
+		case Exit::BOTTOM:
+			m_level->loadNextLevel(Level::BOTTOM);
+			break;
+		}
 	}
 
 }
