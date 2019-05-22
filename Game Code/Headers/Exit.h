@@ -22,7 +22,7 @@ public:
 
 	Exit();
 
-	void setExitType(char _ch);
+	void setExitType(int _type);
 	exittypes getExitType();
 
 

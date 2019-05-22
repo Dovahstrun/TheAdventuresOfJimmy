@@ -9,13 +9,13 @@ G G G G G S W H G - - - W W - L - G G G G G G G G G G
 G G G G G G H H G - - - - W - L - - - - - W W W - - G
 G G G - - H H G G W G - - - - L - - A - - - W - W - G
 G G G - - H G - - W G G - - - L - - W - - W - - - - G
-G - S N - G - - - W G G G F - L - - W - - - - - - - -
+G - S N - G - - - W G G G F - L - - W - - - - - - P 3
 G L G G G - - - N N G G G G G G G G W - - - - G G G G
 G L G G G - - - N N G G G G G G G G W - - - G G G G G
 G L G G G L G G G G G G G G G G G G G G G G G G G G G
 G L G G G L - H - - - - - G H - - - - G - - - W W - G
 G L G G G L - W - - - - - S H - - - - G - - - - - - G
-G L G G G L G - - - G G G G H G L - N G - - - - - - -
+G L G G G L G - - - G G G G H G L - N G - - - - - - 5
 G L G G G L G - - - - - - G H - L - N G L G G G G G G
 G L G G G L G W G - - N N G H - L G G G L - - G - - G
 G L G G G L G W G G G G G G G G L G H G L - - G - - G

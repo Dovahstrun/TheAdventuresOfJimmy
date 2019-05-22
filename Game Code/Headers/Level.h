@@ -3,6 +3,7 @@
 //Library Includes
 #include <SFML/Graphics.hpp>
 #include "GridObject.h"
+#include "../Headers/Exit.h"
 
 class Player;
 
@@ -36,8 +37,9 @@ public:
 
 	void loadLevel(levelenum _levelToLoad);
 	void ReloadLevel();
-	void loadNextLevel(levelenum _newLevel);
-	int GetCurrentLevel();
+	void loadNextLevel(levelenum _newLevel, Exit::exittypes _oldType);
+	levelenum GetCurrentLevel();
+	void SetPlayer(Player* _playerToFind);
 	void deleteObjectAt(GridObject* _toDelete);
 	void checkLevelBounds();
 
@@ -57,4 +59,5 @@ private:
 	std::vector<std::pair<GameObject*, GameObject*> > m_collisionList;
 	levelenum m_currentLevel;
 	levelenum m_oldLevel;
+	Exit::exittypes m_oldExit;
 };

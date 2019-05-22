@@ -22,6 +22,6 @@ G N N N G - G - L - G - - - G - - - G - - - - L G G G
 G H H H G N S - L - A - N - G - - - G - - - - L G G G
 G G H H G G G G L G G G N - G - - - G H H - G G G G G
 G G G H - - - - L - W G G - G - - - H H H G G G G G G
-G G G G - - - - L - W - - - W - - - H H G G G G G G G
+G G G G - - - - L - W - - - W - P - H H G G G G G G G
 G G G G G G G G G G G G G G G G L G G G G G G G G G G
-G G G G G G G G G G G G G G G G L G G G G G G G G G G
+G G G G G G G G G G G G G G G G 1 G G G G G G G G G G

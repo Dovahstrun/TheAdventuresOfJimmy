@@ -9,9 +9,9 @@ Exit::Exit()
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/exit.png"));
 }
 
-void Exit::setExitType(char _ch)
+void Exit::setExitType(int _type)
 {
-	switch (_ch)
+	switch (_type)
 	{
 		case 1:
 			exitType = TOP;

@@ -85,6 +85,9 @@ void Player::Update(sf::Time _frameTime)
 		m_touchingCeiling = false;
 	}
 	m_hasCollideBeenRun = false;
+
+	m_level->SetPlayer(this);
+
 }
 
 void Player::Collide(GameObject &_collider)
@@ -324,28 +327,87 @@ void Player::Collide(GameObject &_collider)
 	
 	if (exitCollider != nullptr)
 	{
+		std::cerr << "Level: " + std::to_string(m_level->GetCurrentLevel());
+		std::cerr << "Exit Type: " + std::to_string(exitCollider->getExitType());
 		switch (exitCollider->getExitType())
 		{
 		case Exit::TOP:
-			m_level->loadNextLevel(Level::TOP);
+			switch (m_level->GetCurrentLevel())
+			{
+			case Level::TOP:
+				m_level->loadNextLevel(Level::CENTER, Exit::TOP);
+				break;
+			case Level::CENTER:
+				m_level->loadNextLevel(Level::TOP, Exit::TOP);
+				break;
+			}
 			break;
 		case Exit::TOPRIGHT:
-			m_level->loadNextLevel(Level::RIGHT);
+			switch (m_level->GetCurrentLevel())
+			{
+			case Level::RIGHT:
+				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				break;
+			case Level::CENTER:
+				m_level->loadNextLevel(Level::RIGHT, Exit::TOPRIGHT);
+				break;
+				std::cerr << std::to_string(m_level->GetCurrentLevel());
+			}
 			break;
 		case Exit::LEFT:
-			m_level->loadNextLevel(Level::LEFT);
+			switch (m_level->GetCurrentLevel())
+			{
+			case Level::LEFT:
+				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				break;
+			case Level::CENTER:
+				m_level->loadNextLevel(Level::LEFT, Exit::TOPRIGHT);
+				break;
+			}
 			break;
 		case Exit::RIGHT:
-			m_level->loadNextLevel(Level::RIGHT);
+			switch (m_level->GetCurrentLevel())
+			{
+			case Level::RIGHT:
+				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				break;
+			case Level::CENTER:
+				m_level->loadNextLevel(Level::RIGHT, Exit::TOPRIGHT);
+				break;
+			}
 			break;
 		case Exit::BOTTOMLEFT:
-			m_level->loadNextLevel(Level::LEFT);
+			switch (m_level->GetCurrentLevel())
+			{
+			case Level::LEFT:
+				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				break;
+			case Level::CENTER:
+				m_level->loadNextLevel(Level::LEFT, Exit::TOPRIGHT);
+				break;
+			}
 			break;
 		case Exit::BOTTOMRIGHT:
-			m_level->loadNextLevel(Level::RIGHT);
+			switch (m_level->GetCurrentLevel())
+			{
+			case Level::RIGHT:
+				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				break;
+			case Level::CENTER:
+				m_level->loadNextLevel(Level::RIGHT, Exit::TOPRIGHT);
+				break;
+			}
 			break;
 		case Exit::BOTTOM:
-			m_level->loadNextLevel(Level::BOTTOM);
+			switch (m_level->GetCurrentLevel())
+			{
+			case Level::BOTTOM:
+				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				break;
+			case Level::CENTER:
+				m_level->loadNextLevel(Level::BOTTOM, Exit::TOPRIGHT);
+				break;
+			}
 			break;
 		}
 	}

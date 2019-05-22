@@ -12,7 +12,7 @@ ToolWheel::ToolWheel()
 
 void ToolWheel::Update(sf::Time _frameTime)
 {
-	m_sprite.setPosition(m_player->GetPosition().x - m_sprite.getGlobalBounds().width / 2 + m_player->GetBounds().width, m_player->GetPosition().y - m_sprite.getGlobalBounds().height / 2 + m_player->GetBounds().height / 2);
+	m_sprite.setPosition(m_player->GetPosition().x - m_sprite.getGlobalBounds().width / 2 + m_player->GetBounds().width / 2, m_player->GetPosition().y - m_sprite.getGlobalBounds().height / 2 + m_player->GetBounds().height / 2);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{

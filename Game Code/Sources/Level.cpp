@@ -17,7 +17,7 @@
 #include "../Headers/Tool Wheel.h"
 #include "../Headers/Hammer.h"
 #include "../Headers/checkPos.h"
-#include "../Headers/Exit.h"
+
 
 Level::Level()
 	: m_player(nullptr)
@@ -32,6 +32,7 @@ Level::Level()
 	, m_collisionList()
 	, m_currentLevel(RIGHT)
 	, m_oldLevel(RIGHT)
+	, m_oldExit(Exit::RIGHT)
 {
 	loadLevel(RIGHT);
 }
@@ -131,8 +132,11 @@ void Level::Update(sf::Time _frameTime)
 		m_pendingReload = false;
 	}
 
+	std::cerr << m_player->CheckTool("Hammer");
+
 	if (m_pendingLoad)
 	{
+
 		//Load new level
 		loadLevel(m_levelToLoad);
 
@@ -202,7 +206,7 @@ void Level::Input(sf::Event _gameEvent)
 			for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
 			{
 				m_contents[y][x][z]->Input(_gameEvent);
-			}
+			} 
 		}
 	}
 
@@ -233,6 +237,11 @@ void Level::Input(sf::Event _gameEvent)
 
 void Level::loadLevel(levelenum _levelToLoad)
 {
+	Player tempactualplayer;
+	if (m_player != nullptr)
+	{
+		tempactualplayer = *m_player;
+	}
 
 	///Cleanup the old level
 
@@ -307,6 +316,10 @@ void Level::loadLevel(levelenum _levelToLoad)
 
 	//setting up our player first
 	Player* player = new Player();
+	if (m_player != nullptr)
+	{
+		*player = tempactualplayer;
+	}
 	m_player = player;
 
 	//Reading each character one by one from the file...
@@ -398,7 +411,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
-				exit->setExitType(ch);
+				exit->setExitType(1);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}
@@ -407,7 +420,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
-				exit->setExitType(ch);
+				exit->setExitType(2);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}
@@ -416,7 +429,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
-				exit->setExitType(ch);
+				exit->setExitType(3);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}
@@ -425,7 +438,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
-				exit->setExitType(ch);
+				exit->setExitType(4);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}
@@ -434,7 +447,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
-				exit->setExitType(ch);
+				exit->setExitType(5);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}
@@ -443,7 +456,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
-				exit->setExitType(ch);
+				exit->setExitType(6);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}
@@ -452,7 +465,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
-				exit->setExitType(ch);
+				exit->setExitType(7);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}
@@ -499,15 +512,37 @@ void Level::ReloadLevel()
 	loadLevel(m_currentLevel);
 }
 
-void Level::loadNextLevel(levelenum _newLevel)
+void Level::loadNextLevel(levelenum _newLevel, Exit::exittypes _oldType)
 {
+	//for (int y = 0; y < m_contents.size(); ++y)//rows
+	//{
+	//	for (int x = 0; x < m_contents[y].size(); ++x)//cells
+	//	{
+	//		for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+	//		{
+	//			GameObject* tempGOPointer = m_contents[y][x][z];
+	//			Player* playerSearch = dynamic_cast<Player*>(tempGOPointer);
+	//			if (playerSearch != nullptr)
+	//			{
+	//				m_player = playerSearch;
+	//			}
+	//		}
+	//	}
+	//}
+
+	m_oldExit = _oldType;
 	m_levelToLoad = _newLevel;
 	m_pendingLoad = true;
 }
 
-int Level::GetCurrentLevel()
+Level::levelenum Level::GetCurrentLevel()
 {
 	return m_currentLevel;
+}
+
+void Level::SetPlayer(Player * _playerToFind)
+{
+	//m_player = _playerToFind;
 }
 
 void Level::deleteObjectAt(GridObject * _toDelete)

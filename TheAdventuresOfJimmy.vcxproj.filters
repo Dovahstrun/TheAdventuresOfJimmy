@@ -24,6 +24,9 @@
     <Filter Include="Game Code\Sources">
       <UniqueIdentifier>{7da3419a-b868-4212-95e4-8d1ce51bdf5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Levels">
+      <UniqueIdentifier>{ae03f464-a8d5-44eb-a570-4aa43b1f9ae1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -157,5 +160,22 @@
     <ClInclude Include="Game Code\Headers\Exit.h">
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="levels\Level BOTTOM.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="levels\Level CENTER.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="levels\Level LEFT.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="levels\Level RIGHT.txt">
+      <Filter>Levels</Filter>
+    </Text>
+    <Text Include="levels\Level TOP.txt">
+      <Filter>Levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -20,7 +20,7 @@ int main()
 	// Window - to draw to the screen
 	sf::RenderWindow gameWindow;
 	gameWindow.create(sf::VideoMode::getDesktopMode(), "The Adventures of Jimmy", sf::Style::Titlebar | sf::Style::Close);
-	gameWindow.setMouseCursorVisible(false);
+	//gameWindow.setMouseCursorVisible(false);
 
 	// Seed our random number generator 
 	srand(time(NULL));

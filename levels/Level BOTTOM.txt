@@ -1,5 +1,5 @@
-G L G G G G G G G G G G G G G G G G G G G G G G G G G 
-G L - - - - - - - - - - - L - - - - - - - - - - - - G 
+G 7 G G G G G G G G G G G G G G G G G G G G G G G G G 
+G L P - - - - - - - - - - L - - - - - - - - - - - - G 
 G G G G G G G G G G G G G L G G G G G G G G G G G G G 
 G G G G G G G G G G G G G L G G G G G G G G G G G G G
 G - - - W A G - - G W - - L - - - G - W G - W W - - G 
