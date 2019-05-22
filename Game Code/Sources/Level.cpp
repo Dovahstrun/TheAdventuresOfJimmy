@@ -391,11 +391,66 @@ void Level::loadLevel(levelenum _levelToLoad)
 				spider->setGridPosition(x, y);
 				m_contents[y][x].push_back(spider);
 			}
-			else if (ch == 'E')
+			else if (ch == '1')
 			{
 				Exit* exit = new Exit();
 				exit->setLevel(this);
 				exit->setGridPosition(x, y);
+				exit->setExitType(ch);
+				m_contents[y][x].push_back(exit);
+				m_collisionList.push_back(std::make_pair(player, exit));
+			}
+			else if (ch == '2')
+			{
+				Exit* exit = new Exit();
+				exit->setLevel(this);
+				exit->setGridPosition(x, y);
+				exit->setExitType(ch);
+				m_contents[y][x].push_back(exit);
+				m_collisionList.push_back(std::make_pair(player, exit));
+			}
+			else if (ch == '3')
+			{
+				Exit* exit = new Exit();
+				exit->setLevel(this);
+				exit->setGridPosition(x, y);
+				exit->setExitType(ch);
+				m_contents[y][x].push_back(exit);
+				m_collisionList.push_back(std::make_pair(player, exit));
+			}
+			else if (ch == '4')
+			{
+				Exit* exit = new Exit();
+				exit->setLevel(this);
+				exit->setGridPosition(x, y);
+				exit->setExitType(ch);
+				m_contents[y][x].push_back(exit);
+				m_collisionList.push_back(std::make_pair(player, exit));
+			}
+			else if (ch == '5')
+			{
+				Exit* exit = new Exit();
+				exit->setLevel(this);
+				exit->setGridPosition(x, y);
+				exit->setExitType(ch);
+				m_contents[y][x].push_back(exit);
+				m_collisionList.push_back(std::make_pair(player, exit));
+			}
+			else if (ch == '6')
+			{
+				Exit* exit = new Exit();
+				exit->setLevel(this);
+				exit->setGridPosition(x, y);
+				exit->setExitType(ch);
+				m_contents[y][x].push_back(exit);
+				m_collisionList.push_back(std::make_pair(player, exit));
+			}
+			else if (ch == '7')
+			{
+				Exit* exit = new Exit();
+				exit->setLevel(this);
+				exit->setGridPosition(x, y);
+				exit->setExitType(ch);
 				m_contents[y][x].push_back(exit);
 				m_collisionList.push_back(std::make_pair(player, exit));
 			}

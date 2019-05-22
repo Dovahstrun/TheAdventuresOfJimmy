@@ -8,6 +8,27 @@ class ToolWheel;
 class Player : public MovingObject
 {
 
+private: //ENUMS
+
+	enum exittypes
+	{
+		TOP,
+		TOPRIGHT,
+		LEFT,
+		RIGHT,
+		BOTTOMLEFT,
+		BOTTOMRIGHT,
+		BOTTOM
+	};
+
+	enum tools
+	{
+		NONE,
+		HAMMER,
+		SPANNER,
+		SHEARS
+	};
+
 public:
 
 	Player();
@@ -35,22 +56,7 @@ private:
 	bool m_shearsCollected;
 	bool m_hammerCollected;
 	bool m_hasCollideBeenRun;
-	enum tools
-	{
-		NONE,
-		HAMMER,
-		SPANNER,
-		SHEARS
-	};
 	tools m_currentTool;
 	ToolWheel* m_toolWheel;
-	enum directions
-	{
-		LEFT,
-		RIGHT,
-		UP,
-		DOWN
-	};
-	directions m_previousDirection;
 
 };

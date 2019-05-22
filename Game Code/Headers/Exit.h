@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 //Project Includes
 #include "GridObject.h"
@@ -11,8 +10,9 @@ private:
 	enum exittypes
 	{
 		TOP,
-		TOPLEFT,
 		TOPRIGHT,
+		LEFT,
+		RIGHT,
 		BOTTOMLEFT,
 		BOTTOMRIGHT,
 		BOTTOM
@@ -22,7 +22,9 @@ public:
 
 	Exit();
 
-	void setExitType();
+	void setExitType(char _ch);
+	exittypes getExitType();
+
 
 private:
 

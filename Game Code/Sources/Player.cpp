@@ -30,7 +30,6 @@ Player::Player()
 	, m_hasCollideBeenRun(false)
 	, m_currentTool(NONE)
 	, m_toolWheel(nullptr)
-	, m_previousDirection(LEFT)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -55,12 +54,10 @@ void Player::Update(sf::Time _frameTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
 	{
 		m_velocity.x = -SPEED;
-		m_previousDirection = LEFT;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Check if the player is going right
 	{
 		m_velocity.x = SPEED;
-		m_previousDirection = RIGHT;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_touchingGround == true)
 	{
