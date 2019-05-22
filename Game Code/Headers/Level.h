@@ -50,6 +50,8 @@ private:
 	checkPos* m_gridPos;
 	const float m_cellSize;
 	bool m_pendingReload;
+	bool m_pendingLoad;
+	levelenum m_levelToLoad;
 	std::vector<std::vector<sf::Sprite> > m_background;
 	std::vector<std::vector<std::vector<GridObject*> > > m_contents;
 	std::vector<std::pair<GameObject*, GameObject*> > m_collisionList;

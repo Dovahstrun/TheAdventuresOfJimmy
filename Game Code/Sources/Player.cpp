@@ -10,6 +10,7 @@
 #include "../Headers/Tool Wheel.h"
 #include "../Headers/Hammer.h"
 #include "../Headers/Web.h"
+#include "../Headers/Exit.h"
 
 //Constants
 #define SPEED 200.0f
@@ -165,7 +166,7 @@ void Player::Collide(GameObject &_collider)
 
 		//Create the platform bottom collider
 		sf::FloatRect groundBottomRect = groundCollider->GetBounds();
-		groundBottomRect.top += groundCollider->GetBounds().width - 10;
+		groundBottomRect.top += groundCollider->GetBounds().height - 10;
 		groundBottomRect.height = 10;
 
 		//Are the feet touching the top of the platform
@@ -319,6 +320,14 @@ void Player::Collide(GameObject &_collider)
 		m_hammerCollected = true;
 		m_currentTool = HAMMER;
 		m_level->deleteObjectAt(hammerCollider);
+		return;
+	}
+
+	Exit* exitCollider = dynamic_cast<Exit*>(&_collider);
+	
+	if (exitCollider != nullptr)
+	{
+		m_level->loadNextLevel();
 	}
 
 }

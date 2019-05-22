@@ -139,6 +139,7 @@
     <ClCompile Include="Framework\Sources\TextObject.cpp" />
     <ClCompile Include="Game Code\Sources\checkPos.cpp" />
     <ClCompile Include="Game Code\Sources\Cog.cpp" />
+    <ClCompile Include="Game Code\Sources\Exit.cpp" />
     <ClCompile Include="Game Code\Sources\GridObject.cpp" />
     <ClCompile Include="Game Code\Sources\Ground.cpp" />
     <ClCompile Include="Game Code\Sources\Hammer.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Framework\Headers\TextObject.h" />
     <ClInclude Include="Game Code\Headers\checkPos.h" />
     <ClInclude Include="Game Code\Headers\Cog.h" />
+    <ClInclude Include="Game Code\Headers\Exit.h" />
     <ClInclude Include="Game Code\Headers\GridObject.h" />
     <ClInclude Include="Game Code\Headers\Ground.h" />
     <ClInclude Include="Game Code\Headers\Hammer.h" />

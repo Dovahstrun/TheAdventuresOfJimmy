@@ -17,6 +17,7 @@
 #include "../Headers/Tool Wheel.h"
 #include "../Headers/Hammer.h"
 #include "../Headers/checkPos.h"
+#include "../Headers/Exit.h"
 
 Level::Level()
 	: m_player(nullptr)
@@ -24,6 +25,8 @@ Level::Level()
 	, m_gridPos(nullptr)
 	, m_cellSize(128.0f)
 	, m_pendingReload(false)
+	, m_pendingLoad(false)
+	, m_levelToLoad(CENTER)
 	, m_background()
 	, m_contents()
 	, m_collisionList()
@@ -126,6 +129,13 @@ void Level::Update(sf::Time _frameTime)
 		m_pendingReload = false;
 	}
 
+	if (m_pendingLoad)
+	{
+		//Load new level
+		loadLevel(m_levelToLoad);
+
+		m_pendingLoad = false;
+	}
 	
 }
 
@@ -240,6 +250,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 	//Clear out the lists
 	m_background.clear();
 	m_contents.clear();
+	m_collisionList.clear();
 
 
 	///Setup everything
@@ -380,6 +391,14 @@ void Level::loadLevel(levelenum _levelToLoad)
 				spider->setGridPosition(x, y);
 				m_contents[y][x].push_back(spider);
 			}
+			else if (ch == 'E')
+			{
+				Exit* exit = new Exit();
+				exit->setLevel(this);
+				exit->setGridPosition(x, y);
+				m_contents[y][x].push_back(exit);
+				m_collisionList.push_back(std::make_pair(player, exit));
+			}
 			else if (ch == 'h') //Lowercase h as opposed to an uppercase H for the wood
 			{
 				Hammer* hammer = new Hammer();
@@ -425,6 +444,7 @@ void Level::ReloadLevel()
 
 void Level::loadNextLevel()
 {
+	m_pendingLoad = true;
 }
 
 int Level::GetCurrentLevel()
