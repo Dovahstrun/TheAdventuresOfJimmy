@@ -85,9 +85,6 @@ void Player::Update(sf::Time _frameTime)
 		m_touchingCeiling = false;
 	}
 	m_hasCollideBeenRun = false;
-
-	m_level->SetPlayer(this);
-
 }
 
 void Player::Collide(GameObject &_collider)
@@ -327,8 +324,8 @@ void Player::Collide(GameObject &_collider)
 	
 	if (exitCollider != nullptr)
 	{
-		std::cerr << "Level: " + std::to_string(m_level->GetCurrentLevel());
-		std::cerr << "Exit Type: " + std::to_string(exitCollider->getExitType());
+		/*std::cerr << "Level: " + std::to_string(m_level->GetCurrentLevel());
+		std::cerr << "Exit Type: " + std::to_string(exitCollider->getExitType());*/
 		switch (exitCollider->getExitType())
 		{
 		case Exit::TOP:
@@ -358,10 +355,10 @@ void Player::Collide(GameObject &_collider)
 			switch (m_level->GetCurrentLevel())
 			{
 			case Level::LEFT:
-				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::CENTER, Exit::LEFT);
 				break;
 			case Level::CENTER:
-				m_level->loadNextLevel(Level::LEFT, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::LEFT, Exit::LEFT);
 				break;
 			}
 			break;
@@ -369,10 +366,10 @@ void Player::Collide(GameObject &_collider)
 			switch (m_level->GetCurrentLevel())
 			{
 			case Level::RIGHT:
-				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::CENTER, Exit::RIGHT);
 				break;
 			case Level::CENTER:
-				m_level->loadNextLevel(Level::RIGHT, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::RIGHT, Exit::RIGHT);
 				break;
 			}
 			break;
@@ -380,10 +377,10 @@ void Player::Collide(GameObject &_collider)
 			switch (m_level->GetCurrentLevel())
 			{
 			case Level::LEFT:
-				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::CENTER, Exit::BOTTOMLEFT);
 				break;
 			case Level::CENTER:
-				m_level->loadNextLevel(Level::LEFT, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::LEFT, Exit::BOTTOMLEFT);
 				break;
 			}
 			break;
@@ -391,10 +388,10 @@ void Player::Collide(GameObject &_collider)
 			switch (m_level->GetCurrentLevel())
 			{
 			case Level::RIGHT:
-				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::CENTER, Exit::BOTTOMRIGHT);
 				break;
 			case Level::CENTER:
-				m_level->loadNextLevel(Level::RIGHT, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::RIGHT, Exit::BOTTOMRIGHT);
 				break;
 			}
 			break;
@@ -402,10 +399,10 @@ void Player::Collide(GameObject &_collider)
 			switch (m_level->GetCurrentLevel())
 			{
 			case Level::BOTTOM:
-				m_level->loadNextLevel(Level::CENTER, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::CENTER, Exit::BOTTOM);
 				break;
 			case Level::CENTER:
-				m_level->loadNextLevel(Level::BOTTOM, Exit::TOPRIGHT);
+				m_level->loadNextLevel(Level::BOTTOM, Exit::BOTTOM);
 				break;
 			}
 			break;

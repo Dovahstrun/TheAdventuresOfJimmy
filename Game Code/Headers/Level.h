@@ -39,7 +39,6 @@ public:
 	void ReloadLevel();
 	void loadNextLevel(levelenum _newLevel, Exit::exittypes _oldType);
 	levelenum GetCurrentLevel();
-	void SetPlayer(Player* _playerToFind);
 	void deleteObjectAt(GridObject* _toDelete);
 	void checkLevelBounds();
 

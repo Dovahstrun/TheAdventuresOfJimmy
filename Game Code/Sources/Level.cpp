@@ -32,7 +32,7 @@ Level::Level()
 	, m_collisionList()
 	, m_currentLevel(RIGHT)
 	, m_oldLevel(RIGHT)
-	, m_oldExit(Exit::RIGHT)
+	, m_oldExit(Exit::TOPRIGHT)
 {
 	loadLevel(RIGHT);
 }
@@ -237,6 +237,8 @@ void Level::Input(sf::Event _gameEvent)
 
 void Level::loadLevel(levelenum _levelToLoad)
 {
+
+	//Save the player information for when you pass between levels
 	Player tempactualplayer;
 	if (m_player != nullptr)
 	{
@@ -256,6 +258,8 @@ void Level::loadLevel(levelenum _levelToLoad)
 			}
 		}
 	}
+
+	delete m_toolWheel;
 	
 
 	//Clear out the lists
@@ -487,14 +491,11 @@ void Level::loadLevel(levelenum _levelToLoad)
 			{
 				std::cerr << "Unrecognised character in level file: " << ch;
 			}
-		}
-		
+		}	
 	}
 
 	//Close the file now that we're done
 	inFile.close();
-
-	//Close the file now that we're done
 
 	///Tool Wheel
 	ToolWheel* toolWheel = new ToolWheel();
@@ -505,6 +506,230 @@ void Level::loadLevel(levelenum _levelToLoad)
 	checkPos* gridpos = new checkPos();
 	m_gridPos = gridpos;
 
+	//Set the player position based on what exit it came out of
+	switch (m_currentLevel)
+	{
+	case LEFT:
+		switch (m_oldExit)
+		{
+		case Exit::LEFT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::LEFT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x - m_player->GetBounds().width * 2, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::BOTTOMLEFT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::BOTTOMLEFT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x - m_player->GetBounds().width * 2, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		}
+		break;
+	case RIGHT:
+		switch (m_oldExit)
+		{
+		case Exit::TOPRIGHT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::TOPRIGHT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x + exitSearch->GetBounds().width + m_player->GetBounds().width, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::RIGHT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::RIGHT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x + exitSearch->GetBounds().width + m_player->GetBounds().width, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::BOTTOMRIGHT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::BOTTOMRIGHT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x + exitSearch->GetBounds().width + m_player->GetBounds().width, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		}
+		break;
+	case CENTER:
+		switch (m_oldExit)
+		{
+		case Exit::TOP:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::TOP)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x, exitSearch->GetPosition().y + exitSearch->GetBounds().height + m_player->GetBounds().height);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::TOPRIGHT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::TOPRIGHT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x - m_player->GetBounds().width * 2, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::LEFT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::LEFT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x + exitSearch->GetBounds().width + m_player->GetBounds().width, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::RIGHT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::RIGHT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x - m_player->GetBounds().width * 2, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::BOTTOMLEFT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::BOTTOMLEFT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x + exitSearch->GetBounds().width + m_player->GetBounds().width, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::BOTTOMRIGHT:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::BOTTOMRIGHT)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x - m_player->GetBounds().width * 2, exitSearch->GetPosition().y);
+						}
+					}
+				}
+			}
+			break;
+		case Exit::BOTTOM:
+			for (int y = 0; y < m_contents.size(); ++y)//rows
+			{
+				for (int x = 0; x < m_contents[y].size(); ++x)//cells
+				{
+					for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
+					{
+						GameObject* potentialExit = m_contents[y][x][z];
+						Exit* exitSearch = dynamic_cast<Exit*>(potentialExit);
+						if (exitSearch != nullptr && exitSearch->getExitType() == Exit::BOTTOM)
+						{
+							m_player->SetPosition(exitSearch->GetPosition().x, exitSearch->GetPosition().y - m_player->GetBounds().height * 2);
+						}
+					}
+				}
+			}
+			break;
+		}
+		break;
+	}
+
 }
 
 void Level::ReloadLevel()
@@ -514,22 +739,6 @@ void Level::ReloadLevel()
 
 void Level::loadNextLevel(levelenum _newLevel, Exit::exittypes _oldType)
 {
-	//for (int y = 0; y < m_contents.size(); ++y)//rows
-	//{
-	//	for (int x = 0; x < m_contents[y].size(); ++x)//cells
-	//	{
-	//		for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
-	//		{
-	//			GameObject* tempGOPointer = m_contents[y][x][z];
-	//			Player* playerSearch = dynamic_cast<Player*>(tempGOPointer);
-	//			if (playerSearch != nullptr)
-	//			{
-	//				m_player = playerSearch;
-	//			}
-	//		}
-	//	}
-	//}
-
 	m_oldExit = _oldType;
 	m_levelToLoad = _newLevel;
 	m_pendingLoad = true;
@@ -538,11 +747,6 @@ void Level::loadNextLevel(levelenum _newLevel, Exit::exittypes _oldType)
 Level::levelenum Level::GetCurrentLevel()
 {
 	return m_currentLevel;
-}
-
-void Level::SetPlayer(Player * _playerToFind)
-{
-	//m_player = _playerToFind;
 }
 
 void Level::deleteObjectAt(GridObject * _toDelete)

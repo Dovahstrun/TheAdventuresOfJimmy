@@ -1,6 +1,6 @@
 G G G G G G G G G G G G G G G G G G G G G G G G G G G
 G - - - - - - G - N H - - - - - G - N - - - - N N N G
-G - F - G G L G - N H - - - - - G - N - - - - N N N G
+G P F - G G L G - N H - - - - - G - N - - - - N N N G
 G G G G - - L G G N H - - - - - G - G G G L G G G G G
 2 - - - - G G N N N H - - - - - A - - - - L G G G G G
 G G G G - - - G G G G G G G L G W - - - - L G G G G G
@@ -19,7 +19,7 @@ G - - - - - - - - G G - - - H - - W - - H H G - N N G
 G G G G G G G L G G G G G L G G G G G G G G G L G G G
 G G G G G G G L G G G G G L G G G G G G G G G L G G G
 G - - W N G G L G W G G G L H - - - - - - G G L - G G
-G - - W N G G L G A G G G L H - - 2 P F h G G L - G G
+G - - W N G G L G A G G G L H - - - - F h G G L - G G
 G - - G G G - L - - - - - G G - - G G G G G G L - G G
 G G - - - G - L - - G G - S - - H - - - G - - L N G G
 G G G G - S - L - G G G G G G G G G - - - - - L N G G
