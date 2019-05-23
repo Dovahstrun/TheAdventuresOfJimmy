@@ -7,7 +7,7 @@ ToolWheel::ToolWheel()
 	: SpriteObject()
 	, m_player(nullptr)
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Tool wheel/Tool Wheel Empty.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Tool wheel/Tool Wheel NULL & NULL & NULL.png"));
 }
 
 void ToolWheel::Update(sf::Time _frameTime)
@@ -17,16 +17,27 @@ void ToolWheel::Update(sf::Time _frameTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{
 		m_active = true;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			m_player->setCurrentTool(Player::SPANNER);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			m_player->setCurrentTool(Player::HAMMER);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			m_player->setCurrentTool(Player::SHEARS);
+		}
+
 	}
 	else
 	{
 		m_active = false;
 	}
-
-	if (m_player->CheckTool("Hammer") && !m_player->CheckTool("Shears") && !m_player->CheckTool("Spanner"))
-	{
-		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Tool wheel/Tool Wheel Hammer.png"));
-	}
+	
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Tool wheel/Tool Wheel " + m_player->CheckTool("Spanner") + " & " + m_player->CheckTool("Shears") + " & " + m_player->CheckTool("Hammer") + ".png"));
+	
 }
 
 void ToolWheel::setPlayer(Player* _player)

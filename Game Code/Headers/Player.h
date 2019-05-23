@@ -8,7 +8,7 @@ class ToolWheel;
 class Player : public MovingObject
 {
 
-private: //ENUMS
+public: //ENUMS
 
 	enum tools
 	{
@@ -26,8 +26,9 @@ public:
 	void Update(sf::Time _frameTime);
 	void Collide(GameObject& _collider);
 
-	bool CheckTool(sf::String _tool);
+	sf::String CheckTool(sf::String _tool);
 	void setToolWheel(ToolWheel* _toolWheel);
+	void setCurrentTool(tools _newTool);
 
 private:
 
@@ -47,5 +48,6 @@ private:
 	bool m_hasCollideBeenRun;
 	tools m_currentTool;
 	ToolWheel* m_toolWheel;
+	bool m_touchingLadder;
 
 };

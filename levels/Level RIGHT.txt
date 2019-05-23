@@ -2,8 +2,8 @@ G G G G G G G G G G G G G G G G G G G G G G G G G G G
 G - - - - - - G - N H - - - - - G - N - - - - N N N G
 G P F - G G L G - N H - - - - - G - N - - - - N N N G
 G G G G - - L G G N H - - - - - G - G G G L G G G G G
-2 - - - - G G N N N H - - - - - A - - - - L G G G G G
-G G G G - - - G G G G G G G L G W - - - - L G G G G G
+2 - S - - G G N N N H - - - - - A - - - - L G G G G G
+G G G G - - s G G G G G G G L G W - - - - L G G G G G
 G G G G G G G G G G G G G G L G G G G G G G G G G G G
 G - - - G G G G G G G G G G L G G G G G G G G G - - G
 G - - - - - H G N N - G - - L - - - - H - - G G W - G

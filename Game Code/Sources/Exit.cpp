@@ -6,7 +6,7 @@ Exit::Exit()
 	: GridObject()
 	, exitType(TOP)
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/exit.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/door.png"));
 }
 
 void Exit::setExitType(int _type)

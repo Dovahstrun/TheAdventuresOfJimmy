@@ -95,6 +95,12 @@
     <ClCompile Include="Game Code\Sources\Exit.cpp">
       <Filter>Game Code\Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Game Code\Sources\Shears.cpp">
+      <Filter>Game Code\Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Code\Sources\Spanner.cpp">
+      <Filter>Game Code\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Headers\Animation.h">
@@ -158,6 +164,12 @@
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Game Code\Headers\Exit.h">
+      <Filter>Game Code\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Code\Headers\Shears.h">
+      <Filter>Game Code\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Code\Headers\Spanner.h">
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
   </ItemGroup>

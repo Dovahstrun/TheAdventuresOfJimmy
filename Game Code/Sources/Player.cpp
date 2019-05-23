@@ -9,11 +9,15 @@
 #include "../Headers/Wood.h"
 #include "../Headers/Tool Wheel.h"
 #include "../Headers/Hammer.h"
+#include "../Headers/Spanner.h"
+#include "../Headers/Shears.h"
 #include "../Headers/Web.h"
 #include "../Headers/Exit.h"
+#include "../Headers/Ladder.h"
+#include "../Headers/Cog.h"
 
 //Constants
-#define SPEED 200.0f
+#define SPEED 220.0f
 #define GRAVITY 1250.0f
 #define JUMP 620.0f
 
@@ -30,6 +34,7 @@ Player::Player()
 	, m_hasCollideBeenRun(false)
 	, m_currentTool(NONE)
 	, m_toolWheel(nullptr)
+	, m_touchingLadder(false)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -49,6 +54,10 @@ void Player::Update(sf::Time _frameTime)
 	
 	//First assume no keys are pressed
 	m_velocity.x = 0.0f;
+	if (m_touchingLadder)
+	{
+		m_velocity.y = 0.0f;
+	}
 
 	//Use the keyboard function to check which keys are currently held down and to move in that direction
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
@@ -59,19 +68,33 @@ void Player::Update(sf::Time _frameTime)
 	{
 		m_velocity.x = SPEED;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_touchingGround == true)
+	if (!m_touchingLadder)
 	{
-		m_velocity.y = -JUMP;
-		m_touchingGround = false;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_touchingGround)
+		{
+			m_velocity.y = -JUMP;
+			m_touchingGround = false;
+		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !m_toolWheel->isActive() && m_currentTool == HAMMER)
+	else if (m_touchingLadder)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //Check if the player is going left
+		{
+			m_velocity.y = -SPEED;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) //Check if the player is going right
+		{
+			m_velocity.y = SPEED;
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !m_toolWheel->isActive())
 	{
 		UseTool();
 	}
 
 
 	//Apply gravity to our velocity
-	if (m_touchingGround == false)
+	if (m_touchingGround == false && !m_touchingLadder)
 	{
 		float velocityChange = GRAVITY * _frameTime.asSeconds();
 		m_velocity.y += velocityChange;
@@ -83,6 +106,7 @@ void Player::Update(sf::Time _frameTime)
 		m_touchingWall = false;
 		m_touchingGround = false;
 		m_touchingCeiling = false;
+		m_touchingLadder = false;
 	}
 	m_hasCollideBeenRun = false;
 }
@@ -320,6 +344,24 @@ void Player::Collide(GameObject &_collider)
 		return;
 	}
 
+	Shears* shearsCollider = dynamic_cast<Shears*>(&_collider);
+	if (shearsCollider != nullptr)
+	{
+		m_shearsCollected = true;
+		m_currentTool = SHEARS;
+		m_level->deleteObjectAt(shearsCollider);
+		return;
+	}
+
+	Spanner* spannerCollider = dynamic_cast<Spanner*>(&_collider);
+	if (spannerCollider != nullptr)
+	{
+		m_spannerCollected = true;
+		m_currentTool = SPANNER;
+		m_level->deleteObjectAt(spannerCollider);
+		return;
+	}
+
 	Exit* exitCollider = dynamic_cast<Exit*>(&_collider);
 	
 	if (exitCollider != nullptr)
@@ -409,32 +451,43 @@ void Player::Collide(GameObject &_collider)
 		}
 	}
 
+	Ladder* ladderCollider = dynamic_cast<Ladder*>(&_collider);
+
+	if (ladderCollider != nullptr)
+	{
+		m_touchingLadder = true;
+	}
+	else
+	{
+		m_touchingLadder = false;
+	}
+
 }
 
-bool Player::CheckTool(sf::String _tool)
+sf::String Player::CheckTool(sf::String _tool)
 {
 	if (_tool == "Hammer")
 	{
 		if (m_hammerCollected)
 		{
-			return true;
+			return "Hammer";
 		}
 	}
 	if (_tool == "Spanner")
 	{
-		if (m_shearsCollected)
+		if (m_spannerCollected)
 		{
-			return true;
+			return "Spanner";
 		}
 	}
 	if (_tool == "Shears")
 	{
-		if (m_spannerCollected)
+		if (m_shearsCollected)
 		{
-			return true;
+			return "Shears";
 		}
 	}
-	return false;
+	return "NULL";
 }
 
 void Player::UseTool()
@@ -448,15 +501,42 @@ void Player::UseTool()
 
 	GameObject& collider = m_level->ToolCollision(toolCollider);
 	Wood* woodCollider = dynamic_cast<Wood*>(&collider);
-	if (woodCollider != nullptr)
+	Cog* cogCollider = dynamic_cast<Cog*>(&collider);
+	Web* webCollider = dynamic_cast<Web*>(&collider);
+
+	switch (m_currentTool)
 	{
-		std::cerr << ("bob");
-		m_level->deleteObjectAt(woodCollider);
+	case HAMMER:
+		if (woodCollider != nullptr)
+		{
+			m_level->deleteObjectAt(woodCollider);
+			return;
+		}
+		break;
+	case SPANNER:
+		if (cogCollider != nullptr)
+		{
+			m_level->deleteObjectAt(cogCollider);
+			return;
+		}
+		break;
+	case SHEARS:
+		if (webCollider != nullptr)
+		{
+			m_level->deleteObjectAt(webCollider);
+			return;
+		}
+		break;
 	}
 }
 
 void Player::setToolWheel(ToolWheel * _toolWheel)
 {
 	m_toolWheel = _toolWheel;
+}
+
+void Player::setCurrentTool(tools _newTool)
+{
+	m_currentTool = _newTool;
 }
 
