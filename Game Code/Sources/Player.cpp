@@ -35,6 +35,7 @@ Player::Player()
 	, m_currentTool(NONE)
 	, m_toolWheel(nullptr)
 	, m_touchingLadder(false)
+	, m_collectedScrews(0)
 {
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
 	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
@@ -538,5 +539,10 @@ void Player::setToolWheel(ToolWheel * _toolWheel)
 void Player::setCurrentTool(tools _newTool)
 {
 	m_currentTool = _newTool;
+}
+
+int Player::getScrewsCollected()
+{
+	return m_collectedScrews;
 }
 

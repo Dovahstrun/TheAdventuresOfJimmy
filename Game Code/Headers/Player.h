@@ -29,6 +29,7 @@ public:
 	sf::String CheckTool(sf::String _tool);
 	void setToolWheel(ToolWheel* _toolWheel);
 	void setCurrentTool(tools _newTool);
+	int getScrewsCollected();
 
 private:
 
@@ -49,5 +50,6 @@ private:
 	tools m_currentTool;
 	ToolWheel* m_toolWheel;
 	bool m_touchingLadder;
+	int m_collectedScrews;
 
 };

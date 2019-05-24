@@ -18,7 +18,7 @@
 #include "../Headers/Hammer.h"
 #include "../Headers/Spanner.h"
 #include "../Headers/Shears.h"
-#include "../Headers/checkPos.h"
+#include "../Headers/ScrewNum.h"
 
 
 Level::Level()
@@ -35,7 +35,11 @@ Level::Level()
 	, m_currentLevel(RIGHT)
 	, m_oldLevel(RIGHT)
 	, m_oldExit(Exit::TOPRIGHT)
+	, m_toolIcon()
+	, m_screwIcon(sf::Sprite(AssetManager::GetTexture("resources/graphics/Screw.png")))
+	, m_screwNum(nullptr)
 {
+	m_screwIcon.setPosition(50,50);
 	loadLevel(RIGHT);
 }
 
@@ -90,6 +94,9 @@ void Level::Draw(sf::RenderTarget & _target)
 
 
 	//Draw UI objects
+
+	_target.draw(m_toolIcon);
+	_target.draw(m_screwIcon);
 
 }
 
@@ -511,6 +518,11 @@ void Level::loadLevel(levelenum _levelToLoad)
 	m_toolWheel = toolWheel;
 	m_toolWheel->setPlayer(m_player);
 	m_player->setToolWheel(m_toolWheel);
+
+	///Screw Num
+	ScrewNum* screwsCollected = new ScrewNum();
+	m_screwNum = screwsCollected;
+	m_screwNum->setPlayer(m_player);
 
 	//Set the player position based on what exit it came out of, but not when the game first starts
 	if (m_oldLevel != m_currentLevel)

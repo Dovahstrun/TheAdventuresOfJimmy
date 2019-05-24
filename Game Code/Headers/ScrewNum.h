@@ -3,20 +3,21 @@
 //Project Includes
 #include "../../Framework/Headers/TextObject.h"
 
-class checkPos : public TextObject
+class ScrewNum : public TextObject
 {
 
 public:
 
-	checkPos();
+	ScrewNum();
 
 	//Overriding Methods
 	virtual void Update(sf::Time _frameTime);
 
-	void setText(sf::Vector2f _playerPos);
+	void setPlayer(Player* _player);
 
 
 private:
 
+	Player* m_player;
 
 };

@@ -9,7 +9,7 @@ class Player;
 
 class ToolWheel;
 
-class checkPos;
+class ScrewNum;
 
 class Level
 {
@@ -48,7 +48,6 @@ private:
 
 	Player* m_player;
 	ToolWheel* m_toolWheel;
-	checkPos* m_gridPos;
 	const float m_cellSize;
 	bool m_pendingReload;
 	bool m_pendingLoad;
@@ -59,4 +58,7 @@ private:
 	levelenum m_currentLevel;
 	levelenum m_oldLevel;
 	Exit::exittypes m_oldExit;
+	sf::Sprite m_toolIcon;
+	sf::Sprite m_screwIcon;
+	ScrewNum* m_screwNum;
 };
