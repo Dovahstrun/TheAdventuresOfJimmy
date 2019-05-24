@@ -5,5 +5,5 @@
 Wood::Wood()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Wood.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Wooden Box.png"));
 }

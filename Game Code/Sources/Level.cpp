@@ -24,7 +24,6 @@
 Level::Level()
 	: m_player(nullptr)
 	, m_toolWheel(nullptr)
-	, m_gridPos(nullptr)
 	, m_cellSize(128.0f)
 	, m_pendingReload(false)
 	, m_pendingLoad(false)
@@ -97,6 +96,7 @@ void Level::Draw(sf::RenderTarget & _target)
 
 	_target.draw(m_toolIcon);
 	_target.draw(m_screwIcon);
+	m_screwNum->Draw(_target);
 
 }
 
@@ -118,8 +118,9 @@ void Level::Update(sf::Time _frameTime)
 	}
 
 	//Update the tool wheel as it isn't a grid object
-	//m_toolWheel->Position(m_player->GetPosition());
 	m_toolWheel->Update(_frameTime);
+
+	m_screwNum->Update(_frameTime);
 
 	Collision();
 
@@ -379,6 +380,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				cog->setLevel(this);
 				cog->setGridPosition(x, y);
 				m_contents[y][x].push_back(cog);
+				m_collisionList.push_back(std::make_pair(player, cog));
 			}
 			else if (ch == 'N')
 			{
@@ -386,6 +388,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				screw->setLevel(this);
 				screw->setGridPosition(x, y);
 				m_contents[y][x].push_back(screw);
+				m_collisionList.push_back(std::make_pair(player, screw));
 			}
 			else if (ch == 'H')
 			{

@@ -148,6 +148,7 @@
     <ClCompile Include="Game Code\Sources\MovingObject.cpp" />
     <ClCompile Include="Game Code\Sources\Player.cpp" />
     <ClCompile Include="Game Code\Sources\Screw.cpp" />
+    <ClCompile Include="Game Code\Sources\ScrewNum.cpp" />
     <ClCompile Include="Game Code\Sources\Shears.cpp" />
     <ClCompile Include="Game Code\Sources\Spanner.cpp" />
     <ClCompile Include="Game Code\Sources\Spider.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Game Code\Headers\MovingObject.h" />
     <ClInclude Include="Game Code\Headers\Player.h" />
     <ClInclude Include="Game Code\Headers\Screw.h" />
+    <ClInclude Include="Game Code\Headers\ScrewNum.h" />
     <ClInclude Include="Game Code\Headers\Shears.h" />
     <ClInclude Include="Game Code\Headers\Spanner.h" />
     <ClInclude Include="Game Code\Headers\Spider.h" />

@@ -15,6 +15,7 @@
 #include "../Headers/Exit.h"
 #include "../Headers/Ladder.h"
 #include "../Headers/Cog.h"
+#include "../Headers/Screw.h"
 
 //Constants
 #define SPEED 220.0f
@@ -327,6 +328,88 @@ void Player::Collide(GameObject &_collider)
 
 	}
 
+	//Check if the collider was a cog, if so delete it
+	Cog* cogCollider = dynamic_cast<Cog*>(&_collider);
+
+	if (cogCollider != nullptr)
+
+	{
+		//the player did hit a cog
+		//Go back to the position that the player was in before
+
+		//Create platform top collider
+		sf::FloatRect cogTopRect = cogCollider->GetBounds();
+		cogTopRect.height = 10;
+
+		//Create the platform left collider
+		sf::FloatRect cogLeftRect = cogCollider->GetBounds();
+		cogLeftRect.width = 10;
+
+		//Create the platform right collider
+		sf::FloatRect cogRightRect = cogCollider->GetBounds();
+		cogRightRect.left += cogCollider->GetBounds().width - 10;
+		cogRightRect.width = 10;
+
+		//Create the platform bottom collider
+		sf::FloatRect cogBottomRect = cogCollider->GetBounds();
+		cogBottomRect.top += cogCollider->GetBounds().width - 10;
+		cogBottomRect.height = 10;
+
+		//Are the feet touching the top of the platform
+		if (feetCollider.intersects(cogTopRect))
+		{
+			m_touchingGround = true;
+
+			//Check if we are falling downward
+			if (wereTouchingGround == false && m_velocity.y > 0)
+			{
+				m_velocity.y = 0;
+				m_sprite.setPosition(m_sprite.getPosition().x, cogCollider->GetPosition().y - m_sprite.getGlobalBounds().height);
+			}
+		}
+
+		//Is the player's left side touching the right of a wall
+		if (leftCollider.intersects(cogRightRect))
+		{
+			m_touchingWall = true;
+			//Check if we are moving left
+			if (wereTouchingWall == false && m_velocity.x < 0)
+			{
+				m_velocity.x = 0;
+				m_sprite.setPosition(cogCollider->GetPosition().x + cogCollider->GetBounds().width, m_sprite.getPosition().y);
+			}
+		}
+
+		//Is the player's right side touching the left of a wall
+		if (rightCollider.intersects(cogLeftRect))
+		{
+			m_touchingWall = true;
+			//Check if we are moving right
+			if (wereTouchingWall == false && m_velocity.x > 0)
+			{
+				m_velocity.x = 0;
+				m_sprite.setPosition(cogCollider->GetPosition().x - m_sprite.getGlobalBounds().width, m_sprite.getPosition().y);
+
+			}
+		}
+		//Is the head touching the bottom of the platform
+		if (headCollider.intersects(cogBottomRect))
+		{
+			m_touchingCeiling = true;
+
+			//Check if we are falling downward
+			if (wereTouchingCeiling == false && m_velocity.y < 0)
+			{
+				m_velocity.y = 0;
+				m_sprite.setPosition(m_sprite.getPosition().x, cogCollider->GetPosition().y + cogCollider->GetBounds().height);
+			}
+		}
+
+		m_hasCollideBeenRun = true;
+		//Clumsy, results in sticky cogs but good enough for this game
+
+	}
+
 	//Check if the collider was a web, if so, move slowly
 	Web* webCollider = dynamic_cast<Web*>(&_collider);
 
@@ -360,6 +443,15 @@ void Player::Collide(GameObject &_collider)
 		m_spannerCollected = true;
 		m_currentTool = SPANNER;
 		m_level->deleteObjectAt(spannerCollider);
+		return;
+	}
+
+	Screw* screwCollider = dynamic_cast<Screw*>(&_collider);
+
+	if (screwCollider != nullptr)
+	{
+		m_level->deleteObjectAt(screwCollider);
+		m_collectedScrews += 1;
 		return;
 	}
 

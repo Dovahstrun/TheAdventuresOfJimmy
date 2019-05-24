@@ -3,6 +3,8 @@
 //Project Includes
 #include "../../Framework/Headers/TextObject.h"
 
+class Player;
+
 class ScrewNum : public TextObject
 {
 
