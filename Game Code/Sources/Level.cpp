@@ -326,6 +326,10 @@ void Level::loadLevel(levelenum _levelToLoad)
 	}
 	m_player = player;
 
+	// Create lists of all object being created by loading the level
+	std::vector<GameObject*> grounds;
+	std::vector<GameObject*> boxes;
+
 	//Reading each character one by one from the file...
 	char ch;
 	//Each time, try to read the next character, execute body of loop
@@ -365,6 +369,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				ground->setGridPosition(x, y);
 				m_contents[y][x].push_back(ground);
 				m_collisionList.push_back(std::make_pair(player, ground));
+				grounds.push_back(ground);
 			}
 			else if (ch == 'L')
 			{
@@ -397,6 +402,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 				wood->setGridPosition(x, y);
 				m_contents[y][x].push_back(wood);
 				m_collisionList.push_back(std::make_pair(player, wood));
+				boxes.push_back(wood);
 			}
 			else if (ch == 'W')
 			{
@@ -754,7 +760,38 @@ void Level::loadLevel(levelenum _levelToLoad)
 		}
 	}
 
-	
+	for (int i = 0; i < boxes.size(); ++i)
+	{
+		// Each each box in this array...
+		GameObject* thisParticularBox = boxes[i];
+
+		for (int j = 0; j < grounds.size(); ++j)
+		{
+			// ...and each wall in this array...
+			GameObject* thisParticularGround = grounds[j];
+
+			// Create a pairing between the two.
+			m_collisionList.push_back(std::make_pair(thisParticularBox, thisParticularGround));
+		}
+	}
+
+	for (int i = 0; i < boxes.size(); ++i)
+	{
+		// Each each box in this array...
+		GameObject* thisBoxSet1 = boxes[i];
+
+		for (int j = 0; j < boxes.size(); ++j)
+		{
+			if (i != j)
+			{
+				// ...and each box in the same array...
+				GameObject* thisBoxSet2 = boxes[j];
+
+				// Create a pairing between the two.
+				m_collisionList.push_back(std::make_pair(thisBoxSet1, thisBoxSet2));
+			}
+		}
+	}
 
 }
 
@@ -807,6 +844,10 @@ void Level::deleteObjectAt(GridObject * _toDelete)
 			// if second thing in pair is the "to be deleted" object, then, delete the pair
 			if (it->second == _toDelete)
 				it = m_collisionList.erase(it); // returns pointer to next thing in list, so we don't want to add to it ourselves
+			else if (it->first == _toDelete)
+			{
+				it = m_collisionList.erase(it);
+			}
 			else
 				++it; // we didnt delete so add to it to go to the next thing in list
 		}
