@@ -5,5 +5,5 @@
 Web::Web()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Web.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Web.png"));
 }

@@ -5,5 +5,5 @@
 Spider::Spider()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/spider.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/spider.png"));
 }

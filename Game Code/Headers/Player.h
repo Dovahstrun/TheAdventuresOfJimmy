@@ -29,6 +29,7 @@ public:
 	sf::String CheckTool(sf::String _tool);
 	void setToolWheel(ToolWheel* _toolWheel);
 	void setCurrentTool(tools _newTool);
+	sf::String getCurrentTool();
 	int getScrewsCollected();
 
 private:

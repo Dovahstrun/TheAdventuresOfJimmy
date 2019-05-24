@@ -5,5 +5,5 @@
 Hammer::Hammer()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/hammer.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/hammer.png"));
 }

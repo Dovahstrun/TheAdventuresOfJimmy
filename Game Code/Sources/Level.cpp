@@ -35,10 +35,11 @@ Level::Level()
 	, m_oldLevel(RIGHT)
 	, m_oldExit(Exit::TOPRIGHT)
 	, m_toolIcon()
-	, m_screwIcon(sf::Sprite(AssetManager::GetTexture("resources/graphics/Screw.png")))
+	, m_screwIcon(sf::Sprite(AssetManager::GetTexture("resources/graphics//UI/Icon Box Screw.png")))
 	, m_screwNum(nullptr)
 {
 	m_screwIcon.setPosition(50,50);
+	m_toolIcon.setPosition(50, 200);
 	loadLevel(RIGHT);
 }
 
@@ -119,6 +120,8 @@ void Level::Update(sf::Time _frameTime)
 
 	//Update the tool wheel as it isn't a grid object
 	m_toolWheel->Update(_frameTime);
+
+	m_toolIcon.setTexture(AssetManager::GetTexture("resources/graphics/UI/" + m_player->getCurrentTool() + ".png"));
 
 	m_screwNum->Update(_frameTime);
 

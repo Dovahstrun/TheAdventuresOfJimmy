@@ -5,5 +5,5 @@
 Spanner::Spanner()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Spanner.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Spanner.png"));
 }

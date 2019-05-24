@@ -5,5 +5,5 @@
 Shears::Shears()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Shears.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Shears.png"));
 }

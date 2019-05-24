@@ -1,18 +1,18 @@
 G G G G G G G G G G G G G G G G G G G G G G G G G G G
-G - - - - - - G - N H - - - - - G - N - - - - N N N G
-G P F - G G L G - N H - - - - - G - N - - - - N N N G
-G G G G - - L G G N H - - - - - G - G G G L G G G G G
+G - - - - - - G N - - - - - - - G - N - - - - - - - G
+G P F - G G L G N - - - - - - - G - N - - - - N N N G
+G G G G - - L G G - H - - - - - G - G G G L G G G G G
 2 - S - - G G N N N H - - - - - A - - - - L G G G G G
 G G G G - - s G G G G G G G L G W - - - - L G G G G G
 G G G G G G G G G G G G G G L G G G G G G G G G G G G
 G - - - G G G G G G G G G G L G G G G G G G G G - - G
-G - - - - - H G N N - G - - L - - - - H - - G G W - G
-G - - - - - H G N N - S - - L - - - - H - - G G W - G
+G - - - - - - G N N - G - - L - - - - H - - G G W - G
+G - - - - - - G N N - S - - L - - - - H - - G G W - G
 G - - - - - H G G G G G G G L - - - G G G - S - W N G
 4 - - - - - H - - - - - - - L - - G G G G G G - A N G
 G G G G G G G G G G G G G G G G G G G G G G G G G G G
 G G G G G G G G G G G G G G G G G G G G G G G G G G G
-G - - - - - - - - G G - - - - - G G G G H H - - - - G
+G - - - - - - - - G G - - - - - G G G G -- - - - - G
 G - - - - - - - - G G - - - - - - G G - H H - - - - G
 G - - - - - - - - G G - - - H - - W - - H H G - N N G
 6 - - - - - - - - G G - - - H - G G - - H G G - N N G

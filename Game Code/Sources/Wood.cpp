@@ -18,13 +18,14 @@ Wood::Wood()
 void Wood::Update(sf::Time _frameTime)
 {
 	//Call the update function manually on the player class. This will actually move the character
-	MovingObject::Update(_frameTime);
+	
 
 	m_velocity.x = 0.0f;
 
 	//Apply gravity to our velocity
 	if (m_touchingGround == false)
 	{
+		MovingObject::Update(_frameTime);
 		float velocityChange = GRAVITY * _frameTime.asSeconds();
 		m_velocity.y += velocityChange;
 	}

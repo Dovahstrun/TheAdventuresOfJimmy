@@ -633,6 +633,26 @@ void Player::setCurrentTool(tools _newTool)
 	m_currentTool = _newTool;
 }
 
+sf::String Player::getCurrentTool()
+{
+	switch (m_currentTool)
+	{
+	case NONE:
+		return "Icon Box NULL";
+		break;
+	case HAMMER:
+		return "Icon Box Hammer";
+		break;
+	case SHEARS:
+		return "Icon Box Shears";
+		break;
+	case SPANNER:
+		return "Icon Box Spanner";
+		break;
+	}
+	return "NULL";
+}
+
 int Player::getScrewsCollected()
 {
 	return m_collectedScrews;

@@ -5,5 +5,5 @@
 Screw::Screw()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Screw.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Screw.png"));
 }

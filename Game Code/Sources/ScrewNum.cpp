@@ -8,7 +8,7 @@ ScrewNum::ScrewNum()
 {
 	m_text.setFont(AssetManager::GetFont("fonts/mainFont.ttf"));
 	m_text.setString("x 0");
-	m_text.setPosition(120, 50);
+	m_text.setPosition(200, 90);
 }
 
 void ScrewNum::Update(sf::Time _frameTime)

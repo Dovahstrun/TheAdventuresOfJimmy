@@ -5,5 +5,5 @@
 Cog::Cog()
 	: GridObject()
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Cog.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Cog.png"));
 }
