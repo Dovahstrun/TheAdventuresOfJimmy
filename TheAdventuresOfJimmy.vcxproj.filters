@@ -104,6 +104,9 @@
     <ClCompile Include="Game Code\Sources\ScrewNum.cpp">
       <Filter>Game Code\Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Game Code\Sources\Time Machine.cpp">
+      <Filter>Game Code\Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Headers\Animation.h">
@@ -176,6 +179,9 @@
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Game Code\Headers\ScrewNum.h">
+      <Filter>Game Code\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Code\Headers\Time Machine.h">
       <Filter>Game Code\Headers</Filter>
     </ClInclude>
   </ItemGroup>

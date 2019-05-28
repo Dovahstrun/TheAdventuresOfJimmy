@@ -16,6 +16,7 @@
 #include "../Headers/Ladder.h"
 #include "../Headers/Cog.h"
 #include "../Headers/Screw.h"
+#include "../Headers/Time Machine.h"
 
 //Constants
 #define SPEED 220.0f
@@ -667,6 +668,13 @@ void Player::Collide(GameObject &_collider)
 	else
 	{
 		m_touchingLadder = false;
+	}
+
+	Time_Machine* timeCollider = dynamic_cast<Time_Machine*>(&_collider);
+
+	if (timeCollider != nullptr)
+	{
+		exit(1);
 	}
 
 }

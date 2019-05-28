@@ -19,6 +19,7 @@
 #include "../Headers/Spanner.h"
 #include "../Headers/Shears.h"
 #include "../Headers/ScrewNum.h"
+#include "../Headers/Time Machine.h"
 
 
 Level::Level()
@@ -515,6 +516,14 @@ void Level::loadLevel(levelenum _levelToLoad)
 			shears->setGridPosition(x, y);
 			m_contents[y][x].push_back(shears);
 			m_collisionList.push_back(std::make_pair(player, shears));
+			}
+			else if (ch == 'M')
+			{
+			Time_Machine* time_Machine = new Time_Machine();
+			time_Machine->setLevel(this);
+			time_Machine->setGridPosition(x, y);
+			m_contents[y][x].push_back(time_Machine);
+			m_collisionList.push_back(std::make_pair(player, time_Machine));
 			}
 			else if (ch == 'P')
 			{

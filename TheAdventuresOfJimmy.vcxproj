@@ -152,6 +152,7 @@
     <ClCompile Include="Game Code\Sources\Shears.cpp" />
     <ClCompile Include="Game Code\Sources\Spanner.cpp" />
     <ClCompile Include="Game Code\Sources\Spider.cpp" />
+    <ClCompile Include="Game Code\Sources\Time Machine.cpp" />
     <ClCompile Include="Game Code\Sources\Tool Wheel.cpp" />
     <ClCompile Include="Game Code\Sources\Web.cpp" />
     <ClCompile Include="Game Code\Sources\Wood.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Game Code\Headers\Shears.h" />
     <ClInclude Include="Game Code\Headers\Spanner.h" />
     <ClInclude Include="Game Code\Headers\Spider.h" />
+    <ClInclude Include="Game Code\Headers\Time Machine.h" />
     <ClInclude Include="Game Code\Headers\Tool Wheel.h" />
     <ClInclude Include="Game Code\Headers\Web.h" />
     <ClInclude Include="Game Code\Headers\Wood.h" />
