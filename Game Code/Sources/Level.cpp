@@ -41,7 +41,7 @@ Level::Level()
 {
 	m_screwIcon.setPosition(50,50);
 	m_toolIcon.setPosition(50, 200);
-	loadLevel(RIGHT);
+	loadLevel(BOTTOM);
 }
 
 void Level::Draw(sf::RenderTarget & _target)
