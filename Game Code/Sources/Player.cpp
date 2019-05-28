@@ -574,6 +574,84 @@ void Player::Collide(GameObject &_collider)
 				{
 					m_level->loadNextLevel(Level::BOTTOM, Exit::BOTTOM);
 				}
+				else
+
+				{
+					//the player did hit a exit
+					//Go back to the position that the player was in before
+
+					//Create platform top collider
+					sf::FloatRect exitTopRect = exitCollider->GetBounds();
+					exitTopRect.height = 10;
+
+					//Create the platform left collider
+					sf::FloatRect exitLeftRect = exitCollider->GetBounds();
+					exitLeftRect.width = 10;
+
+					//Create the platform right collider
+					sf::FloatRect exitRightRect = exitCollider->GetBounds();
+					exitRightRect.left += exitCollider->GetBounds().width - 10;
+					exitRightRect.width = 10;
+
+					//Create the platform bottom collider
+					sf::FloatRect exitBottomRect = exitCollider->GetBounds();
+					exitBottomRect.top += exitCollider->GetBounds().width - 10;
+					exitBottomRect.height = 10;
+
+					//Are the feet touching the top of the platform
+					if (feetCollider.intersects(exitTopRect))
+					{
+						m_touchingGround = true;
+
+						//Check if we are falling downward
+						if (wereTouchingGround == false && m_velocity.y > 0)
+						{
+							m_velocity.y = 0;
+							m_sprite.setPosition(m_sprite.getPosition().x, exitCollider->GetPosition().y - m_sprite.getGlobalBounds().height);
+						}
+					}
+
+					//Is the player's left side touching the right of a wall
+					if (leftCollider.intersects(exitRightRect))
+					{
+						m_touchingWall = true;
+						//Check if we are moving left
+						if (wereTouchingWall == false && m_velocity.x < 0)
+						{
+							m_velocity.x = 0;
+							m_sprite.setPosition(exitCollider->GetPosition().x + exitCollider->GetBounds().width, m_sprite.getPosition().y);
+						}
+					}
+
+					//Is the player's right side touching the left of a wall
+					if (rightCollider.intersects(exitLeftRect))
+					{
+						m_touchingWall = true;
+						//Check if we are moving right
+						if (wereTouchingWall == false && m_velocity.x > 0)
+						{
+							m_velocity.x = 0;
+							m_sprite.setPosition(exitCollider->GetPosition().x - m_sprite.getGlobalBounds().width, m_sprite.getPosition().y);
+
+						}
+					}
+					//Is the head touching the bottom of the platform
+					if (headCollider.intersects(exitBottomRect))
+					{
+						m_touchingCeiling = true;
+
+						//Check if we are falling downward
+						if (wereTouchingCeiling == false && m_velocity.y < 0)
+						{
+							m_velocity.y = 0;
+							m_sprite.setPosition(m_sprite.getPosition().x, exitCollider->GetPosition().y + exitCollider->GetBounds().height);
+						}
+					}
+
+					m_hasCollideBeenRun = true;
+					//Clumsy, results in sticky exits but good enough for this game
+
+				}
 				break;
 			}
 			break;
