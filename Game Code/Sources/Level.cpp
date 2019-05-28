@@ -104,6 +104,11 @@ void Level::Draw(sf::RenderTarget & _target)
 
 void Level::Update(sf::Time _frameTime)
 {
+	if (m_toolWheel->isActive())
+	{
+		_frameTime /= 5.0f;
+	}
+
 	// rows
 	for (int y = 0; y < m_contents.size(); ++y)
 	{
@@ -117,6 +122,8 @@ void Level::Update(sf::Time _frameTime)
 			}
 		}
 	}
+
+	std::cerr << std::to_string(_frameTime.asSeconds()) + "/n";
 
 	//Update the tool wheel as it isn't a grid object
 	m_toolWheel->Update(_frameTime);

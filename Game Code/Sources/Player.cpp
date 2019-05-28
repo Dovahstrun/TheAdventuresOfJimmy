@@ -25,28 +25,26 @@
 Player::Player()
 	: MovingObject()
 	, m_footstep()
-	, m_dig()
-	, m_bump()
-	, m_gem()
-	, m_push()
+	, m_jump()
 	, m_spannerCollected(false)
 	, m_shearsCollected(false)
 	, m_hammerCollected(false)
+	, m_collectedTools()
 	, m_hasCollideBeenRun(false)
 	, m_currentTool(NONE)
 	, m_toolWheel(nullptr)
 	, m_touchingLadder(false)
 	, m_collectedScrews(0)
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/playerSmall.png"));
-	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/floor_step.wav"));
-	m_dig.setBuffer(AssetManager::GetSoundBuffer("resources/audio/footstep1.ogg"));
-	m_bump.setBuffer(AssetManager::GetSoundBuffer("resources/audio/bump.wav"));
-	m_gem.setBuffer(AssetManager::GetSoundBuffer("resources/audio/ding.wav"));
-	m_gem.setVolume(15);
-	m_push.setBuffer(AssetManager::GetSoundBuffer("resources/audio/push.wav"));
-	m_push.setVolume(40);
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/Jimmy/Jimmy right.png"));
+	m_footstep.setBuffer(AssetManager::GetSoundBuffer("resources/audio/Movement/Footstep.wav"));
+	m_jump.setBuffer(AssetManager::GetSoundBuffer("resources/audio/Movement/Jump.wav"));
 	m_blocksMovement = false;
+
+
+	m_collectedTools.push_back(std::make_pair(HAMMER, false));
+	m_collectedTools.push_back(std::make_pair(SPANNER, false));
+	m_collectedTools.push_back(std::make_pair(SHEARS, false));
 }
 
 void Player::Update(sf::Time _frameTime)
@@ -65,10 +63,20 @@ void Player::Update(sf::Time _frameTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //Check if the player is going left
 	{
 		m_velocity.x = -SPEED;
+		if (m_footstep.getStatus() != m_footstep.Playing && !m_touchingLadder && m_touchingGround)
+		{
+			m_footstep.play();
+		}
+		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/Jimmy/Jimmy Left.png"));
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //Check if the player is going right
 	{
 		m_velocity.x = SPEED;
+		if (m_footstep.getStatus() != m_footstep.Playing && !m_touchingLadder && m_touchingGround)
+		{
+			m_footstep.play();
+		}
+		m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/player/Jimmy/Jimmy right.png"));
 	}
 	if (!m_touchingLadder)
 	{
@@ -76,6 +84,10 @@ void Player::Update(sf::Time _frameTime)
 		{
 			m_velocity.y = -JUMP;
 			m_touchingGround = false;
+			if (m_jump.getStatus() != m_jump.Playing)
+			{
+				m_jump.play();
+			}
 		}
 	}
 	else if (m_touchingLadder)
@@ -425,6 +437,13 @@ void Player::Collide(GameObject &_collider)
 		m_hammerCollected = true;
 		m_currentTool = HAMMER;
 		m_level->deleteObjectAt(hammerCollider);
+		for (int i = 0; i < m_collectedTools.size(); ++i)
+		{
+			if (m_collectedTools[i].first == HAMMER)
+			{
+				m_collectedTools[i].second = true;
+			}
+		}
 		return;
 	}
 
@@ -434,6 +453,13 @@ void Player::Collide(GameObject &_collider)
 		m_shearsCollected = true;
 		m_currentTool = SHEARS;
 		m_level->deleteObjectAt(shearsCollider);
+		for (int i = 0; i < m_collectedTools.size(); ++i)
+		{
+			if (m_collectedTools[i].first == SHEARS)
+			{
+				m_collectedTools[i].second = true;
+			}
+		}
 		return;
 	}
 
@@ -443,6 +469,13 @@ void Player::Collide(GameObject &_collider)
 		m_spannerCollected = true;
 		m_currentTool = SPANNER;
 		m_level->deleteObjectAt(spannerCollider);
+		for (int i = 0; i < m_collectedTools.size(); ++i)
+		{
+			if (m_collectedTools[i].first == SPANNER)
+			{
+				m_collectedTools[i].second = true;
+			}
+		}
 		return;
 	}
 
@@ -537,7 +570,10 @@ void Player::Collide(GameObject &_collider)
 				m_level->loadNextLevel(Level::CENTER, Exit::BOTTOM);
 				break;
 			case Level::CENTER:
-				m_level->loadNextLevel(Level::BOTTOM, Exit::BOTTOM);
+				if (m_collectedScrews >= 20)
+				{
+					m_level->loadNextLevel(Level::BOTTOM, Exit::BOTTOM);
+				}
 				break;
 			}
 			break;
@@ -630,7 +666,14 @@ void Player::setToolWheel(ToolWheel * _toolWheel)
 
 void Player::setCurrentTool(tools _newTool)
 {
-	m_currentTool = _newTool;
+	for (int i = 0; i < m_collectedTools.size(); ++i)
+	{
+		if (m_collectedTools[i].first == _newTool && m_collectedTools[i].second == true)
+		{
+			m_currentTool = _newTool;
+		}
+	}
+	
 }
 
 sf::String Player::getCurrentTool()

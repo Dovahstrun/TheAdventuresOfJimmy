@@ -12,7 +12,7 @@ Wood::Wood()
 	, m_touchingCeiling(false)
 	, m_hasCollideBeenRun(false)
 {
-	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Wooden Box.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Environment/Wood.png"));
 }
 
 void Wood::Update(sf::Time _frameTime)
