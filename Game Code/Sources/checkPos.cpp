@@ -4,7 +4,7 @@
 checkPos::checkPos()
 	: TextObject()
 {
-	m_text.setFont(AssetManager::GetFont("fonts/mainFont.ttf"));
+	m_text.setFont(AssetManager::GetFont("resources/fonts/mainFont.ttf"));
 	m_text.setString("Pos: 0, 0");
 	m_text.setPosition(100, 100);
 }

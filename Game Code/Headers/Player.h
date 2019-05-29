@@ -39,12 +39,21 @@ private:
 private:
 
 	sf::Vector2i m_pendingMove;
+
+
 	sf::Sound m_footstep;
 	sf::Sound m_jump;
+	sf::Sound m_boxBreak;
+	sf::Sound m_spannerTwist;
+	sf::Sound m_snip;
+
+
 	bool m_spannerCollected;
 	bool m_shearsCollected;
 	bool m_hammerCollected;
 	std::vector<std::pair<tools, bool>> m_collectedTools;
+
+
 	bool m_hasCollideBeenRun;
 	tools m_currentTool;
 	ToolWheel* m_toolWheel;

@@ -6,7 +6,7 @@ ScrewNum::ScrewNum()
 	: TextObject()
 	, m_player(nullptr)
 {
-	m_text.setFont(AssetManager::GetFont("fonts/mainFont.ttf"));
+	m_text.setFont(AssetManager::GetFont("resources/fonts/mainFont.ttf"));
 	m_text.setString("x 0");
 	m_text.setPosition(200, 90);
 }
@@ -20,3 +20,6 @@ void ScrewNum::setPlayer(Player * _player)
 {
 	m_player = _player;
 }
+
+
+

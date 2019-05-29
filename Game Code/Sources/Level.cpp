@@ -36,11 +36,17 @@ Level::Level()
 	, m_oldLevel(RIGHT)
 	, m_oldExit(Exit::TOPRIGHT)
 	, m_toolIcon()
-	, m_screwIcon(sf::Sprite(AssetManager::GetTexture("resources/graphics//UI/Icon Box Screw.png")))
+	, m_screwIcon(sf::Sprite(AssetManager::GetTexture("resources/graphics/UI/Icon Box Screw.png")))
 	, m_screwNum(nullptr)
+	, m_ambience()
 {
 	m_screwIcon.setPosition(50,50);
 	m_toolIcon.setPosition(50, 200);
+
+	m_ambience.openFromFile("resources/audio/Background/Atmosphere.ogg");
+	m_ambience.setLoop(true);
+	m_ambience.play();
+
 	loadLevel(RIGHT);
 }
 

@@ -61,4 +61,5 @@ private:
 	sf::Sprite m_toolIcon;
 	sf::Sprite m_screwIcon;
 	ScrewNum* m_screwNum;
+	sf::Music m_ambience;
 };
