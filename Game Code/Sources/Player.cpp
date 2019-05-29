@@ -510,7 +510,8 @@ void Player::Collide(GameObject &_collider)
 	
 	if (exitCollider != nullptr)
 	{
-		//Switch statement to determine what to do when you hit each type of exit (if you hit a top exit and you're in the center level, move to the top level. If you're in the top level, move to the center)
+		//Switch statement to determine what to do when you hit each type of exit 
+		//If you hit a top exit and you're in the center level, move to the top level. If you're in the top level, move to the center
 		//The other exits follow this same philosophy
 		switch (exitCollider->getExitType())
 		{
@@ -743,7 +744,7 @@ void Player::UseTool()
 	Cog* cogCollider = dynamic_cast<Cog*>(&collider);
 	Web* webCollider = dynamic_cast<Web*>(&collider);
 
-	//Switch statement to determine what to do based on the current tool
+	//Switch statement to determine what to do based on the current tool. If the tool hits the thing it interacts with, delete the thing
 	switch (m_currentTool)
 	{
 	case HAMMER:
@@ -780,6 +781,7 @@ void Player::setToolWheel(ToolWheel * _toolWheel)
 
 void Player::setCurrentTool(tools _newTool)
 {
+	//Only set the current tool if it has been collected
 	for (int i = 0; i < m_collectedTools.size(); ++i)
 	{
 		if (m_collectedTools[i].first == _newTool && m_collectedTools[i].second == true)
@@ -795,16 +797,16 @@ sf::String Player::getCurrentTool()
 	switch (m_currentTool)
 	{
 	case NONE:
-		return "Icon Box NULL";
+		return "NULL";
 		break;
 	case HAMMER:
-		return "Icon Box Hammer";
+		return "Hammer";
 		break;
 	case SHEARS:
-		return "Icon Box Shears";
+		return "Shears";
 		break;
 	case SPANNER:
-		return "Icon Box Spanner";
+		return "Spanner";
 		break;
 	}
 	return "NULL";

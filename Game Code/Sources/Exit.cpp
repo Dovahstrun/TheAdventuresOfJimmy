@@ -11,6 +11,7 @@ Exit::Exit()
 
 void Exit::setExitType(int _type)
 {
+	//Recieve the exit type from the level and set it
 	switch (_type)
 	{
 		case 1:

@@ -13,6 +13,7 @@ ScrewNum::ScrewNum()
 
 void ScrewNum::Update(sf::Time _frameTime)
 {
+	//Check how many screws the player has and set the text based on this number
 	m_text.setString("x " + std::to_string(m_player->getScrewsCollected()));
 }
 

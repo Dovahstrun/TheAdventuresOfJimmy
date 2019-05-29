@@ -40,7 +40,6 @@ public:
 	void loadNextLevel(levelenum _newLevel, Exit::exittypes _oldType);
 	levelenum GetCurrentLevel();
 	void deleteObjectAt(GridObject* _toDelete);
-	void checkLevelBounds();
 
 	int getCellSize();
 

@@ -40,13 +40,17 @@ Level::Level()
 	, m_screwNum(nullptr)
 	, m_ambience()
 {
+
+	//Set the icon positions
 	m_screwIcon.setPosition(50,50);
 	m_toolIcon.setPosition(50, 200);
 
+	//Set up sound
 	m_ambience.openFromFile("resources/audio/Background/Atmosphere.ogg");
 	m_ambience.setLoop(true);
 	m_ambience.play();
 
+	//Load the right level as it is the starting level
 	loadLevel(RIGHT);
 }
 
@@ -90,6 +94,7 @@ void Level::Draw(sf::RenderTarget & _target)
 		}
 	}
 
+	//Only draw the tool wheel if it is active
 	if (m_toolWheel->isActive())
 	{
 		m_toolWheel->Draw(_target);
@@ -111,11 +116,14 @@ void Level::Draw(sf::RenderTarget & _target)
 
 void Level::Update(sf::Time _frameTime)
 {
+	//Reduce the frametime if the tool wheel is active, which slows time to 20%
 	if (m_toolWheel->isActive())
 	{
 		_frameTime /= 5.0f;
 	}
 
+
+	///Update the m_contents list
 	// rows
 	for (int y = 0; y < m_contents.size(); ++y)
 	{
@@ -130,15 +138,16 @@ void Level::Update(sf::Time _frameTime)
 		}
 	}
 
-	std::cerr << std::to_string(_frameTime.asSeconds()) + "/n";
-
 	//Update the tool wheel as it isn't a grid object
 	m_toolWheel->Update(_frameTime);
 
-	m_toolIcon.setTexture(AssetManager::GetTexture("resources/graphics/UI/" + m_player->getCurrentTool() + ".png"));
+	//Update the tool icons texture based on the player's current tool
+	m_toolIcon.setTexture(AssetManager::GetTexture("resources/graphics/UI/Icon Box " + m_player->getCurrentTool() + ".png"));
 
+	//Update the number of screws the player has
 	m_screwNum->Update(_frameTime);
 
+	//Run the colliison code
 	Collision();
 
 	//If there is a pending reload waiting
@@ -152,6 +161,7 @@ void Level::Update(sf::Time _frameTime)
 		m_pendingReload = false;
 	}
 
+	//If there is a pending load waiting
 	if (m_pendingLoad)
 	{
 
@@ -187,8 +197,6 @@ void Level::Collision()
 
 GameObject& Level::ToolCollision(sf::FloatRect _toolRect)
 {
-	
-
 	// rows
 	for (int y = 0; y < m_contents.size(); ++y)
 	{
@@ -200,9 +208,13 @@ GameObject& Level::ToolCollision(sf::FloatRect _toolRect)
 			{
 				if (_toolRect.intersects(m_contents[y][x][z]->GetBounds()))
 				{
+
+					//Check if the item the tool has collided with is a player or a ladder
 					GameObject* collider = m_contents[y][x][z];
 					Player* playerCollider = dynamic_cast<Player*>(collider);
 					Ladder* ladderCollider = dynamic_cast<Ladder*>(collider);
+
+					//Only return the collider if its not a player or a ladder. Otherwise the tool would detect its colliding with the player and return the player. 
 					if (playerCollider == nullptr && ladderCollider == nullptr)
 						return *collider;
 				}
@@ -210,6 +222,7 @@ GameObject& Level::ToolCollision(sf::FloatRect _toolRect)
 		}
 	}
 
+	//If we didn't find anything, return nothing
 	GameObject* nothing = nullptr;
 	return *nothing;
 }
@@ -291,6 +304,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 	m_oldLevel = m_currentLevel;
 	m_currentLevel = _levelToLoad;
 
+	//As to_string returns an integer on an enum, we must set the name of the level to load
 	sf::String nameOfLevel = std::to_string(m_currentLevel);
 		switch (m_currentLevel)
 		{
@@ -785,6 +799,8 @@ void Level::loadLevel(levelenum _levelToLoad)
 		}
 	}
 
+
+	//Make the wood collide with each ground in the level
 	for (int i = 0; i < boxes.size(); ++i)
 	{
 		// Each each box in this array...
@@ -800,6 +816,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 		}
 	}
 
+	//Make the wood collide with each other wood in the level
 	for (int i = 0; i < boxes.size(); ++i)
 	{
 		// Each each box in this array...
@@ -878,10 +895,6 @@ void Level::deleteObjectAt(GridObject * _toDelete)
 		}
 	}
 
-}
-
-void Level::checkLevelBounds()
-{
 }
 
 int Level::getCellSize()

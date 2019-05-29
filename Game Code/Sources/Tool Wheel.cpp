@@ -12,8 +12,10 @@ ToolWheel::ToolWheel()
 
 void ToolWheel::Update(sf::Time _frameTime)
 {
+	//Set the position so the player is at the center of the wheel
 	m_sprite.setPosition(m_player->GetPosition().x - m_sprite.getGlobalBounds().width / 2 + m_player->GetBounds().width / 2, m_player->GetPosition().y - m_sprite.getGlobalBounds().height / 2 + m_player->GetBounds().height / 2);
 
+	//Activate the tool wheel when E is pressed, and allow the player to choose their tool.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{
 		m_active = true;
@@ -36,6 +38,7 @@ void ToolWheel::Update(sf::Time _frameTime)
 		m_active = false;
 	}
 	
+	//Change the texture based on what tools have been collected
 	m_sprite.setTexture(AssetManager::GetTexture("resources/graphics/Tool wheel/Tool Wheel " + m_player->CheckTool("Spanner") + " & " + m_player->CheckTool("Shears") + " & " + m_player->CheckTool("Hammer") + ".png"));
 	
 }
