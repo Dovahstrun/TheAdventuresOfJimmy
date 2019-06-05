@@ -122,7 +122,6 @@ void Level::Update(sf::Time _frameTime)
 		_frameTime /= 5.0f;
 	}
 
-
 	///Update the m_contents list
 	// rows
 	for (int y = 0; y < m_contents.size(); ++y)
