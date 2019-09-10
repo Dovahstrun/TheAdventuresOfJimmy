@@ -13,6 +13,8 @@ public:
 	// Overriding Methods
 	void Update(sf::Time _frameTime);
 
+	void newCollide();
+
 protected:
 
 	sf::Vector2f m_velocity; // pixels per second

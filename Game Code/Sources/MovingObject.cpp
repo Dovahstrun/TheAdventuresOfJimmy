@@ -32,3 +32,8 @@ void MovingObject::Update(sf::Time _frameTime)
 
 	
 }
+
+void MovingObject::newCollide()
+{
+
+}
