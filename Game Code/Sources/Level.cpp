@@ -178,7 +178,7 @@ void Level::Collision()
 	// Collision Section
 	// -----------------------------------------------
 
-	/*for (int i = 0; i < m_collisionList.size(); ++i)
+	for (int i = 0; i < m_collisionList.size(); ++i)
 	{
 		GameObject* handler = m_collisionList[i].first;
 		GameObject* collider = m_collisionList[i].second;
@@ -191,7 +191,7 @@ void Level::Collision()
 				handler->Collide(*collider);
 			}
 		}
-	}*/
+	}
 }
 
 GameObject& Level::ToolCollision(sf::FloatRect _toolRect)
