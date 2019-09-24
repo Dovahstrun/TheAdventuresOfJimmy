@@ -42,7 +42,7 @@ Level::Level()
 {
 
 	//Set the icon positions
-	m_screwIcon.setPosition(50,50);
+	m_screwIcon.setPosition(50, 50);
 	m_toolIcon.setPosition(50, 200);
 
 	//Set up sound
@@ -81,7 +81,7 @@ void Level::Draw(sf::RenderTarget & _target)
 
 
 	///Game Objects
-	
+
 	//Draw game objects
 	for (int y = 0; y < m_contents.size(); ++y)//rows
 	{
@@ -169,7 +169,7 @@ void Level::Update(sf::Time _frameTime)
 
 		m_pendingLoad = false;
 	}
-	
+
 }
 
 void Level::Collision()
@@ -235,7 +235,7 @@ void Level::Input(sf::Event _gameEvent)
 			for (int z = 0; z < m_contents[y][x].size(); ++z) //Sticky outies (grid objects)
 			{
 				m_contents[y][x][z]->Input(_gameEvent);
-			} 
+			}
 		}
 	}
 
@@ -289,7 +289,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 	}
 
 	delete m_toolWheel;
-	
+
 
 	//Clear out the lists
 	m_background.clear();
@@ -305,25 +305,25 @@ void Level::loadLevel(levelenum _levelToLoad)
 
 	//As to_string returns an integer on an enum, we must set the name of the level to load
 	sf::String nameOfLevel = std::to_string(m_currentLevel);
-		switch (m_currentLevel)
-		{
-			case LEFT:
-				nameOfLevel = "LEFT";
-				break;
-			case RIGHT:
-				nameOfLevel = "RIGHT";
-				break;
-			case TOP:
-				nameOfLevel = "TOP";
-				break;
-			case BOTTOM:
-				nameOfLevel = "BOTTOM";
-				break;
-			case CENTER: 
-				nameOfLevel = "CENTER";
-				break;
-		}
-	
+	switch (m_currentLevel)
+	{
+	case LEFT:
+		nameOfLevel = "LEFT";
+		break;
+	case RIGHT:
+		nameOfLevel = "RIGHT";
+		break;
+	case TOP:
+		nameOfLevel = "TOP";
+		break;
+	case BOTTOM:
+		nameOfLevel = "BOTTOM";
+		break;
+	case CENTER:
+		nameOfLevel = "CENTER";
+		break;
+	}
+
 
 
 
@@ -522,27 +522,27 @@ void Level::loadLevel(levelenum _levelToLoad)
 			}
 			else if (ch == 's') //Lowercase s as opposed to an uppercase S for the cog
 			{
-			Spanner* spanner = new Spanner();
-			spanner->setLevel(this);
-			spanner->setGridPosition(x, y);
-			m_contents[y][x].push_back(spanner);
-			m_collisionList.push_back(std::make_pair(player, spanner));
+				Spanner* spanner = new Spanner();
+				spanner->setLevel(this);
+				spanner->setGridPosition(x, y);
+				m_contents[y][x].push_back(spanner);
+				m_collisionList.push_back(std::make_pair(player, spanner));
 			}
 			else if (ch == 'c') //Lowercase c as opposed to an uppercase H to keep in line with the other tools
 			{
-			Shears* shears = new Shears();
-			shears->setLevel(this);
-			shears->setGridPosition(x, y);
-			m_contents[y][x].push_back(shears);
-			m_collisionList.push_back(std::make_pair(player, shears));
+				Shears* shears = new Shears();
+				shears->setLevel(this);
+				shears->setGridPosition(x, y);
+				m_contents[y][x].push_back(shears);
+				m_collisionList.push_back(std::make_pair(player, shears));
 			}
 			else if (ch == 'M')
 			{
-			Time_Machine* time_Machine = new Time_Machine();
-			time_Machine->setLevel(this);
-			time_Machine->setGridPosition(x, y);
-			m_contents[y][x].push_back(time_Machine);
-			m_collisionList.push_back(std::make_pair(player, time_Machine));
+				Time_Machine* time_Machine = new Time_Machine();
+				time_Machine->setLevel(this);
+				time_Machine->setGridPosition(x, y);
+				m_contents[y][x].push_back(time_Machine);
+				m_collisionList.push_back(std::make_pair(player, time_Machine));
 			}
 			else if (ch == 'P')
 			{
@@ -554,7 +554,7 @@ void Level::loadLevel(levelenum _levelToLoad)
 			{
 				std::cerr << "Unrecognised character in level file: " << ch;
 			}
-		}	
+		}
 	}
 
 	//Close the file now that we're done
